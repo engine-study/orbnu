@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09181628d183a684b8e7c3eda4bcd2c6, type: 3}
+  m_Name: MapMartianRegion
+  m_EditorClassIdentifier: 
+  regions:
+  - name: BottomDark
+    height: 0.35
+    colour: {r: 0.2924528, g: 0.20008186, b: 0.15560697, a: 1}
+  - name: BottomDark
+    height: 0.4
+    colour: {r: 0.3679245, g: 0.25796726, b: 0.20964755, a: 0}
+  - name: Plateau
+    height: 0.55
+    colour: {r: 0.49056602, g: 0.29506436, b: 0.23325025, a: 0}
+  - name: PlateauLight
+    height: 0.6
+    colour: {r: 0.5660378, g: 0.3613386, b: 0.2958348, a: 0}
+  - name: Rock
+    height: 0.95
+    colour: {r: 0.5943396, g: 0.3913506, b: 0.35548234, a: 0}
+  - name: Resource
+    height: 1
+    colour: {r: 0.9433962, g: 0.742257, b: 0.8590288, a: 0}

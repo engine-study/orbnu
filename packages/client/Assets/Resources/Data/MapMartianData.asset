@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de4653f73a050fa4eb715a6353c6a304, type: 3}
-  m_Name: MapData
+  m_Name: MapMartianData
   m_EditorClassIdentifier: 
-  mapWidth: 64
-  mapHeight: 64
-  noiseScale: 25
+  mapWidth: 32
+  mapHeight: 32
+  noiseScale: 10
   octaves: 4
-  persistance: 0.574
-  lacunarity: 2
+  persistance: 0.658
+  lacunarity: 3
   seed: 4
-  offset: {x: 2, y: 2}
+  offset: {x: 0, y: 0}

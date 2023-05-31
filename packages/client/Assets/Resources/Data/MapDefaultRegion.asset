@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09181628d183a684b8e7c3eda4bcd2c6, type: 3}
-  m_Name: MapRegions
+  m_Name: MapDefaultRegion
   m_EditorClassIdentifier: 
   regions:
   - name: Water Deep
     height: 0.3
-    colour: {r: 0.19679932, g: 0.38871264, b: 0.7647059, a: 0}
+    colour: {r: 0, g: 0.13389724, b: 0.3962264, a: 0}
   - name: Water Shallow
     height: 0.4
-    colour: {r: 0.21204588, g: 0.4037765, b: 0.7794118, a: 0}
+    colour: {r: 0.24264859, g: 0.38700017, b: 0.6698113, a: 0}
   - name: Sand
     height: 0.45
     colour: {r: 0.8235294, g: 0.81434196, b: 0.49048445, a: 0}

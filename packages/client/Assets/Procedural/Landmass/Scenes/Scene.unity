@@ -167,9 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawMode: 1
-  mapData: {fileID: 11400000, guid: 5713ffa19de8007418e8ded5e299e143, type: 2}
-  mapRegions: {fileID: 11400000, guid: 0a5e5e819e36c7f4baa3bf4d88a1f59f, type: 2}
+  mapData: {fileID: 11400000, guid: 0dc8a45317345ab478fa5bf1179cee62, type: 2}
+  mapRegions: {fileID: 11400000, guid: ce920b08de1a7064c8af176516ee4b3a, type: 2}
   autoUpdate: 1
+  randomSeed: 1
 --- !u!4 &1008436975
 Transform:
   m_ObjectHideFlags: 0
@@ -262,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 1711656484}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 64, y: 1, z: 64}
+  m_LocalScale: {x: 32, y: 1, z: 32}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -18,4 +18,8 @@ public class MapData : ScriptableObject
 	public int seed;
 	public Vector2 offset;
 
+    // void OnValidate() {
+	// 	Debug.Log("Data validate");
+	// }
+
 }

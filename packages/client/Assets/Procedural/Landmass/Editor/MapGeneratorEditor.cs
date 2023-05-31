@@ -18,4 +18,9 @@ public class MapGeneratorEditor : Editor {
 			mapGen.GenerateMap ();
 		}
 	}
+
+	void OnValidate() {
+
+		Debug.Log("Editor validate");
+	}
 }

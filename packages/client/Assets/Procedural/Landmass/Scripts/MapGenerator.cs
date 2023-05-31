@@ -9,9 +9,15 @@ public class MapGenerator : MonoBehaviour {
 	public MapData mapData;
 	public MapRegions mapRegions;
 	public bool autoUpdate;
+	public bool randomSeed;
 
 
 	public void GenerateMap() {
+
+		if(randomSeed) {
+			mapData.seed = Random.Range(0,100000000);
+		}
+		
 		float[,] noiseMap = Noise.GenerateNoiseMap(mapData);
 
 		Color[] colourMap = new Color[mapData.mapWidth * mapData.mapHeight];
@@ -36,18 +42,27 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	void OnValidate() {
+
+		// Debug.Log("Editor validate");
+
 		if (mapData.mapWidth < 1) {
+			Debug.LogError("No map width");
 			mapData.mapWidth = 1;
 		}
 		if (mapData.mapHeight < 1) {
+			Debug.LogError("No map height");
 			mapData.mapHeight = 1;
 		}
 		if (mapData.lacunarity < 1) {
+			Debug.LogError("No map lacunarity");
 			mapData.lacunarity = 1;
 		}
 		if (mapData.octaves < 0) {
+			Debug.LogError("No octaves");
 			mapData.octaves = 0;
 		}
+
+
 	}
 }
 

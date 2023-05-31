@@ -8,5 +8,7 @@ public class MapRegions : ScriptableObject
     [Header("Map Regions")]
    	public TerrainType[] regions;
 
-
+	// void OnValidate() {
+	// 	Debug.Log("Region validate");
+	// }
 }
