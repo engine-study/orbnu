@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public static class FalloffGenerator {
+public class FalloffGenerator : MonoBehaviour {
 
-	public static float[,] GenerateFalloffMap(int width, int height) {
+	[Range(-2f, 2f)]
+	public float weight = 1f;
+	public bool invert;
+	public float falloff = 3;
+	public float start = 4f;
+
+	public float[,] GenerateFalloffMap(int width, int height) {
 		float[,] map = new float[width,height];
 
 		for (int i = 0; i < width; i++) {
@@ -12,17 +18,22 @@ public static class FalloffGenerator {
 				float y = j / (float)height * 2 - 1;
 
 				float value = Mathf.Max (Mathf.Abs (x), Mathf.Abs (y));
-				map [i, j] = Evaluate(value);
+
+				value = Evaluate(value, falloff, start);
+
+				if(invert) {
+					value = 1f - value;
+				}
+
+				map [i, j] = value;
+				
 			}
 		}
 
 		return map;
 	}
 
-	static float Evaluate(float value) {
-		float a = 3;
-		float b = 4f;
-
-		return Mathf.Pow (value, a) / (Mathf.Pow (value, a) + Mathf.Pow (b - b * value, a));
+	static float Evaluate(float value, float falloff, float start) {
+		return Mathf.Pow (value, falloff) / (Mathf.Pow (value, falloff) + Mathf.Pow (start - start * value, falloff));
 	}
 }

@@ -2,36 +2,63 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MapGenerator : MonoBehaviour {
+public class MapGenerator : Generator {
 
 	public enum DrawMode {NoiseMap, ColourMap, Falloff, Blocks};
-	public DrawMode drawMode;
 
+ 	[Header("Generator")]
+    public DrawMode drawMode;
 	public MapData mapData;
 	public MapRegions mapRegions;
 	public bool autoUpdate;
 	public bool randomSeed;
 
-	public GameObject blockParent;
+    protected Color[] colourMap;
+	protected float[,] noiseMap;	
+	protected float[,] falloffMap;
 
+	[Header("Debug")]
+	public MapDisplay display;
 	public RegionGenerator [] generators;
 
-	float[,] falloffMap;
 
-	public void GenerateMap() {
+    public override void Generate() {
+		base.Generate();
+
+		generators = GetComponentsInChildren<RegionGenerator>();
+		foreach(Generator g in generators) {
+			if(g == this) 
+				continue;
+
+			g.Generate();
+		}
+
+
+		if(display == null) {
+			display = Instantiate(Resources.Load("Map/MapDisplay") as GameObject, transform.position, transform.rotation, transform).GetComponent<MapDisplay>();
+			display.name = "MapDisplay";
+		}
 
 		if(randomSeed) {
 			mapData.seed = Random.Range(0,100000000);
 		}
 
-		generators = GetComponentsInChildren<RegionGenerator>();
-		
-		float[,] noiseMap = Noise.GenerateNoiseMap(mapData);	
+		noiseMap = Noise.GenerateNoiseMap(mapData);	
+		FalloffGenerator falloffGenerator = GetComponent<FalloffGenerator>();
 
-		Color[] colourMap = new Color[mapData.mapWidth * mapData.mapHeight];
+		if(falloffGenerator) {
+			falloffMap = falloffGenerator.GenerateFalloffMap(mapData.mapWidth, mapData.mapHeight);
+		}
+
+		colourMap = new Color[mapData.mapWidth * mapData.mapHeight];
 		for (int y = 0; y < mapData.mapHeight; y++) {
 			for (int x = 0; x < mapData.mapWidth; x++) {
-				float currentHeight = Mathf.Clamp01(noiseMap [x, y] - falloffMap[x,y]);
+
+				float currentHeight = noiseMap [x, y];
+
+				if(falloffGenerator) {
+					currentHeight = Mathf.Clamp01(currentHeight + (falloffMap[x,y] * falloffGenerator.weight));
+				} 
 				
 				for (int i = 0; i < mapRegions.regions.Length; i++) {
 					if (currentHeight <= mapRegions.regions [i].height) {
@@ -42,9 +69,7 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 
-		MapDisplay display = FindObjectOfType<MapDisplay> (true);
-
-		blockParent.SetActive(drawMode == DrawMode.Blocks);
+		
 		display.gameObject.SetActive(drawMode != DrawMode.Blocks);
 
 		if (drawMode == DrawMode.NoiseMap) {
@@ -56,6 +81,8 @@ public class MapGenerator : MonoBehaviour {
 		} else if(drawMode == DrawMode.Blocks) {
 
 		}
+
+	
 	}
 
 	void OnValidate() {
@@ -89,7 +116,6 @@ public class MapGenerator : MonoBehaviour {
 			mapData.octaves = 0;
 		}
 
-		falloffMap = FalloffGenerator.GenerateFalloffMap(mapData.mapWidth, mapData.mapHeight);
 	}
 
 	void OnDrawGizmos()

@@ -6,10 +6,18 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class RegionGenerator : MonoBehaviour
+public class RegionGenerator : Generator
 {
     public RegionData regionData;
 
+
+    public override void Generate()
+    {
+        base.Generate();
+
+
+    }
+    
     void OnDrawGizmosSelected() {
         Gizmos.DrawWireCube(transform.position, Vector3.up * .01f + (Vector3.right + Vector3.forward) * regionData.size);
     }
