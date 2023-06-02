@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de4653f73a050fa4eb715a6353c6a304, type: 3}
-  m_Name: MapMartianData
+  m_Name: MapHighGround
   m_EditorClassIdentifier: 
-  mapWidth: 64
-  mapHeight: 64
-  genType: 0
-  mapFill: 0.5
-  noiseScale: 10
+  mapWidth: 8
+  mapHeight: 8
+  genType: 1
+  mapFill: 0.6
+  noiseScale: 50
   octaves: 4
   persistance: 0.89
   lacunarity: 2
-  seed: 15451655
+  seed: 41241030
   offset: {x: 0, y: 0}
-  falloffStrength: 1
+  falloffStrength: 0
   blendStrength: 1

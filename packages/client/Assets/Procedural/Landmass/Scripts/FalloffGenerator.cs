@@ -3,7 +3,6 @@ using System.Collections;
 
 public class FalloffGenerator : MonoBehaviour {
 
-	[Range(-2f, 2f)]
 	public float weight = 1f;
 	public bool invert;
 	public float falloff = 3;
@@ -21,7 +20,7 @@ public class FalloffGenerator : MonoBehaviour {
 
 				value = Evaluate(value, falloff, start);
 
-				if(invert) {
+				if(!invert) {
 					value = 1f - value;
 				}
 

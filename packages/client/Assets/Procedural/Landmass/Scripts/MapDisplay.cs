@@ -12,10 +12,10 @@ public class MapDisplay : MonoBehaviour {
 	public void DrawTexture(Texture2D texture) {
 
 		if(material != null) {
-			Destroy(material);
+			DestroyImmediate(material);
 		}
 
-		material = new Material(Shader.Find("Unlit/Transparent"));
+		material = new Material(Shader.Find("Unlit/Texture"));
 		material.mainTexture = texture;
 
 		textureRender.sharedMaterial = material;

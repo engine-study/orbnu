@@ -15,7 +15,7 @@ MonoBehaviour:
   regions:
   - name: Despair
     height: 0.4
-    colour: {r: 0, g: 0, b: 0, a: 0}
+    colour: {r: 0, g: 0, b: 0, a: 1}
   - name: BottomDark
     height: 0.5
     colour: {r: 0.31132078, g: 0.14983675, b: 0.14508721, a: 1}
@@ -27,4 +27,4 @@ MonoBehaviour:
     colour: {r: 0.6886792, g: 0.39844167, b: 0.33394444, a: 1}
   - name: Resource
     height: 1
-    colour: {r: 0.9433962, g: 0.742257, b: 0.8590288, a: 0}
+    colour: {r: 0.9433962, g: 0.742257, b: 0.8590288, a: 1}

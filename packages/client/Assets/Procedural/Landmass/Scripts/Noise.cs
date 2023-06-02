@@ -3,6 +3,18 @@ using System.Collections;
 
 public static class Noise {
 
+	public static float[,] GenerateFillMap(MapData mapData) {
+		float[,] noiseMap = new float[mapData.mapWidth,mapData.mapHeight];
+
+		for (int y = 0; y < mapData.mapHeight; y++) {
+			for (int x = 0; x < mapData.mapWidth; x++) {
+				noiseMap [x, y] = mapData.mapFill;
+			}
+		}
+
+		return noiseMap;
+	}
+
 	public static float[,] GenerateNoiseMap(MapData mapData) {
 		float[,] noiseMap = new float[mapData.mapWidth,mapData.mapHeight];
 

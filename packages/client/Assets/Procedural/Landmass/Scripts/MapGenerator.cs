@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MapGenerator : Generator {
 
-	public enum DrawMode {NoiseMap, ColourMap, Falloff, Blocks};
+	public enum DrawMode {None, NoiseMap, ColourMap, Falloff, Blend, Blocks};
 
  	[Header("Generator")]
     public DrawMode drawMode;
@@ -13,9 +13,11 @@ public class MapGenerator : Generator {
 	public bool autoUpdate;
 	public bool randomSeed;
 
+
 	protected GameObject [,] gameobjects;
 	protected float[,] noiseMap;	
 	protected float[,] falloffMap;
+	protected float[,] blendMap;
     protected Color[] colourMap;
 
 	[Header("Debug")]
@@ -29,7 +31,13 @@ public class MapGenerator : Generator {
 			mapData.seed = Random.Range(0,100000000);
 		}
 
-		noiseMap = Noise.GenerateNoiseMap(mapData);	
+		if(mapData.genType == MapData.MapGen.Noise) {
+			noiseMap = Noise.GenerateNoiseMap(mapData);	
+		} else {
+			noiseMap = Noise.GenerateFillMap(mapData);
+		}
+		blendMap = new float[mapData.mapWidth,mapData.mapHeight];
+
 		FalloffGenerator falloffGenerator = GetComponent<FalloffGenerator>();
 
 		if(falloffGenerator) {
@@ -40,7 +48,7 @@ public class MapGenerator : Generator {
 			for (int x = 0; x < mapData.mapWidth; x++) {
 				float currentHeight = noiseMap [x, y];
 				if(falloffGenerator) {
-					currentHeight = Mathf.Clamp01(currentHeight + (falloffMap[x,y] * falloffGenerator.weight));
+					currentHeight = Mathf.Clamp01(currentHeight - (1f - falloffMap[x,y]) * mapData.falloffStrength);
 				} 
 				noiseMap[x,y] = currentHeight;
 			}
@@ -71,7 +79,7 @@ public class MapGenerator : Generator {
 				
 				for (int i = 0; i < mapRegions.regions.Length; i++) {
 					if (currentHeight <= mapRegions.regions [i].height) {
-						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour - Color.black * .25f;
+						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour;
 
 						break;
 					}
@@ -85,7 +93,7 @@ public class MapGenerator : Generator {
 			display.name = "MapDisplay";
 		}
 
-		display.gameObject.SetActive(drawMode != DrawMode.Blocks);
+		display.gameObject.SetActive(drawMode != DrawMode.Blocks && drawMode != DrawMode.None);
 
 		if (drawMode == DrawMode.NoiseMap) {
 			display.DrawTexture (TextureGenerator.TextureFromHeightMap(noiseMap));
@@ -93,12 +101,14 @@ public class MapGenerator : Generator {
 			display.DrawTexture (TextureGenerator.TextureFromColourMap(colourMap, mapData.mapWidth, mapData.mapHeight));
 		} else if (drawMode == DrawMode.Falloff) {
 			display.DrawTexture (TextureGenerator.TextureFromHeightMap(falloffMap));
+		} else if(drawMode == DrawMode.Blend) {
+			display.DrawTexture (TextureGenerator.TextureFromHeightMap(blendMap));
 		} else if(drawMode == DrawMode.Blocks) {
 
 		}
 	}
 
-	public void Merge(MapGenerator gen, MapGenerator modGen, Vector2 origin) {
+	public static void Merge(MapGenerator gen, MapGenerator modGen, Vector2 origin) {
 
 		int startX = (int)Mathf.Floor(origin.x + gen.mapData.mapWidth * .5f - modGen.mapData.mapWidth * .5f);
 		int startY = (int)Mathf.Floor(origin.y + gen.mapData.mapHeight * .5f - modGen.mapData.mapHeight * .5f);
@@ -110,9 +120,9 @@ public class MapGenerator : Generator {
 			for (int j = startY; j < startY + modGen.mapData.mapHeight; j++) {
 
 				if(i >= 0 && j >= 0 && i < gen.mapData.mapWidth && j < gen.mapData.mapHeight) {
-					Debug.Log(i + " " + j);					
 					float currentHeight = Mathf.Lerp(gen.noiseMap[i,j], modGen.noiseMap[iMod,jMod], modGen.falloffMap[iMod,jMod]);
 					// float currentHeight = modGen.noiseMap[iMod,jMod];
+					gen.blendMap[i,j] = modGen.falloffMap[iMod,jMod];
 					gen.noiseMap[i,j] = currentHeight;
 				} 
 
