@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de4653f73a050fa4eb715a6353c6a304, type: 3}
-  m_Name: MapMartianData
+  m_Script: {fileID: 11500000, guid: 3a920d397ee061d41b4232b37cee10bd, type: 3}
+  m_Name: RegionSettlement
   m_EditorClassIdentifier: 
-  mapWidth: 129
-  mapHeight: 129
-  noiseScale: 10
-  octaves: 4
-  persistance: 0.89
-  lacunarity: 2
-  seed: 99939731
-  offset: {x: 0, y: 0}
+  regionName: Settlement
+  size: 10

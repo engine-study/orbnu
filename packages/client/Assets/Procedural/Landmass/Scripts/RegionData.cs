@@ -8,7 +8,16 @@ using UnityEngine;
 public class RegionData : ScriptableObject
 {
     [Header("Region Data")]
-    public string name;
-    public int radius;
+    public string regionName;
+    public float size = 1f;
+
+    
+	void OnValidate() {
+        if (size % 2 == 0) {
+			Debug.LogError("Size must be odd");
+			size += 1;
+		}
+
+    }
 
 }
