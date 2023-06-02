@@ -95,8 +95,12 @@ public class MapGenerator : Generator {
 				for (int i = 0; i < mapRegions.regions.Length; i++) {
 					if (currentHeight <= mapRegions.regions [i].height) {
 						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour;
-							
-						Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * 2f, y - mapData.mapHeight * .5f);
+						
+						if(i == 0) {
+							break;
+						}
+
+						Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height, y - mapData.mapHeight * .5f);
 						GameObject block = Instantiate(blockPrefab, position, Quaternion.identity, blockParent);
 
 						break;

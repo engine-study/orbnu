@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   regions:
   - name: Despair
-    height: 0.3
+    height: 0.2
     colour: {r: 0, g: 0, b: 0, a: 1}
   - name: BottomDark
-    height: 0.5
+    height: 0.45
     colour: {r: 0.31132078, g: 0.14983675, b: 0.14508721, a: 1}
   - name: BottomDark
     height: 0.65
