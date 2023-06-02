@@ -11,14 +11,17 @@ public class MapDisplay : MonoBehaviour {
 
 	public void DrawTexture(Texture2D texture) {
 
-		if(material == null) {
-			material = new Material(Shader.Find("Unlit/Texture"));
+		if(material != null) {
+			Destroy(material);
 		}
 
+		material = new Material(Shader.Find("Unlit/Transparent"));
 		material.mainTexture = texture;
 
 		textureRender.sharedMaterial = material;
 		textureRender.transform.localScale = new Vector3 (texture.width * .1f, 1, texture.height * .1f);
+	
+		Debug.Log("Map updated.", this);
 	}
 	
 }

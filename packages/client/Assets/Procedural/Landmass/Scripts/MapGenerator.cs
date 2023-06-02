@@ -13,31 +13,17 @@ public class MapGenerator : Generator {
 	public bool autoUpdate;
 	public bool randomSeed;
 
-    protected Color[] colourMap;
+	protected GameObject [,] gameobjects;
 	protected float[,] noiseMap;	
 	protected float[,] falloffMap;
+    protected Color[] colourMap;
 
 	[Header("Debug")]
 	public MapDisplay display;
-	public RegionGenerator [] generators;
-
+	public Generator [] generators;
 
     public override void Generate() {
 		base.Generate();
-
-		generators = GetComponentsInChildren<RegionGenerator>();
-		foreach(Generator g in generators) {
-			if(g == this) 
-				continue;
-
-			g.Generate();
-		}
-
-
-		if(display == null) {
-			display = Instantiate(Resources.Load("Map/MapDisplay") as GameObject, transform.position, transform.rotation, transform).GetComponent<MapDisplay>();
-			display.name = "MapDisplay";
-		}
 
 		if(randomSeed) {
 			mapData.seed = Random.Range(0,100000000);
@@ -50,26 +36,55 @@ public class MapGenerator : Generator {
 			falloffMap = falloffGenerator.GenerateFalloffMap(mapData.mapWidth, mapData.mapHeight);
 		}
 
+		for (int y = 0; y < mapData.mapHeight; y++) {
+			for (int x = 0; x < mapData.mapWidth; x++) {
+				float currentHeight = noiseMap [x, y];
+				if(falloffGenerator) {
+					currentHeight = Mathf.Clamp01(currentHeight + (falloffMap[x,y] * falloffGenerator.weight));
+				} 
+				noiseMap[x,y] = currentHeight;
+			}
+		}
+
+		generators = GetComponentsInChildren<Generator>();
+		foreach(Generator g in generators) {
+
+			if(g == this) 
+				continue;
+				
+			g.Create();
+
+			if(g is MapGenerator)
+				Merge(this, g as MapGenerator, new Vector2(g.transform.position.x, g.transform.position.z));
+		}
+
+	}
+
+	public override void Render() {
+		base.Render();
+
 		colourMap = new Color[mapData.mapWidth * mapData.mapHeight];
 		for (int y = 0; y < mapData.mapHeight; y++) {
 			for (int x = 0; x < mapData.mapWidth; x++) {
 
 				float currentHeight = noiseMap [x, y];
-
-				if(falloffGenerator) {
-					currentHeight = Mathf.Clamp01(currentHeight + (falloffMap[x,y] * falloffGenerator.weight));
-				} 
 				
 				for (int i = 0; i < mapRegions.regions.Length; i++) {
 					if (currentHeight <= mapRegions.regions [i].height) {
-						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour;
+						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour - Color.black * .25f;
+
 						break;
 					}
 				}
 			}
 		}
 
-		
+
+		if(display == null) {
+			display = Instantiate(Resources.Load("Map/MapDisplay") as GameObject, transform.position, transform.rotation, transform).GetComponent<MapDisplay>();
+			display.name = "MapDisplay";
+		}
+
 		display.gameObject.SetActive(drawMode != DrawMode.Blocks);
 
 		if (drawMode == DrawMode.NoiseMap) {
@@ -81,8 +96,32 @@ public class MapGenerator : Generator {
 		} else if(drawMode == DrawMode.Blocks) {
 
 		}
+	}
 
-	
+	public void Merge(MapGenerator gen, MapGenerator modGen, Vector2 origin) {
+
+		int startX = (int)Mathf.Floor(origin.x + gen.mapData.mapWidth * .5f - modGen.mapData.mapWidth * .5f);
+		int startY = (int)Mathf.Floor(origin.y + gen.mapData.mapHeight * .5f - modGen.mapData.mapHeight * .5f);
+		
+		int iMod = 0;
+		for (int i = startX; i < startX + modGen.mapData.mapWidth; i++) {
+
+			int jMod = 0;
+			for (int j = startY; j < startY + modGen.mapData.mapHeight; j++) {
+
+				if(i >= 0 && j >= 0 && i < gen.mapData.mapWidth && j < gen.mapData.mapHeight) {
+					Debug.Log(i + " " + j);					
+					float currentHeight = Mathf.Lerp(gen.noiseMap[i,j], modGen.noiseMap[iMod,jMod], modGen.falloffMap[iMod,jMod]);
+					// float currentHeight = modGen.noiseMap[iMod,jMod];
+					gen.noiseMap[i,j] = currentHeight;
+				} 
+
+				jMod++;
+			}
+
+			iMod++;
+		}
+
 	}
 
 	void OnValidate() {
@@ -124,6 +163,7 @@ public class MapGenerator : Generator {
         // Because we draw it inside OnDrawGizmos the icon is also pickable
         // in the scene view.
 
+        Gizmos.DrawWireCube(transform.position, Vector3.up * .01f + Vector3.right * mapData.mapWidth + Vector3.forward * mapData.mapHeight);
         Gizmos.DrawIcon(transform.position, "Map.png", true);
     }
 }

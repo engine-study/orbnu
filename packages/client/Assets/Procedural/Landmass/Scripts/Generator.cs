@@ -5,8 +5,17 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
 
+    public void Create() {
+        Generate();
+        Render();
+    }
+
     public virtual void Generate() {
-        Debug.Log("Generating: " + gameObject.name  + " " + this.name, this);
+        Debug.Log("Generating: " + this.ToString(), this);
+
+    }
+
+    public virtual void Render() {
 
     }
 }
