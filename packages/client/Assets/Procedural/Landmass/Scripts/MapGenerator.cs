@@ -21,6 +21,7 @@ public class MapGenerator : Generator {
     protected Color[] colourMap;
 
 	[Header("Debug")]
+	public Transform blockParent;
 	public MapDisplay display;
 	public Generator [] generators;
 
@@ -71,15 +72,32 @@ public class MapGenerator : Generator {
 	public override void Render() {
 		base.Render();
 
+		blockParent = transform.Find("Blocks");
+		if(blockParent != null) {
+			DestroyImmediate(blockParent.gameObject);
+		}
+
+		if(blockParent == null) {
+			blockParent = new GameObject("Blocks").transform;
+			blockParent.parent = transform;
+			blockParent.localPosition = Vector3.zero;
+			blockParent.localRotation = Quaternion.identity;
+		}
+
+		GameObject blockPrefab = Resources.Load("Map/Block") as GameObject;
+
 		colourMap = new Color[mapData.mapWidth * mapData.mapHeight];
 		for (int y = 0; y < mapData.mapHeight; y++) {
 			for (int x = 0; x < mapData.mapWidth; x++) {
 
 				float currentHeight = noiseMap [x, y];
-				
+			
 				for (int i = 0; i < mapRegions.regions.Length; i++) {
 					if (currentHeight <= mapRegions.regions [i].height) {
 						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour;
+							
+						Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * 2f, y - mapData.mapHeight * .5f);
+						GameObject block = Instantiate(blockPrefab, position, Quaternion.identity, blockParent);
 
 						break;
 					}
@@ -93,6 +111,7 @@ public class MapGenerator : Generator {
 			display.name = "MapDisplay";
 		}
 
+		blockParent.gameObject.SetActive(drawMode == DrawMode.Blocks);
 		display.gameObject.SetActive(drawMode != DrawMode.Blocks && drawMode != DrawMode.None);
 
 		if (drawMode == DrawMode.NoiseMap) {
@@ -104,7 +123,7 @@ public class MapGenerator : Generator {
 		} else if(drawMode == DrawMode.Blend) {
 			display.DrawTexture (TextureGenerator.TextureFromHeightMap(blendMap));
 		} else if(drawMode == DrawMode.Blocks) {
-
+			
 		}
 	}
 
