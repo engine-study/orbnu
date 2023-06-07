@@ -13,4 +13,10 @@ MonoBehaviour:
   m_Name: RegionSettlement
   m_EditorClassIdentifier: 
   regionName: Settlement
-  size: 10
+  size: 1
+  spawners:
+  - spawns:
+    - number: 1
+      prefabs:
+      - {fileID: 137669073296860138, guid: c338f701679b8e349832dfe2798f495e, type: 3}
+    radius: 0

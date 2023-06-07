@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4653f73a050fa4eb715a6353c6a304, type: 3}
   m_Name: MapSettlement
   m_EditorClassIdentifier: 
-  mapWidth: 7
-  mapHeight: 7
+  mapWidth: 11
+  mapHeight: 11
   genType: 1
-  mapFill: 0.6
+  mapFill: 1
   noiseScale: 50
   octaves: 4
   persistance: 0.89
   lacunarity: 2
-  seed: 32329570
+  seed: 23160503
   offset: {x: 0, y: 0}
   falloffStrength: 0
   blendStrength: 1

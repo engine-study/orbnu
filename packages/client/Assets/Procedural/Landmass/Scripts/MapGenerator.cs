@@ -23,7 +23,8 @@ public class MapGenerator : Generator {
 	[Header("Debug")]
 	public Transform blockParent;
 	public MapDisplay display;
-	public Generator [] generators;
+	public Generator [] maps;
+	public Generator [] regions;
 
     public override void Generate() {
 		base.Generate();
@@ -55,16 +56,23 @@ public class MapGenerator : Generator {
 			}
 		}
 
-		generators = GetComponentsInChildren<Generator>();
-		foreach(Generator g in generators) {
+		maps = GetComponentsInChildren<MapGenerator>();
+		foreach(MapGenerator g in maps) {
 
 			if(g == this) 
 				continue;
 				
 			g.Create();
+			Merge(this, g, new Vector2(g.transform.position.x, g.transform.position.z));
+		}
 
-			if(g is MapGenerator)
-				Merge(this, g as MapGenerator, new Vector2(g.transform.position.x, g.transform.position.z));
+		regions = GetComponentsInChildren<RegionGenerator>();
+		foreach(RegionGenerator g in regions) {
+
+			if(g == this) 
+				continue;
+				
+			g.Generate();
 		}
 
 	}
@@ -96,8 +104,9 @@ public class MapGenerator : Generator {
 					if (currentHeight <= mapRegions.regions [i].height) {
 						colourMap [y * mapData.mapWidth + x] = mapRegions.regions [i].colour;
 
-						Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentHeight * .5f, y - mapData.mapHeight * .5f);
-						// Vector3 position = new Vector3(x - mapData.mapWidth * .5f, currentHeight*1.5f, y - mapData.mapHeight * .5f);
+						Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height, y - mapData.mapHeight * .5f);
+						// Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentHeight * .5f, y - mapData.mapHeight * .5f);
+						// Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentHeight, .5f + y - mapData.mapHeight * .5f);
 						GameObject block = Instantiate(blockPrefab, position, Quaternion.identity, blockParent);
 
 						break;
