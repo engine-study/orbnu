@@ -37,4 +37,4 @@ MonoBehaviour:
     - number: 1
       prefabs:
       - {fileID: 2404787535776497759, guid: b711d70d2f9f0a442a5086aeb82d21a8, type: 3}
-    radius: 3
+    radius: 4

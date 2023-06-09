@@ -1,22 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public static class Noise {
 
-	public static float[,] GenerateFillMap(MapData mapData) {
-		float[,] noiseMap = new float[mapData.mapWidth,mapData.mapHeight];
+	public static Dictionary<Vector2, float> GenerateFillMap(MapData mapData) {
 
-		for (int y = 0; y < mapData.mapHeight; y++) {
-			for (int x = 0; x < mapData.mapWidth; x++) {
-				noiseMap [x, y] = mapData.mapFill;
+		Dictionary<Vector2, float> noiseMap = new Dictionary<Vector2, float>();
+
+		  for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
+        {
+            for (int x = (int)(mapData.mapWidth * -.5f); x < mapData.mapWidth * .5f; x++)
+            {
+				noiseMap [new Vector2(x, y)] = mapData.mapFill;
 			}
 		}
 
 		return noiseMap;
 	}
 
-	public static float[,] GenerateNoiseMap(MapData mapData) {
-		float[,] noiseMap = new float[mapData.mapWidth,mapData.mapHeight];
+	public static Dictionary<Vector2, float> GenerateNoiseMap(MapData mapData) {
+
+		Dictionary<Vector2, float> noiseMap = new Dictionary<Vector2, float>();
 
 		System.Random prng = new System.Random (mapData.seed);
 		Vector2[] octaveOffsets = new Vector2[mapData.octaves];
@@ -37,8 +42,10 @@ public static class Noise {
 		float halfHeight = mapData.mapHeight / 2f;
 
 
-		for (int y = 0; y < mapData.mapHeight; y++) {
-			for (int x = 0; x < mapData.mapWidth; x++) {
+		for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
+        {
+            for (int x = (int)(mapData.mapWidth * -.5f); x < mapData.mapWidth * .5f; x++)
+            {
 		
 				float amplitude = 1;
 				float frequency = 1;
@@ -60,13 +67,15 @@ public static class Noise {
 				} else if (noiseHeight < minNoiseHeight) {
 					minNoiseHeight = noiseHeight;
 				}
-				noiseMap [x, y] = noiseHeight;
+				noiseMap [new Vector2(x, y)] = noiseHeight;
 			}
 		}
 
-		for (int y = 0; y < mapData.mapHeight; y++) {
-			for (int x = 0; x < mapData.mapWidth; x++) {
-				noiseMap [x, y] = Mathf.InverseLerp (minNoiseHeight, maxNoiseHeight, noiseMap [x, y]);
+		for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
+        {
+            for (int x = (int)(mapData.mapWidth * -.5f); x < mapData.mapWidth * .5f; x++)
+            {
+				noiseMap [new Vector2(x, y)] = Mathf.InverseLerp (minNoiseHeight, maxNoiseHeight, noiseMap [new Vector2(x, y)]);
 			}
 		}
 

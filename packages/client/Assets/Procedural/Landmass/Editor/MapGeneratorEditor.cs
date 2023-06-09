@@ -14,13 +14,22 @@ public class MapGeneratorEditor : Editor {
 			}
 		}
 
+		if(!mapGen.gameObject.scene.name.Contains("NonSerialized")) {
+			Debug.LogError("Wait, don't use this in serialized scenes, you'll clog up the github :(");
+			return;
+		}
+
 		if (GUILayout.Button ("Create")) {
 			mapGen.Create();
+		}
+
+		if (GUILayout.Button ("Fog")) {
+			mapGen.ToggleFog();
 		}
 	}
 
 	void OnValidate() {
 
-		Debug.Log("Editor validate");
+		// Debug.Log("Editor validate");
 	}
 }

@@ -12,7 +12,6 @@ public class Generator : MonoBehaviour
 
     public virtual void Generate() {
         Debug.Log("Generating: " + this.ToString(), this);
-
     }
 
     public virtual void Render() {

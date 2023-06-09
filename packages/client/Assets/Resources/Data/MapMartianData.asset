@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de4653f73a050fa4eb715a6353c6a304, type: 3}
   m_Name: MapMartianData
   m_EditorClassIdentifier: 
-  mapWidth: 129
-  mapHeight: 129
+  mapWidth: 65
+  mapHeight: 65
   genType: 0
   mapFill: 0.5
   noiseScale: 6
   octaves: 4
   persistance: 0
   lacunarity: 2
-  seed: 91483685
+  seed: 70763701
   offset: {x: 0, y: 0}
   falloffStrength: 1
   blendStrength: 1

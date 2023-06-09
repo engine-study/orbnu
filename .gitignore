@@ -10,3 +10,5 @@ node_modules
 /packages/client/Assets/Scripts/IWorld.meta
 /packages/client/Assets/Resources/latest.json
 /packages/client/Assets/Resources/latest.json.meta
+packages/client/Assets/Procedural/Landmass/Scenes/ProcGenNonSerialized.unity
+packages/client/Assets/Procedural/Landmass/Scenes/ProcGenNonSerialized.unity.meta

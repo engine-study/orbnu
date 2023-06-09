@@ -18,8 +18,18 @@ public class RegionGenerator : Generator
     {
         base.Generate();
 
-        if(spawnedObjects != null) {
-            for(int i = spawnedObjects.Count - 1; i > -1; i--) {
+
+
+    }
+
+    public override void Render()
+    {
+        base.Render();
+
+        if (spawnedObjects != null)
+        {
+            for (int i = spawnedObjects.Count - 1; i > -1; i--)
+            {
                 DestroyImmediate(spawnedObjects[i]);
             }
         }
@@ -29,41 +39,51 @@ public class RegionGenerator : Generator
 
         Vector3 basePos = transform.position;
 
-        foreach(RegionSpawner s in regionData.spawners) {
+        foreach (RegionSpawner s in regionData.spawners)
+        {
 
             float startRad = Random.Range(0f, Mathf.PI * 2f);
 
             float index = 0f;
             float rotateLerp = 0f;
 
-            foreach(RegionPatch p in s.spawns) {
-          
-                float spawnRad = startRad + rotateLerp * Mathf.PI * 2f;
-                Vector3 spawnPos = new Vector3 (Mathf.Sin (spawnRad), 0f, Mathf.Cos (spawnRad)) * s.radius;
+            foreach (RegionPatch p in s.spawns)
+            {
 
-                SpawnPatch(p, basePos + spawnPos);
+                float spawnRad = startRad + rotateLerp * Mathf.PI * 2f;
+                Vector3 spawnPos = new Vector3(Mathf.Sin(spawnRad), 0f, Mathf.Cos(spawnRad)) * s.radius;
+
+                spawnPos += basePos;
+                spawnPos = MapGenerator.Instance.WorldToGrid(spawnPos);
+                // Debug.Log("Spawning: " + spawnPos.ToString());
+
+                SpawnPatch(p, spawnPos);
 
                 index++;
-                rotateLerp = index/(float)s.spawns.Length;
+                rotateLerp = index / (float)s.spawns.Length;
 
             }
 
 
         }
-
     }
-    
-    void OnDrawGizmosSelected() {
-        if(!regionData) {
+
+    void OnDrawGizmosSelected()
+    {
+        if (!regionData)
+        {
             return;
         }
 
         Gizmos.DrawWireCube(transform.position, Vector3.up * .01f + (Vector3.right + Vector3.forward) * regionData.size);
     }
 
-    public void SpawnPatch(RegionPatch p, Vector3 position) {
-        GameObject prefab = p.prefabs[Random.Range(0,p.prefabs.Length)];
+    public void SpawnPatch(RegionPatch p, Vector3 position)
+    {
+        GameObject prefab = p.prefabs[Random.Range(0, p.prefabs.Length)];
         GameObject go = Instantiate(prefab, position, Quaternion.identity, transform);
+        Entity e = go.GetComponent<Entity>();
+        e.gridPos = position;
         go.name = prefab.name;
         spawnedObjects.Add(go);
 
