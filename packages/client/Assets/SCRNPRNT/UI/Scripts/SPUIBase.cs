@@ -22,7 +22,6 @@ public class SPUIBase : MonoBehaviour
     public static bool IsInputtingTextField {get{return I && isInputtingTextField;}}
     public static bool FullscreenUI {get{return fullscreenUI;}}
     public static Camera Camera {get{return Camera.main;}}
-    public static RectTransform CursorParent {get{return I.moveableParent;}}
     public static RectTransform DraggableParent {get{return I.draggableParent;}}
     public static Canvas Canvas {get{return I.mainCanvas;}}
     public static RectTransform CanvasRect {get{return I.canvasRect;}}
@@ -45,14 +44,7 @@ public class SPUIBase : MonoBehaviour
 
 
     [Header("Cursor")]
-    [SerializeField] protected RectTransform moveableParent; 
     [SerializeField] protected RectTransform draggableParent; 
-    [SerializeField] protected GameObject realCursor; 
-    [SerializeField] protected RectTransform contextMenuRect; 
-
-
-    [Header("Context Menu")]
-    [SerializeField] protected GameObject contextMenuParent;
 
 
     [Header("Audio")]
@@ -138,8 +130,6 @@ public class SPUIBase : MonoBehaviour
 
         mouseOffscreen = Input.mousePosition.x < 0f || Input.mousePosition.y < 0f || Input.mousePosition.x > Screen.width || Input.mousePosition.y > Screen.height;
 
-        realCursor.transform.position = SPInput.MouseWorldPos;
-
         fullscreenUI = I.exclusiveUI != null;
         canInput = SPGlobal.Updating && !FullscreenUI && !I.isPregame && !IsInputtingTextField;
 
@@ -217,7 +207,7 @@ public class SPUIBase : MonoBehaviour
 
         if(hits == null) { hits = new Collider[10]; }
 
-        int amount = Physics.OverlapSphereNonAlloc(realCursor.transform.position, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
+        int amount = Physics.OverlapSphereNonAlloc(SPInput.MouseWorldPos, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
         int selectedItem = -1;
         float minDistance = 999f;
         Entity bestItem = null;
@@ -228,7 +218,7 @@ public class SPUIBase : MonoBehaviour
             if(!checkItem)
                 continue;
 
-            float distance = Vector3.Distance(realCursor.transform.position,checkItem.transform.position);
+            float distance = Vector3.Distance(SPInput.MouseWorldPos,checkItem.transform.position);
             if(distance < minDistance) {
                 minDistance = distance;
                 selectedItem = i;

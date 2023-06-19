@@ -69,16 +69,15 @@ MonoBehaviour:
   m_text: "Hemingway, that bully, his built-in shit-detector notwithstanding, concocted
     his First World War record on his typewriter.\u200B\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b6eb5396c28ae2040bbc35d2fcde3495, type: 2}
-  m_sharedMaterial: {fileID: -2767515488454393684, guid: b6eb5396c28ae2040bbc35d2fcde3495,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a07556214d4cf9646ad298a08fcd3c56, type: 2}
+  m_sharedMaterial: {fileID: -9021807939213424782, guid: a07556214d4cf9646ad298a08fcd3c56, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -105,7 +104,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: -2.5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -206,16 +205,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b6eb5396c28ae2040bbc35d2fcde3495, type: 2}
-  m_sharedMaterial: {fileID: -2767515488454393684, guid: b6eb5396c28ae2040bbc35d2fcde3495,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a07556214d4cf9646ad298a08fcd3c56, type: 2}
+  m_sharedMaterial: {fileID: -9021807939213424782, guid: a07556214d4cf9646ad298a08fcd3c56, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -242,7 +240,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: -2.5
+  m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -329,7 +327,7 @@ RectTransform:
   m_Children:
   - {fileID: 907957509878781259}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -348,6 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41844e13ddbe4d44db9b1fd1c3240c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isolateDebug: 0
   uniqueUITag: 
   border: {fileID: 1851757878134995700}
   bg: {fileID: 907957509658807734}
@@ -356,49 +355,11 @@ MonoBehaviour:
   _texts: []
   _images: []
   hasInit: 0
-  block:
-    address:
-      currentCryptoKey: 
-      hiddenValue: 
-      cryptoKey: a80055002700d5002f005900f800
-      hiddenChars: 
-      inited: 1
-      fakeValue: 
-      fakeValueActive: 1
-    blockID: -1
-    blockType: 0
-    chainType: 0
-    playerType: 0
-    isLocalBlock: 0
-    gotJSON: 0
-    hasLoaded: 0
-    contract:
-      currentCryptoKey: 
-      hiddenValue: 
-      cryptoKey: 2200d500bf00ee007e0064009e00
-      hiddenChars: 
-      inited: 1
-      fakeValue: 
-      fakeValueActive: 1
-    token: 
-    name: 
-    link: 
-    description: 
-    uri: 
-    network: 
-    image:
-      texture: {fileID: 0}
-      imageText: 
-      extension: 
-      uri: 
-      canDisplay: 1
-      loadedImage: 1
-    addressTrunc: 
-    jsonString: 
   state: 0
   stateDraggable: 0
   canDrag: 0
   readOnly: 1
+  hideIfEmpty: 0
   selectableType: 0
   actionType: 0
   selectableTheme:
@@ -427,7 +388,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907957509658807737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -542,7 +503,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 1
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: b6eb5396c28ae2040bbc35d2fcde3495, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: a07556214d4cf9646ad298a08fcd3c56, type: 2}
   m_OnFocusSelectAll: 0
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 0
