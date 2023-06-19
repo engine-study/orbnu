@@ -40,40 +40,35 @@ public class PlayerManager : MUDTable
     }
 
 
-    private void OnAddPlayer(PlayerTableUpdate update)
+    protected override void OnInsert<T>(T tableUpdate)
     {
+        base.OnInsert(tableUpdate);
+
+        PlayerTableUpdate update = tableUpdate as PlayerTableUpdate;
+
+        var currentValue = update.TypedValue.Item1;
+        if (currentValue == null)
+        {
+            Debug.LogError("No currentValue");
+            return;
+        }
+
+        StartCoroutine(SpawnPlayer(update));
 
     }
 
     protected override void OnUpdate<T>(T tableUpdate)
     {
+        base.OnUpdate(tableUpdate);
+
         PlayerTableUpdate update = tableUpdate as PlayerTableUpdate;
 
-        Debug.Log("OnUpdatePlayers");
-
         var currentValue = update.TypedValue.Item1;
         if (currentValue == null)
         {
             Debug.LogError("No currentValue");
             return;
         }
-
-        StartCoroutine(SpawnPlayer(update));
-
-    }
-
-    private void OnUpdatePlayers(PlayerTableUpdate update)
-    {
-        Debug.Log("OnUpdatePlayers");
-
-        var currentValue = update.TypedValue.Item1;
-        if (currentValue == null)
-        {
-            Debug.LogError("No currentValue");
-            return;
-        }
-
-        StartCoroutine(SpawnPlayer(update));
 
     }
 
@@ -95,7 +90,6 @@ public class PlayerManager : MUDTable
         Debug.Log("Spawning " + KeyTrunc);
         Debug.Log("Position " + playerSpawnPoint.ToString());
 
-
         MUDEntity player = new MUDEntity();
 
         player.GetComponent<PlayerSync>().key = update.Key;
@@ -113,14 +107,8 @@ public class PlayerManager : MUDTable
 
         var playerMUD = player.GetComponent<PlayerMUD>();
         playerMUD.SetIsLocal(isLocal);
-        // playerMUD.SetCore(new SPCorePlayer());
         playerMUD.SetMudKey(update.Key);
-        // playerMUD.SetInitBlock(Resources.Load("Blocks/BlockPlayerMUD") as SPBlockScriptable);
-        // playerMUD.OnOfflineInstantiate(playerMUD.GetInitBlock().Block.BlockToData());
+
     }
 
-    private void OnDestroy()
-    {
-        _disposers?.Dispose();
-    }
 }

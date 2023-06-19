@@ -50,7 +50,7 @@ public class SPInput : MonoBehaviour {
     
         plane = new Plane(Vector3.up, Vector3.up * planeHeight);
 
-        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition + Vector3.forward * 1000f);
+        mouseRay = Camera.ScreenPointToRay(Input.mousePosition + Vector3.forward * 1000f);
         bool mouseDown = Input.GetMouseButton(0) || Input.GetMouseButton(1) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);
 
         //project the mouse position onto the ground plane
