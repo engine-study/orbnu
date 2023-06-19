@@ -81,7 +81,8 @@ public class RegionGenerator : Generator
     public void SpawnPatch(RegionPatch p, Vector3 position)
     {
         GameObject prefab = p.prefabs[Random.Range(0, p.prefabs.Length)];
-        GameObject go = Instantiate(prefab, position, Quaternion.identity, transform);
+        GameObject go = MapGenerator.SpawnObject(prefab, position, Quaternion.identity,transform);
+       
         Entity e = go.GetComponent<Entity>();
         e.gridPos = position;
         go.name = prefab.name;

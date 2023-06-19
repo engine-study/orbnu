@@ -8,7 +8,7 @@ public class MapGenerator : Generator
     public enum DrawMode { None, NoiseMap, ColourMap, Falloff, Blend, Blocks, Biome };
 
     public static MapGenerator Instance;
-	public static Transform BlockParent {get{return Instance.blockParent;}}
+    public static Transform BlockParent { get { return Instance.blockParent; } }
 
 
     [Header("Generator")]
@@ -59,18 +59,18 @@ public class MapGenerator : Generator
         mapSave.blendMap = new Dictionary<Vector2, float>();
 
         FalloffGenerator falloffGenerator = GetComponent<FalloffGenerator>();
-		falloffGenerator = null;
-	
+        falloffGenerator = null;
+
         if (falloffGenerator)
         {
             mapSave.falloffMap = falloffGenerator.GenerateFalloffMap(transform.position, mapData.mapWidth, mapData.mapHeight);
         }
 
-		for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
+        for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
         {
             for (int x = (int)(mapData.mapWidth * -.5f); x < mapData.mapWidth * .5f; x++)
             {
-				Vector2 v2 = new Vector2(x,y);
+                Vector2 v2 = new Vector2(x, y);
                 float currentHeight = mapSave.noiseMap[v2];
                 float currentBiome = mapSave.biomeMap[v2];
                 if (falloffGenerator)
@@ -130,14 +130,16 @@ public class MapGenerator : Generator
             g.Render();
         }
 
-		GameObject[] gos = Instance.gameObject.scene.GetRootGameObjects();
-		for(int i = 0; i < gos.Length; i++) {
-			if(gos[i].name == "Blocks") {
-				blockParent = gos[i].transform;
-				break;
-			}
-		}
-		
+        GameObject[] gos = Instance.gameObject.scene.GetRootGameObjects();
+        for (int i = 0; i < gos.Length; i++)
+        {
+            if (gos[i].name == "Blocks")
+            {
+                blockParent = gos[i].transform;
+                break;
+            }
+        }
+
         if (blockParent != null)
         {
             DestroyImmediate(blockParent.gameObject);
@@ -146,11 +148,11 @@ public class MapGenerator : Generator
         if (blockParent == null)
         {
             blockParent = new GameObject("Blocks").transform;
-			
-			UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(blockParent.gameObject, Instance.gameObject.scene);
+
+            UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(blockParent.gameObject, Instance.gameObject.scene);
             blockParent.localPosition = Vector3.zero;
             blockParent.localRotation = Quaternion.identity;
-			blockParent.transform.parent = null;
+            blockParent.transform.parent = null;
         }
 
         if (mainMap)
@@ -237,22 +239,24 @@ public class MapGenerator : Generator
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentHeight, .5f + y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentBiome * .5f, y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentBiome, .5f + y - mapData.mapHeight * .5f);
-						Block block = null;
-
-						if(Application.isPlaying) {
-                        	block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
-						} else {
-							#if UNITY_EDITOR
-							block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Block;
-							block.transform.position = position;
-							block.transform.rotation = Quaternion.identity;
-							block.transform.parent = blockParent;
-							#else
+                        Block block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Block>();
+                        if (Application.isPlaying)
+                        {
+                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
+                        }
+                        else
+                        {
+#if UNITY_EDITOR
+                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Block;
+                            block.transform.position = position;
+                            block.transform.rotation = Quaternion.identity;
+                            block.transform.parent = blockParent;
+#else
 							block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
-							#endif
-						}
+#endif
+                        }
 
-						block.gridPos = new Vector3(x,currentHeight,y);
+                        block.gridPos = new Vector3(x, currentHeight, y);
                         mapSave.blocks[new Vector2(x, y)] = block;
                         // Block block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
                         // block.SetMaterial(mapRegions.regions[i].blockType);
@@ -263,6 +267,28 @@ public class MapGenerator : Generator
             }
         }
 
+    }
+
+    public static GameObject SpawnObject(GameObject spawnGO, Vector3 position, Quaternion rotation, Transform parent)
+    {
+        GameObject go = null;
+
+        if (Application.isPlaying)
+        {
+            go = Instantiate(spawnGO, position, rotation, parent);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            go = UnityEditor.PrefabUtility.InstantiatePrefab(spawnGO) as GameObject;
+            go.transform.position = position;
+            go.transform.rotation = rotation;
+            go.transform.parent = parent;
+#else
+        block = Instantiate(spawnGO, position, rotation, parent);
+#endif
+        }
+        return go;
 
     }
 
@@ -321,8 +347,8 @@ public class MapGenerator : Generator
                     int originalX = startX + x;
                     int originalY = startY + y;
 
-					result.Add(new Vector2(originalX, originalY));
-                    
+                    result.Add(new Vector2(originalX, originalY));
+
                 }
             }
         }
@@ -354,21 +380,21 @@ public class MapGenerator : Generator
     public static void Merge(MapGenerator gen, MapGenerator modGen, Vector2 origin)
     {
 
-		return ;
+        return;
 
         int startX = (int)(origin.x - modGen.mapData.mapWidth * .5f);
         int startY = (int)(origin.y - modGen.mapData.mapHeight * .5f);
 
         int iMod = 0;
-        for (int i = startX; i < (int)(startX + modGen.mapData.mapWidth-1f); i++)
+        for (int i = startX; i < (int)(startX + modGen.mapData.mapWidth - 1f); i++)
         {
 
             int jMod = 0;
-            for (int j = startY; j < (int)(startY + modGen.mapData.mapHeight-1f); j++)
+            for (int j = startY; j < (int)(startY + modGen.mapData.mapHeight - 1f); j++)
             {
 
-				Vector2 v2 = new Vector2(i,j);
-				Vector2 v2Local = new Vector2(iMod,jMod);
+                Vector2 v2 = new Vector2(i, j);
+                Vector2 v2Local = new Vector2(iMod, jMod);
 
                 if (gen.mapSave.noiseMap.ContainsKey(v2))
                 {
@@ -389,9 +415,9 @@ public class MapGenerator : Generator
 
     public Vector3 WorldToGrid(Vector3 world)
     {
-        int x = (int)Mathf.Round(world.x -.5f);
-        int z = (int)Mathf.Round(world.z -.5f);
-		Vector2 v2 = new Vector2(x,z);
+        int x = (int)Mathf.Round(world.x - .5f);
+        int z = (int)Mathf.Round(world.z - .5f);
+        Vector2 v2 = new Vector2(x, z);
         return new Vector3(x, mapSave.noiseMap[v2], z);
     }
 
