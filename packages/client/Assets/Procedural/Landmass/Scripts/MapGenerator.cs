@@ -199,7 +199,7 @@ public class MapGenerator : Generator
 
     void Spawn()
     {
-        mapSave.blocks = new Dictionary<Vector2, Block>();
+        mapSave.blocks = new Dictionary<Vector2, Terrain>();
         mapSave.colourMap = new Color[mapData.mapWidth + mapData.mapHeight];
 
         for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
@@ -239,15 +239,15 @@ public class MapGenerator : Generator
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentHeight, .5f + y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentBiome * .5f, y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentBiome, .5f + y - mapData.mapHeight * .5f);
-                        Block block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Block>();
+                        Terrain block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Terrain>();
                         if (Application.isPlaying)
                         {
-                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
+                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Terrain>();
                         }
                         else
                         {
 #if UNITY_EDITOR
-                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Block;
+                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Terrain;
                             block.transform.position = position;
                             block.transform.rotation = Quaternion.identity;
                             block.transform.parent = blockParent;
@@ -297,7 +297,7 @@ public class MapGenerator : Generator
         return (int)(Vector2.Distance(grid1, grid2));
     }
 
-    public Block[,] GetBlocksAtPoint(Block[,] blocks, Vector3 centerPoint, int radius)
+    public Terrain[,] GetBlocksAtPoint(Terrain[,] blocks, Vector3 centerPoint, int radius)
     {
         int startX = (int)centerPoint.x - radius;
         int startY = (int)centerPoint.z - radius;
@@ -307,7 +307,7 @@ public class MapGenerator : Generator
         int sizeX = endX - startX + 1;
         int sizeY = endY - startY + 1;
 
-        Block[,] result = new Block[sizeX, sizeY];
+        Terrain[,] result = new Terrain[sizeX, sizeY];
 
         for (int x = startX; x <= endX; x++)
         {
@@ -320,7 +320,7 @@ public class MapGenerator : Generator
         return result;
     }
 
-    public List<Vector2> GetBlocksInCircularRadius(Dictionary<Vector2, Block> blocks, Vector3 centerPoint, int radius)
+    public List<Vector2> GetBlocksInCircularRadius(Dictionary<Vector2, Terrain> blocks, Vector3 centerPoint, int radius)
     {
         int startX = (int)centerPoint.x - radius;
         int startY = (int)centerPoint.z - radius;
@@ -476,8 +476,8 @@ public class MapGenerator : Generator
 [System.Serializable]
 public struct TerrainType
 {
-    public BlockType blockType;
+    public TerrainMaterial blockType;
     public float height;
-    public Block block;
+    public Terrain block;
 
 }

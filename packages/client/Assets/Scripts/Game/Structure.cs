@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Structure : Entity
 {
-    [System.Serializable]
-    public class Stats {
-        int health = 0;
-        int attack = 0;
-        int energy = 0;
-    }
 
     public Stats stats;
     public MeshRenderer [] mesh;

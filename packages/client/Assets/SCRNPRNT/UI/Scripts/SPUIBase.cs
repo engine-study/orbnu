@@ -201,13 +201,17 @@ public class SPUIBase : MonoBehaviour
 
     }
 
-    public static void PositionToCanvas(Vector3 newPosition, RectTransform target, Vector3 offset =  default(Vector3)) {
+    // public static void WorldToCanvas(Vector3 newPosition, RectTransform rect) {
+
+    // }
+    
+    public static void WorldToCanvas(Vector3 newPosition, RectTransform target, Vector3 offset =  default(Vector3)) {
         Vector2 screen = Camera.WorldToScreenPoint(newPosition + offset);
         target.anchoredPosition = ScreenToCanvas(screen);
     }
 
     public static void TransformToCanvas(Transform newTransform, RectTransform target, Vector3 offset =  default(Vector3)) { 
-        PositionToCanvas(newTransform.position, target, offset);
+        WorldToCanvas(newTransform.position, target, offset);
     }
 
     public static Vector2 ScreenToRay() {

@@ -290,7 +290,8 @@ MonoBehaviour:
   _texts: []
   _images: []
   hasInit: 0
-  textField: {fileID: 0}
+  entity: {fileID: 0}
+  textField: {fileID: 7188377486699481641}
 --- !u!1 &7402709173867403274
 GameObject:
   m_ObjectHideFlags: 0
