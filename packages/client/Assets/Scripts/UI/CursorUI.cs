@@ -4,4 +4,14 @@ using UnityEngine;
 
 public class CursorUI : MonoBehaviour
 {
+    [Header("Cursor")]
+    public PlacementUI placement;
+
+
+    void Start() {
+        
+    }
+
+
+
 }

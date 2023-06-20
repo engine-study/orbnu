@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SPCursor : MonoBehaviour
 {
-    public System.Action<Entity> OnHover;
+    public static System.Action<Entity> OnHover;
     public bool grid;
     public Transform graphics;
     Vector3 rawMousePos, mousePos, lastPos;
