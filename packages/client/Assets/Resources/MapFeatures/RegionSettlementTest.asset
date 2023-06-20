@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a920d397ee061d41b4232b37cee10bd, type: 3}
+  m_Name: RegionSettlementTest
+  m_EditorClassIdentifier: 
+  genStyle: 0
+  regionName: Settlement
+  size: 1
+  spawners:
+  - spawns:
+    - number: 1
+      prefabs:
+      - {fileID: 137669073296860138, guid: c338f701679b8e349832dfe2798f495e, type: 3}
+    radius: 0
+  - spawns:
+    - number: 1
+      prefabs:
+      - {fileID: 6474362943840476758, guid: 8fa1f0ff8b32792478ae643ee6ed3e34, type: 3}
+    - number: 1
+      prefabs:
+      - {fileID: 8349495910344792385, guid: 75423ff7ac8bbc0498af99a826e69abc, type: 3}
+    - number: 1
+      prefabs:
+      - {fileID: 1360244773805025346, guid: 5f074d9bf006c414eb411367ae5460a6, type: 3}
+    - number: 1
+      prefabs:
+      - {fileID: 4789853226237355282, guid: 0a581a1a1a680a74d8649591a9a74544, type: 3}
+    - number: 1
+      prefabs:
+      - {fileID: 2404787535776497759, guid: b711d70d2f9f0a442a5086aeb82d21a8, type: 3}
+    radius: 4

@@ -163,7 +163,7 @@ public class MapGenerator : Generator
 
         if (display == null)
         {
-            display = Instantiate(Resources.Load("Map/MapDisplay") as GameObject, transform.position, transform.rotation, transform).GetComponent<MapDisplay>();
+            display = Instantiate(Resources.Load("MapData/MapDisplay") as GameObject, transform.position, transform.rotation, transform).GetComponent<MapDisplay>();
             display.name = "MapDisplay";
         }
 

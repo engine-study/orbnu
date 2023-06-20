@@ -61,23 +61,21 @@ public class GameState : MonoBehaviour
 
     }
 
-    void NextPhase() {
-        TogglePhase((GamePhase)((int)(phase + 1)%(int)GamePhase._Count));
-    }
-
     void OnDestroy() {
         Instance = null;
     }
 
     #if UNITY_EDITOR
-    [MenuItem("MyMenu/Do Something with a Shortcut Key &q")]
+    [MenuItem("Engine/Next Phase &q")]
     static void TogglePhase()
     {
         GameState gs = FindObjectOfType<GameState>();
 
         if(!gs) {return;}
 
-        gs.NextPhase();
+        gs.TogglePhase((GamePhase)((int)(gs.phase + 1)%(int)GamePhase._Count));
+        Selection.activeGameObject = gs.phaseUI[(int)gs.phase].gameObject;
+
     }
     #endif
 }
