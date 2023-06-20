@@ -29,7 +29,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8022547186414178755}
-  - {fileID: 7140050960924916900}
+  - {fileID: 4760828655004947668}
   m_Father: {fileID: 7847038547141376804}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -68,7 +68,7 @@ RectTransform:
   m_Children:
   - {fileID: 5041736538620533335}
   - {fileID: 606045380429103459}
-  - {fileID: 8861067116722981413}
+  - {fileID: 8930888796233907723}
   m_Father: {fileID: 7847038547141376804}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 907957509658807736, guid: c59f2ed9df44d084bbda4d47ce23e3c6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 360
+      value: 310
       objectReference: {fileID: 0}
     - target: {fileID: 907957509658807736, guid: c59f2ed9df44d084bbda4d47ce23e3c6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -397,7 +397,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 907957509658807736, guid: c59f2ed9df44d084bbda4d47ce23e3c6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 907957509658807736, guid: c59f2ed9df44d084bbda4d47ce23e3c6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -762,7 +762,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95f9062274cec149923354ef9b3109a, type: 3}
---- !u!224 &7140050960924916900 stripped
+--- !u!224 &4760828655004947668 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2379962139873880183, guid: f95f9062274cec149923354ef9b3109a, type: 3}
   m_PrefabInstance: {fileID: 7140050960924916899}
@@ -974,7 +974,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f4be615b5763444811bc83947d8ca2, type: 3}
---- !u!224 &8861067116722981413 stripped
+--- !u!224 &8930888796233907723 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 74363900931519535, guid: c7f4be615b5763444811bc83947d8ca2, type: 3}
   m_PrefabInstance: {fileID: 8861067116722981412}
