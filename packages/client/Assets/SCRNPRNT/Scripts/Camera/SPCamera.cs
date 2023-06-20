@@ -85,26 +85,30 @@ public class SPCamera : MonoBehaviour
 
 
     public static void SetFOVGlobal(float newFOV, bool instant = false) {
-        I.SetFOV(newFOV, instant);
-    }
 
-    public void SetFOV(float newFOV, bool instant = false) {
+        #if UNITY_EDITOR
+        if(!Application.isPlaying) {
+            I = FindObjectOfType<SPCamera>();
+            I.camera.fieldOfView = newFOV;
+            I.camera.orthographicSize = newFOV;
+        }
+        #endif
+
         // Debug.Log("Camera FOV: " + newFOV);
-        fov = Mathf.Clamp(newFOV, minFOV, maxFOV);
+        I.fov = Mathf.Clamp(newFOV, I.minFOV, I.maxFOV);
         if(instant) {
-            fovLerp = fov;
+            I.fovLerp = I.fov;
         }
     }
 
 
     void UpdateInput() {
-        
 
         if(SPUIBase.CanInput) {
             if(Input.GetKeyDown(KeyCode.Minus)) {
-                fov += 1f;
+                SetFOVGlobal(1f);
             } else if(Input.GetKeyDown(KeyCode.Equals)) {
-                fov -= 1f; 
+                SetFOVGlobal(-1f); 
             }
                 
             if(Input.GetKeyDown(KeyCode.BackQuote) && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && Application.isEditor) {
@@ -124,7 +128,7 @@ public class SPCamera : MonoBehaviour
                 // rotation = rotation * Quaternion.Euler(Vector3.up * Input.mouseScrollDelta.y * 25f);
                 // transform.Rotate(0f,Input.mouseScrollDelta.y * 25f,0f);
             } else {
-                fov += Input.mouseScrollDelta.y * -scrollSpeed;
+                SetFOVGlobal(fov + Input.mouseScrollDelta.y * -scrollSpeed);
             }
         }
         

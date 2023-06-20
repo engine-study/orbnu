@@ -9,6 +9,7 @@ public class LobbyUI : PhaseUI
     {
         base.ToggleWindow(toggle);
 
+        SPCamera.SetFOVGlobal(15f);
         // SPUIBase.Camera.fo
 
     }

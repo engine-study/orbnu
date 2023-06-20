@@ -14,7 +14,7 @@ public class BuildUI : PhaseUI
         base.ToggleWindow(toggle);
 
         worldUI.SetActive(toggle);
-
+        SPCamera.SetFOVGlobal(5f);
     }
 
     public override void UpdatePhase() {
