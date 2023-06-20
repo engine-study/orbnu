@@ -43,7 +43,7 @@ public class SPCursor : MonoBehaviour
         hover = GetEntityFromRadius(mousePos,.25f);
 
         if(lastHover != hover) {
-            OnHover.Invoke(hover);
+            OnHover?.Invoke(hover);
         }
     }
 

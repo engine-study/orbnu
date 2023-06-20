@@ -11,6 +11,9 @@ public class GameState : MonoBehaviour
     public static GamePhase Phase {get{return Instance.phase;}}
     public static GameState Instance;
     public GamePhase phase;
+
+    [Header("UI")]
+    public GameUI gameUI;
     public PhaseUI [] phaseUI;
     public static System.Action<GamePhase> OnPhaseUpdate;
 
@@ -23,7 +26,11 @@ public class GameState : MonoBehaviour
 
     }
 
-    public void UpdatePhase(GamePhase newPhase) {
+    void UpdatePhase() {
+        phaseUI[(int)phase].UpdatePhase();
+    }
+
+    public void TogglePhase(GamePhase newPhase) {
 
         phaseUI[(int)phase].ToggleWindow(false);
 
@@ -39,7 +46,8 @@ public class GameState : MonoBehaviour
 
         phase = newPhase;
 
-        phaseUI[(int)newPhase].ToggleWindow(true);
+        gameUI.UpdatePhase(phase);
+        phaseUI[(int)phase].ToggleWindow(true);
 
         if(phase == GamePhase.Lobby) {
 
@@ -54,7 +62,7 @@ public class GameState : MonoBehaviour
     }
 
     void NextPhase() {
-        UpdatePhase((GamePhase)((int)(phase + 1)%(int)GamePhase._Count));
+        TogglePhase((GamePhase)((int)(phase + 1)%(int)GamePhase._Count));
     }
 
     void OnDestroy() {
