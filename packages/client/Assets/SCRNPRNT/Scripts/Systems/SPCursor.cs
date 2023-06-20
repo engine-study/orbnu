@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SPCursor : MonoBehaviour
 {
+    public System.Action<Entity> OnEntity;
     public bool grid;
     public Transform graphics;
 
@@ -18,5 +19,9 @@ public class SPCursor : MonoBehaviour
         } else {
             graphics.position = Vector3.MoveTowards(graphics.position, mousePos, 50f * Time.deltaTime);
         }
+    }
+
+    void ShowInfo() {
+
     }
 }
