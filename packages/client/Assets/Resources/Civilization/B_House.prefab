@@ -33,11 +33,11 @@ Transform:
   - {fileID: 9029232748884650297}
   - {fileID: 4545738087895556745}
   - {fileID: 4644187316795910926}
-  - {fileID: 1908257820404011759}
   - {fileID: 2687163743484744130}
+  - {fileID: 1908257820404011759}
   - {fileID: 6281980130337475150}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-5404577604324181017
 MonoBehaviour:
@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  mesh: []
 --- !u!1 &8315565906157344329
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da82c8c0d0ab1804193342bd163b8662, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da82c8c0d0ab1804193342bd163b8662, type: 3}
       propertyPath: m_LocalPosition.y
@@ -472,6 +473,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: hangar_largeB (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5c269b429f834ba4db8fb0c2cff6ef75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -508,7 +513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90264db3827454042ade8b04aada56b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.3
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90264db3827454042ade8b04aada56b5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -586,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c269b429f834ba4db8fb0c2cff6ef75, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3
+      value: -0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c269b429f834ba4db8fb0c2cff6ef75, type: 3}
       propertyPath: m_LocalPosition.y
