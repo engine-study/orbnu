@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  mesh: []
 --- !u!1001 &6088771446091941683
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,6 +58,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 168536ef7113a674db1ed842aa02eabf, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 168536ef7113a674db1ed842aa02eabf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 168536ef7113a674db1ed842aa02eabf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 168536ef7113a674db1ed842aa02eabf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 168536ef7113a674db1ed842aa02eabf, type: 3}
       propertyPath: m_LocalPosition.x
