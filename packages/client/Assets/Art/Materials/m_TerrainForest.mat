@@ -32,7 +32,7 @@ Material:
     - _Scale: 1
     - _Strength: 0
     m_Colors:
-    - _Color: {r: 0.28734776, g: 0.6415094, b: 0.25055176, a: 1}
+    - _Color: {r: 0.26756498, g: 0.6431373, b: 0.25098038, a: 1}
     - _ColorBottom: {r: 0.16212173, g: 0.41509432, b: 0.21711574, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &309313820240384919
