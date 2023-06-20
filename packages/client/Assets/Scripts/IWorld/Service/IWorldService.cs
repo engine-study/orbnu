@@ -76,6 +76,34 @@ namespace IWorld.Service
              return ContractHandler.SendRequestAndWaitForReceiptAsync(attackFunction, cancellationToken);
         }
 
+        public Task<string> BuildRequestAsync(BuildFunction buildFunction)
+        {
+             return ContractHandler.SendRequestAsync(buildFunction);
+        }
+
+        public Task<TransactionReceipt> BuildRequestAndWaitForReceiptAsync(BuildFunction buildFunction, CancellationTokenSource cancellationToken = null)
+        {
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(buildFunction, cancellationToken);
+        }
+
+        public Task<string> BuildRequestAsync(int x, int y)
+        {
+            var buildFunction = new BuildFunction();
+                buildFunction.X = x;
+                buildFunction.Y = y;
+            
+             return ContractHandler.SendRequestAsync(buildFunction);
+        }
+
+        public Task<TransactionReceipt> BuildRequestAndWaitForReceiptAsync(int x, int y, CancellationTokenSource cancellationToken = null)
+        {
+            var buildFunction = new BuildFunction();
+                buildFunction.X = x;
+                buildFunction.Y = y;
+            
+             return ContractHandler.SendRequestAndWaitForReceiptAsync(buildFunction, cancellationToken);
+        }
+
         public Task<string> CallRequestAsync(CallFunction callFunction)
         {
              return ContractHandler.SendRequestAsync(callFunction);

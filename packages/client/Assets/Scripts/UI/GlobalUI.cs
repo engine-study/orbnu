@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GlobalUI : MonoBehaviour
 {
+
+    public GameObject [] phaseUI;
     public StatsUI stats;
     public InfoUI info;
 }

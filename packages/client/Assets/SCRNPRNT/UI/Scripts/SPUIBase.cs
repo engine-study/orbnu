@@ -201,37 +201,6 @@ public class SPUIBase : MonoBehaviour
 
     }
 
-    Collider [] hits;
-
-    Entity GetOntFromRadius(Vector3 position, float radius) {
-
-        if(hits == null) { hits = new Collider[10]; }
-
-        int amount = Physics.OverlapSphereNonAlloc(SPInput.MouseWorldPos, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
-        int selectedItem = -1;
-        float minDistance = 999f;
-        Entity bestItem = null;
-
-        for(int i = 0; i < amount; i++) {
-            Entity checkItem = hits[i].GetComponentInParent<Entity>();
-
-            if(!checkItem)
-                continue;
-
-            float distance = Vector3.Distance(SPInput.MouseWorldPos,checkItem.transform.position);
-            if(distance < minDistance) {
-                minDistance = distance;
-                selectedItem = i;
-                bestItem = checkItem;
-            }
-        }
-
-        return bestItem;
-
-    }
-
-   
-
     public static void PositionToCanvas(Vector3 newPosition, RectTransform target, Vector3 offset =  default(Vector3)) {
         Vector2 screen = Camera.WorldToScreenPoint(newPosition + offset);
         target.anchoredPosition = ScreenToCanvas(screen);
