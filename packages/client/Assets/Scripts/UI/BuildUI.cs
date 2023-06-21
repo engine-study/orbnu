@@ -8,6 +8,8 @@ public class BuildUI : PhaseUI
     public GameObject worldUI;
     public StatUI stats;
     public InfoUI info;
+    public Entity targetEntity;
+
 
     public override void ToggleWindow(bool toggle)
     {
@@ -18,6 +20,6 @@ public class BuildUI : PhaseUI
     }
 
     public override void UpdatePhase() {
-        
+        targetEntity.transform.position = SPCursor.GridPos;
     }
 }

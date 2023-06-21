@@ -15,9 +15,14 @@ public class SPWindowPosition : MonoBehaviour
     public void SetFollow(Transform newFollow) {
         follow = newFollow;
         enabled = follow != null;
+        UpdatePosition();
     }    
 
     void Update() {
+        UpdatePosition();
+    }
+
+    void UpdatePosition() {
         SPUIBase.WorldToCanvas(follow.position, window.Rect);
     }
 }

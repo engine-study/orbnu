@@ -10,6 +10,20 @@ public class MapGenerator : Generator
     public static Transform BlockParent { get { return Instance.blockParent; } }
 
 
+    public static Vector3 CursorToGrid(Vector3 cursor) {
+        int x = (int)Mathf.Round(cursor.x);
+        int z = (int)Mathf.Round(cursor.z);
+        Vector2 key = new Vector2(x, z);
+        if (Instance.mapSave.noiseMap.ContainsKey(key))
+        {
+            return new Vector3(x, Instance.mapSave.noiseMap[key], z);
+        }
+        else
+        {
+            return new Vector3(x, Mathf.Round(cursor.y), z);
+        }
+    }
+    
     public static Vector3 WorldToGrid(Vector3 world)
     {
         return Instance.WorldToGridLocal(world);
@@ -20,7 +34,8 @@ public class MapGenerator : Generator
         int x = (int)Mathf.Round(world.x - .5f);
         int z = (int)Mathf.Round(world.z - .5f);
         Vector2 key = new Vector2(x, z);
-        if (Instance.mapSave.entities.ContainsKey(key))
+
+        if (Instance.mapSave.noiseMap.ContainsKey(key))
         {
             return new Vector3(x, Instance.mapSave.noiseMap[key], z);
         }

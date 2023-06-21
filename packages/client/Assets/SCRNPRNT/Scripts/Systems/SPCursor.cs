@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class SPCursor : MonoBehaviour
 {
+    public static SPCursor Instance;
+    public static Vector3 WorldPos {get{return Instance.mousePos;}}
+    public static Vector3 GridPos {get{return Instance.gridPos;}}
     public static System.Action<Entity> OnHover;
-    public static System.Action<Vector3> OnCursorPosition;
+    public static System.Action<Vector3> OnGridPosition;
     [Header("Cursor")]
     public bool grid;
     public Transform graphics;
@@ -13,7 +16,15 @@ public class SPCursor : MonoBehaviour
     [SerializeField] Vector3 gridPos, lastGridPos;
     [SerializeField] Entity hover, lastHover;
 
-    // Update is called once per frame
+
+    void Awake() {
+        Instance = this;
+    }
+
+    void OnDestroy() {
+        Instance = null;
+    }
+
     void Update()
     {
         UpdateMouse();
@@ -27,6 +38,16 @@ public class SPCursor : MonoBehaviour
         if (grid)
         {
             mousePos = new Vector3(Mathf.Round(rawMousePos.x * 1f) / 1f, rawMousePos.y, Mathf.Round(rawMousePos.z * 1f) / 1f);
+
+            lastGridPos = gridPos;
+            gridPos = MapGenerator.CursorToGrid(mousePos);
+            mousePos = gridPos;
+
+            if(gridPos != lastGridPos) {
+                if(OnGridPosition != null)
+                    OnGridPosition.Invoke(gridPos);
+            }
+
         }
         else
         {
@@ -35,13 +56,7 @@ public class SPCursor : MonoBehaviour
 
         graphics.position = mousePos;
 
-        lastGridPos = gridPos;
-        // gridPos = MapGenerator.PositionToGrid(mousePos);
-        gridPos = MapGenerator.WorldToGrid(mousePos);
-        if(gridPos != lastGridPos) {
-            if(OnCursorPosition != null)
-                OnCursorPosition.Invoke(gridPos);
-        }
+   
 
         if(mousePos != lastPos) {
             UpdateHover();
@@ -51,7 +66,7 @@ public class SPCursor : MonoBehaviour
     void UpdateHover() {
 
         lastHover = hover;
-        hover = GetEntityFromRadius(mousePos + Vector3.up * .1f,.25f);
+        // hover = GetEntityFromRadius(mousePos + Vector3.up * .1f,.25f);
 
         if(lastHover != hover) {
             OnHover?.Invoke(hover);
@@ -65,7 +80,7 @@ public class SPCursor : MonoBehaviour
     public Entity GetEntityFromRadius(Vector3 position, float radius) {
         if (hits == null) { hits = new Collider[10]; }
 
-        int amount = Physics.OverlapSphereNonAlloc(SPInput.MouseWorldPos, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
+        int amount = Physics.OverlapSphereNonAlloc(position, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
         int selectedItem = -1;
         float minDistance = 999f;
         Entity bestItem = null;
@@ -80,7 +95,7 @@ public class SPCursor : MonoBehaviour
 
             entities.Add(checkItem);
 
-            float distance = Vector3.Distance(SPInput.MouseWorldPos, hits[i].ClosestPoint(position));
+            float distance = Vector3.Distance(position, hits[i].ClosestPoint(position));
             if (distance < minDistance)
             {
                 minDistance = distance;
@@ -97,7 +112,7 @@ public class SPCursor : MonoBehaviour
 
         if (hits == null) { hits = new Collider[10]; }
 
-        int amount = Physics.OverlapSphereNonAlloc(SPInput.MouseWorldPos, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
+        int amount = Physics.OverlapSphereNonAlloc(position, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
         int selectedItem = -1;
         float minDistance = 999f;
         Entity bestItem = null;
@@ -112,7 +127,7 @@ public class SPCursor : MonoBehaviour
 
             entities.Add(checkItem);
 
-            float distance = Vector3.Distance(SPInput.MouseWorldPos, checkItem.transform.position);
+            float distance = Vector3.Distance(position, checkItem.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
