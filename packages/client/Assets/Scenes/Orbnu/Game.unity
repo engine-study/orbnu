@@ -5963,7 +5963,6 @@ MonoBehaviour:
   camera: {fileID: 2026134701}
   listener: {fileID: 499582936}
   moveSpeed: 5
-  fovMultiple: 2
   scrollSpeed: 0.01
   minFOV: 5
   maxFOV: 100
@@ -6551,7 +6550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2062514863
 Transform:
   m_ObjectHideFlags: 0

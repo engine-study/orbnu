@@ -11,6 +11,23 @@ public class MapGenerator : Generator
     public static Transform BlockParent { get { return Instance.blockParent; } }
 
 
+    public static Vector2 PositionToGrid(Vector3 position) {
+        return new Vector2(Mathf.Round(position.x), Mathf.Round(position.z));
+    }
+    public Entity GetEntityAtPosition(Vector3 position) {
+        return GetEntityAtPosition(PositionToGrid(position));
+    }
+    public Entity GetEntityAtPosition(Vector2 key)
+    {
+        if (mapSave.entities.ContainsKey(key))
+        {
+            return mapSave.entities[key];
+        } else {
+            return null;
+        }
+
+    }
+
     [Header("Generator")]
     public bool mainMap;
     public DrawMode drawMode;

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce7e5048a350a4fa363b280896e977, type: 3}
-  m_Name: StatsTerrainSand
+  m_Name: BDeterrent
   m_EditorClassIdentifier: 
-  objectName: 
-  description: Build > Units take double damage
-  health: 0
+  objectName: Deterrent
+  description: Slows enemy movement.
+  health: 3
   energy: 0
-  attack: 0
+  attack: 3
   effects: []

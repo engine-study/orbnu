@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce7e5048a350a4fa363b280896e977, type: 3}
-  m_Name: StatsTerrainDirt
+  m_Name: BGeopump
   m_EditorClassIdentifier: 
-  objectName: Dirt
-  description: 
-  health: 0
+  objectName: Geopump
+  description: Powers all adjacent buildings.
+  health: 2
   energy: 0
-  attack: 0
+  attack: 3
   effects: []

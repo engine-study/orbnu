@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8236083348932332635}
   - component: {fileID: 7002162222481113519}
   m_Layer: 0
-  m_Name: BU_TurretAir
+  m_Name: B_Deterrent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 11400000, guid: f0320c3ee3dbaa547a5bbdb4578e0b59, type: 2}
+  mesh: []
 --- !u!1001 &1306879040244003655
 PrefabInstance:
   m_ObjectHideFlags: 0

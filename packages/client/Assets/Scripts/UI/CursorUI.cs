@@ -10,15 +10,18 @@ public class CursorUI : MonoBehaviour
 
     void Start() {
         
+        SPCursor.OnCursorPosition += OnCursorPosition;
         SPCursor.OnHover += UpdateHover;
     }
 
     void OnDestroy() {
+        SPCursor.OnCursorPosition -= OnCursorPosition;
         SPCursor.OnHover -= UpdateHover;
     }
 
-    void UpdateHover(Entity newEntity) {
-        
+    void OnCursorPosition(Vector2 newPos) {
+
+        Entity newEntity = MapGenerator.Instance.GetEntityAtPosition(newPos);
         if(newEntity == null) {
             stats.ToggleWindow(false);
         } else {
@@ -26,6 +29,11 @@ public class CursorUI : MonoBehaviour
             stats.UpdateEntity(newEntity);
         }
 
+    }
+
+    void UpdateHover(Entity newEntity) {
+        
+      
     }
 
 

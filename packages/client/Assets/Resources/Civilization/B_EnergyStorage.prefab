@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8198713999259976979}
   - component: {fileID: -2250012936078061411}
   m_Layer: 0
-  m_Name: B_FuelCell
+  m_Name: B_EnergyStorage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 11400000, guid: 5750da155042ff042a4cc9ba14e166ac, type: 2}
+  mesh: []
 --- !u!1001 &3965570679387482261
 PrefabInstance:
   m_ObjectHideFlags: 0

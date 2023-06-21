@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1203391705104730960}
   - component: {fileID: -7021899049578400906}
   m_Layer: 0
-  m_Name: B_Base
+  m_Name: B_Capital
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 11400000, guid: 66c790e7b74aab143a49bc50bfec259c, type: 2}
   mesh: []
 --- !u!1 &7628190177432355915
 GameObject:

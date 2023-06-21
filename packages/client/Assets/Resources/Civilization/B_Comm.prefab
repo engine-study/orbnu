@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3432191153344606864}
   - component: {fileID: 3934283974897301804}
   m_Layer: 0
-  m_Name: B_SatDish
+  m_Name: B_Comm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 11400000, guid: f379dc0b8db2a0c4bb3c748786b65ffa, type: 2}
   mesh: []
 --- !u!1001 &6088771446091941683
 PrefabInstance:

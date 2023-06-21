@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adce7e5048a350a4fa363b280896e977, type: 3}
-  m_Name: StatsTerrainForest
+  m_Name: BCapital
   m_EditorClassIdentifier: 
-  objectName: Forest
-  description: Build > double population of structure
-  health: 0
+  objectName: Capital
+  description: +10 population, double productivity for each adjacent building.
+  health: 5
   energy: 0
-  attack: 0
+  attack: 5
   effects: []

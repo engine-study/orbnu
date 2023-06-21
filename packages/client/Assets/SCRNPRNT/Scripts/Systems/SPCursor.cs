@@ -5,9 +5,11 @@ using UnityEngine;
 public class SPCursor : MonoBehaviour
 {
     public static System.Action<Entity> OnHover;
+    public static System.Action<Vector2> OnCursorPosition;
     public bool grid;
     public Transform graphics;
     Vector3 rawMousePos, mousePos, lastPos;
+    Vector2 gridPos, lastGridPos;
     Entity hover, lastHover;
 
     // Update is called once per frame
@@ -32,6 +34,11 @@ public class SPCursor : MonoBehaviour
 
         graphics.position = mousePos;
 
+        gridPos = MapGenerator.PositionToGrid(mousePos);
+        if(gridPos != lastGridPos) {
+            OnCursorPosition?.Invoke(gridPos);
+        }
+
         if(mousePos != lastPos) {
             UpdateHover();
         }
@@ -40,17 +47,48 @@ public class SPCursor : MonoBehaviour
     void UpdateHover() {
 
         lastHover = hover;
-        hover = GetEntityFromRadius(mousePos,.25f);
+        hover = GetEntityFromRadius(mousePos + Vector3.up * .1f,.25f);
 
         if(lastHover != hover) {
             OnHover?.Invoke(hover);
         }
+
+
     }
 
 
     Collider[] hits;
+    public Entity GetEntityFromRadius(Vector3 position, float radius) {
+        if (hits == null) { hits = new Collider[10]; }
 
-    Entity GetEntityFromRadius(Vector3 position, float radius)
+        int amount = Physics.OverlapSphereNonAlloc(SPInput.MouseWorldPos, radius, hits, LayerMask.NameToLayer("Nothing"), QueryTriggerInteraction.Collide);
+        int selectedItem = -1;
+        float minDistance = 999f;
+        Entity bestItem = null;
+        List<Entity> entities = new List<Entity>();
+
+        for (int i = 0; i < amount; i++)
+        {
+            Entity checkItem = hits[i].GetComponentInParent<Entity>();
+
+            if (!checkItem)
+                continue;
+
+            entities.Add(checkItem);
+
+            float distance = Vector3.Distance(SPInput.MouseWorldPos, hits[i].ClosestPoint(position));
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                selectedItem = i;
+                bestItem = checkItem;
+            }
+        }
+
+        return bestItem;
+    }
+
+    public Entity [] GetEntitiesFromRadius(Vector3 position, float radius)
     {
 
         if (hits == null) { hits = new Collider[10]; }
@@ -59,6 +97,7 @@ public class SPCursor : MonoBehaviour
         int selectedItem = -1;
         float minDistance = 999f;
         Entity bestItem = null;
+        List<Entity> entities = new List<Entity>();
 
         for (int i = 0; i < amount; i++)
         {
@@ -66,6 +105,8 @@ public class SPCursor : MonoBehaviour
 
             if (!checkItem)
                 continue;
+
+            entities.Add(checkItem);
 
             float distance = Vector3.Distance(SPInput.MouseWorldPos, checkItem.transform.position);
             if (distance < minDistance)
@@ -76,7 +117,9 @@ public class SPCursor : MonoBehaviour
             }
         }
 
-        return bestItem;
+        // return bestItem;
+
+        return entities.ToArray();
 
     }
 }

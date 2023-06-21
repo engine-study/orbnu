@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridPos: {x: 0, y: 0, z: 0}
+  stats: {fileID: 11400000, guid: b14d7a57f5f49b749a25e8352bac6146, type: 2}
+  mesh: []
 --- !u!1001 &4134676435984356442
 PrefabInstance:
   m_ObjectHideFlags: 0
