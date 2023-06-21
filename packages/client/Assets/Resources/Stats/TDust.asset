@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adce7e5048a350a4fa363b280896e977, type: 3}
   m_Name: TDust
   m_EditorClassIdentifier: 
-  objectName: Dirt
-  description: 
+  objectName: Dust
+  description: Impossible to build or move on.
   health: 0
   energy: 0
   attack: 0

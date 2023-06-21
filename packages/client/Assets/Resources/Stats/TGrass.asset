@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adce7e5048a350a4fa363b280896e977, type: 3}
   m_Name: TGrass
   m_EditorClassIdentifier: 
-  objectName: 
+  objectName: Grass
   description: Flat grassland
   health: 0
   energy: 0

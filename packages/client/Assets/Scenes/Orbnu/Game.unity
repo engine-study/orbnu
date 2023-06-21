@@ -5050,6 +5050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   place: {fileID: 77984102}
+  valid: {fileID: 0}
+  invalid: {fileID: 0}
 --- !u!1 &1670074355
 GameObject:
   m_ObjectHideFlags: 0
@@ -5705,6 +5707,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7847038547141376804, guid: 431fd3a899b41994698c6f1462c2ca5e, type: 3}
   m_PrefabInstance: {fileID: 1746936599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1746936605 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2284031082661841742, guid: 431fd3a899b41994698c6f1462c2ca5e, type: 3}
+  m_PrefabInstance: {fileID: 1746936599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09b02d87dd0864e47a495e7497c73c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747894732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6493,7 +6506,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placement: {fileID: 445124135}
   stats: {fileID: 8792533915767618902}
+  info: {fileID: 1746936605}
   entity: {fileID: 0}
+  terrain: {fileID: 0}
 --- !u!1 &2026134698
 GameObject:
   m_ObjectHideFlags: 0

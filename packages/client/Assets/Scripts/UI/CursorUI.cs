@@ -7,7 +7,9 @@ public class CursorUI : MonoBehaviour
     [Header("Cursor")]
     public PlacementUI placement;
     public StatsUI stats;
+    public InfoUI info;
     public Entity entity;
+    public Ground terrain;
 
     void Awake() {
         SPCursor.OnHover += UpdateHover;
@@ -29,6 +31,17 @@ public class CursorUI : MonoBehaviour
         } else {
             stats.ToggleWindow(true);
             stats.UpdateEntity(entity);
+        }
+
+
+        Ground newTerrain = MapGenerator.GetTerrainAtPosition((Vector3)newPos);
+        terrain = newTerrain;
+        
+        if(terrain == null) {
+            info.ToggleWindow(false);
+        } else {
+            info.ToggleWindow(true);
+            info.UpdateEntity(terrain);
         }
 
     }

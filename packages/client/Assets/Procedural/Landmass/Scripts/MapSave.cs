@@ -11,7 +11,7 @@ public class MapSave : ScriptableObject
     public Dictionary<Vector2, float> falloffMap;
     public Dictionary<Vector2, float> blendMap;
     public Color[] colourMap;
-    public Dictionary<Vector2, Terrain> blocks;
+    public Dictionary<Vector2, Ground> blocks;
     public Dictionary<Vector2, Entity> entities;
 
 }

@@ -14,10 +14,10 @@ public class Placement : MonoBehaviour
     void UpdatePlacement() {
         if(place is Structure) {
 
-        } else if (place is Terrain) {
+        } else if (place is Ground) {
 
         } else if(place is Unit) {
-            
+
         }
     }
 }

@@ -18,8 +18,8 @@ public class InfoUI : WindowEntity
         header.UpdateField(newEntity.stats.objectName);
         coordinate.UpdateField("[" + newEntity.gridPos.x + " , " + newEntity.gridPos.z + "]");
         text.UpdateField(newEntity.stats.description);
-        
-        if(newEntity is Terrain) {
+
+        if(newEntity is Ground) {
 
         } else if(newEntity is Structure) {
 

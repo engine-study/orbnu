@@ -23,7 +23,7 @@ public class MapGenerator : Generator
             return new Vector3(x, Mathf.Round(cursor.y), z);
         }
     }
-    
+
     public static Vector3 WorldToGrid(Vector3 world)
     {
         return Instance.WorldToGridLocal(world);
@@ -61,6 +61,26 @@ public class MapGenerator : Generator
         if (Instance.mapSave.entities.ContainsKey(key))
         {
             return Instance.mapSave.entities[key];
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    
+    public static Ground GetTerrainAtPosition(Vector3 position)
+    {
+        return GetTerrainAtPosition(PositionRound(position));
+    }
+    public static Ground GetTerrainAtPosition(Vector2 key)
+    {
+        // Debug.Log(Instance.gameObject.name);
+
+        if (Instance.mapSave.blocks.ContainsKey(key))
+        {
+            return Instance.mapSave.blocks[key];
         }
         else
         {
@@ -115,7 +135,7 @@ public class MapGenerator : Generator
         Debug.Log("Generate", gameObject);
 
         mapSave = new MapSave();
-        mapSave.blocks = new Dictionary<Vector2, Terrain>();
+        mapSave.blocks = new Dictionary<Vector2, Ground>();
         mapSave.entities = new Dictionary<Vector2, Entity>();
 
         if (randomSeed)
@@ -319,15 +339,15 @@ public class MapGenerator : Generator
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentHeight, .5f + y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentBiome * .5f, y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentBiome, .5f + y - mapData.mapHeight * .5f);
-                        Terrain block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Terrain>();
+                        Ground block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Ground>();
                         if (Application.isPlaying)
                         {
-                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Terrain>();
+                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Ground>();
                         }
                         else
                         {
 #if UNITY_EDITOR
-                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Terrain;
+                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Ground;
                             block.transform.position = position;
                             block.transform.rotation = Quaternion.identity;
                             block.transform.parent = blockParent;
@@ -379,7 +399,7 @@ public class MapGenerator : Generator
         return (int)(Vector2.Distance(grid1, grid2));
     }
 
-    public Terrain[,] GetBlocksAtPoint(Terrain[,] blocks, Vector3 centerPoint, int radius)
+    public Ground[,] GetBlocksAtPoint(Ground[,] blocks, Vector3 centerPoint, int radius)
     {
         int startX = (int)centerPoint.x - radius;
         int startY = (int)centerPoint.z - radius;
@@ -389,7 +409,7 @@ public class MapGenerator : Generator
         int sizeX = endX - startX + 1;
         int sizeY = endY - startY + 1;
 
-        Terrain[,] result = new Terrain[sizeX, sizeY];
+        Ground[,] result = new Ground[sizeX, sizeY];
 
         for (int x = startX; x <= endX; x++)
         {
@@ -402,7 +422,7 @@ public class MapGenerator : Generator
         return result;
     }
 
-    public List<Vector2> GetBlocksInCircularRadius(Dictionary<Vector2, Terrain> blocks, Vector3 centerPoint, int radius)
+    public List<Vector2> GetBlocksInCircularRadius(Dictionary<Vector2, Ground> blocks, Vector3 centerPoint, int radius)
     {
         int startX = (int)centerPoint.x - radius;
         int startY = (int)centerPoint.z - radius;
@@ -551,8 +571,8 @@ public class MapGenerator : Generator
 [System.Serializable]
 public struct TerrainType
 {
-    public TerrainMaterial blockType;
+    public GroundMaterial blockType;
     public float height;
-    public Terrain block;
+    public Ground block;
 
 }

@@ -291,7 +291,7 @@ MonoBehaviour:
   clicking: 0
   button: {fileID: 2539555080832957129}
   buttonText: {fileID: 1279236655786584264}
-  buttonImage: {fileID: 0}
+  buttonImage: {fileID: 1743551131430352102}
   linkScript: {fileID: 0}
   OnClick:
     m_PersistentCalls:
