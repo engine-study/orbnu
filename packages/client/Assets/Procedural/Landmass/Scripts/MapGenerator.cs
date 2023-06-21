@@ -10,19 +10,45 @@ public class MapGenerator : Generator
     public static Transform BlockParent { get { return Instance.blockParent; } }
 
 
-    public static Vector2 PositionToGrid(Vector3 position) {
+    public static Vector3 WorldToGrid(Vector3 world)
+    {
+        return Instance.WorldToGridLocal(world);
+    }
+
+    public Vector3 WorldToGridLocal(Vector3 world)
+    {
+        int x = (int)Mathf.Round(world.x - .5f);
+        int z = (int)Mathf.Round(world.z - .5f);
+        Vector2 key = new Vector2(x, z);
+        if (Instance.mapSave.entities.ContainsKey(key))
+        {
+            return new Vector3(x, Instance.mapSave.noiseMap[key], z);
+        }
+        else
+        {
+            return new Vector3(x, Mathf.Round(world.y), z);
+        }
+    }
+
+    public static Vector2 PositionRound(Vector3 position)
+    {
         Vector2 result = new Vector2(Mathf.Round(position.x), Mathf.Round(position.z));
         return result;
     }
-    public Entity GetEntityAtPosition(Vector3 position) {
-        return GetEntityAtPosition(PositionToGrid(position));
-    }
-    public Entity GetEntityAtPosition(Vector2 key)
+    public static Entity GetEntityAtPosition(Vector3 position)
     {
-        if (mapSave.entities.ContainsKey(key))
+        return GetEntityAtPosition(PositionRound(position));
+    }
+    public static Entity GetEntityAtPosition(Vector2 key)
+    {
+        // Debug.Log(Instance.gameObject.name);
+
+        if (Instance.mapSave.entities.ContainsKey(key))
         {
-            return mapSave.entities[key];
-        } else {
+            return Instance.mapSave.entities[key];
+        }
+        else
+        {
             return null;
         }
 
@@ -46,11 +72,14 @@ public class MapGenerator : Generator
     public Generator[] maps;
     public Generator[] regions;
 
-    void Awake() {
-        Instance = this;
+    void Awake()
+    {
+        if (mainMap)
+            Create();
     }
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
         Instance = null;
     }
 
@@ -60,13 +89,20 @@ public class MapGenerator : Generator
 
         if (mainMap)
         {
+            if (Instance != null && Instance != this)
+            {
+                Debug.LogError("Changing map");
+            }
+
             Instance = this;
         }
+
+        Debug.Log("Generate", gameObject);
 
         mapSave = new MapSave();
         mapSave.blocks = new Dictionary<Vector2, Terrain>();
         mapSave.entities = new Dictionary<Vector2, Entity>();
-        
+
         if (randomSeed)
         {
             mapData.seed = Random.Range(0, 100000000);
@@ -318,7 +354,7 @@ public class MapGenerator : Generator
 #endif
         }
 
-        
+
         return go;
 
     }
@@ -444,13 +480,6 @@ public class MapGenerator : Generator
 
     }
 
-    public Vector3 WorldToGrid(Vector3 world)
-    {
-        int x = (int)Mathf.Round(world.x - .5f);
-        int z = (int)Mathf.Round(world.z - .5f);
-        Vector2 v2 = new Vector2(x, z);
-        return new Vector3(x, mapSave.noiseMap[v2], z);
-    }
 
 
     void OnValidate()

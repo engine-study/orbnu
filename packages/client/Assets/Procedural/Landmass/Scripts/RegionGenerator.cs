@@ -51,7 +51,7 @@ public class RegionGenerator : Generator
                 Vector3 spawnPos = new Vector3(Mathf.Sin(spawnRad), 0f, Mathf.Cos(spawnRad)) * s.radius;
 
                 spawnPos += basePos;
-                spawnPos = baseGenerator.WorldToGrid(spawnPos);
+                spawnPos = baseGenerator.WorldToGridLocal(spawnPos);
                 // Debug.Log("Spawning: " + spawnPos.ToString());
 
                 SpawnPatch(p, spawnPos);
@@ -82,7 +82,7 @@ public class RegionGenerator : Generator
        
         Entity e = go.GetComponent<Entity>();
 
-        baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionToGrid(position), e);
+        baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionRound(position), e);
 
         e.gridPos = position;
         go.name = prefab.name;

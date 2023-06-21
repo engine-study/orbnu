@@ -18,9 +18,10 @@ public class CursorUI : MonoBehaviour
         SPCursor.OnCursorPosition -= OnCursorPosition;
     }
 
-    void OnCursorPosition(Vector2 newPos) {
+    void OnCursorPosition(Vector3 newPos) {
         
-        Entity newEntity = MapGenerator.Instance.GetEntityAtPosition(newPos);
+        Entity newEntity = MapGenerator.GetEntityAtPosition((Vector3)newPos);
+
         if(newEntity == null) {
             stats.ToggleWindow(false);
         } else {

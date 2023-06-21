@@ -5,12 +5,12 @@ using UnityEngine;
 public class SPCursor : MonoBehaviour
 {
     public static System.Action<Entity> OnHover;
-    public static System.Action<Vector2> OnCursorPosition;
+    public static System.Action<Vector3> OnCursorPosition;
     [Header("Cursor")]
     public bool grid;
     public Transform graphics;
     [SerializeField] Vector3 rawMousePos, mousePos, lastPos;
-    [SerializeField] Vector2 gridPos, lastGridPos;
+    [SerializeField] Vector3 gridPos, lastGridPos;
     [SerializeField] Entity hover, lastHover;
 
     // Update is called once per frame
@@ -36,7 +36,8 @@ public class SPCursor : MonoBehaviour
         graphics.position = mousePos;
 
         lastGridPos = gridPos;
-        gridPos = MapGenerator.PositionToGrid(mousePos);
+        // gridPos = MapGenerator.PositionToGrid(mousePos);
+        gridPos = MapGenerator.WorldToGrid(mousePos);
         if(gridPos != lastGridPos) {
             if(OnCursorPosition != null)
                 OnCursorPosition.Invoke(gridPos);
