@@ -2,7 +2,7 @@ import { mudConfig, resolveTableId } from "@latticexyz/world/register";
 
 export default mudConfig({
 
-  enums : {
+  enums: {
     TerrainType: ["None", "Excavated", "Filled", "Pavement", "Rock", "Mine"],
     ObjectType: ["Axe", "Statumen", "Rudus", "Nucleus", "Pavimentum"],
     ActionType: ["Axe", "Statumen", "Rudus", "Nucleus", "Pavimentum"],
@@ -14,8 +14,8 @@ export default mudConfig({
       keySchema: {},
       dataStruct: false,
       schema: {
-        width:"uint32",
-        height:"uint32",
+        width: "uint32",
+        height: "uint32",
         terrain: "bytes",
       },
     },
@@ -31,7 +31,7 @@ export default mudConfig({
     },
 
     Action: {
-      name:"Action",
+      name: "Action",
       schema: {
         actionType: "ActionType",
       },
@@ -52,8 +52,8 @@ export default mudConfig({
       },
     },
 
-    Rock:"bool",
-    Road:"bool",
+    Rock: "bool",
+    Road: "bool",
     Obstruction: "bool",
 
     Position: {

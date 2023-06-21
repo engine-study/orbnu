@@ -6,22 +6,21 @@ import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/ge
 import { addressToEntityKey } from "../addressToEntityKey.sol";
 
 contract BuildSystem is System {
-
+  
   function build(int32 x, int32 y) public {
+    
     bytes32 playerEntity = addressToEntityKey(address(_msgSender()));
     require(!Player.get(playerEntity), "already spawned");
 
     Player.set(playerEntity, true);
     Position.set(playerEntity, x, y);
-    
+
     // Health.set(playerEntity, 100);
     // Damage.set(playerEntity, 10);
   }
 
-  function traversedPositions(
-    PositionData memory start,
-    PositionData memory end
-  ) internal pure returns (PositionData[] memory) {
+  function traversedPositions(  PositionData memory start, PositionData memory end) internal pure returns (PositionData[] memory) {
+
     int32 changeX = end.x - start.x;
     int32 changeY = end.y - start.y;
 
@@ -57,5 +56,4 @@ contract BuildSystem is System {
   function abs(int x) private pure returns (int) {
     return x >= 0 ? x : -x;
   }
-
 }
