@@ -2,12 +2,6 @@ import { mudConfig, resolveTableId } from "@latticexyz/world/register";
 
 export default mudConfig({
 
-  enums: {
-    TerrainType: ["None", "Excavated", "Filled", "Pavement", "Rock", "Mine"],
-    ObjectType: ["Axe", "Statumen", "Rudus", "Nucleus", "Pavimentum"],
-    ActionType: ["Axe", "Statumen", "Rudus", "Nucleus", "Pavimentum"],
-  },
-
   tables: {
 
     MapConfig: {
@@ -30,25 +24,18 @@ export default mudConfig({
       },
     },
 
-    Action: {
-      name: "Action",
-      schema: {
-        actionType: "ActionType",
-      },
-    },
-
-    Plot: {
-      name: "Plot",
-      schema: {
-        buildings: "uint256[]", // dynamic array of entities (that should have Action component)
-        // barArray: "uint256[2]" // Store also supports static arrays
-      }
-    }
+    // Plot: {
+    //   name: "Plot",
+    //   schema: {
+    //     buildings: "uint256[]", // dynamic array of entities (that should have Action component)
+    //     // barArray: "uint256[2]" // Store also supports static arrays
+    //   },
+    // },
 
     Building: {
       name: "Building",
       schema: {
-        terrain: "bytes",
+        buildingName: "string",
       },
     },
 
@@ -64,7 +51,18 @@ export default mudConfig({
       },
     },
 
+    // AnimalTypeTable: "AnimalType",
+
   },
+
+  enums: {
+    TerrainType: ["None", "Dust", "Grass", "Forest", "Sand"],
+    NatureType: ["None", "SurfaceOre", "Uranium"],
+    BuildingType: ["Capital", "City", "CommLink", "Reactor", "Deterrent", "Storage"],
+    AnimalType: ["NONE", "DOG", "CAT", "SQUIREL"],
+  },
+
+
   modules: [
     {
       name: "KeysWithValueModule",

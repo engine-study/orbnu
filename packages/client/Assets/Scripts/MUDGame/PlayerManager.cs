@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 public class PlayerManager : MUDTable
 {
-
     protected override void Subscribe(NetworkManager nm)
     {
         var SpawnSubscription = PlayerTable.OnRecordInsert().ObserveOnMainThread().Subscribe(OnInsert);

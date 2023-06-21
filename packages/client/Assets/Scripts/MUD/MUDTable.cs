@@ -12,9 +12,6 @@ using System.Threading.Tasks;
 public abstract class MUDTable : MonoBehaviour
 {
 
-    [Header("Spawner")]
-    public string Resource;
-
     protected CompositeDisposable _disposers = new();
     protected mud.Unity.NetworkManager net;
     public Action OnAdded, OnUpdated, OnDeleted;

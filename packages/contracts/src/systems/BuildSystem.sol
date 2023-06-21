@@ -1,26 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import { System } from "@latticexyz/world/src/System.sol";
-import { MapConfig, Position, Building, PositionTableId, Player, PositionData } from "../codegen/Tables.sol";
+import { MapConfig, Position, Building, Stats, PositionTableId, Player, PositionData } from "../codegen/Tables.sol";
 import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 import { addressToEntityKey } from "../addressToEntityKey.sol";
+import { getUniqueEntity } from "@latticexyz/world/src/modules/uniqueentity/getUniqueEntity.sol";
 
 contract BuildSystem is System {
-  
-  function build(int32 x, int32 y) public {
-    
-    bytes32 playerEntity = addressToEntityKey(address(_msgSender()));
-    require(!Player.get(playerEntity), "already spawned");
 
-    Player.set(playerEntity, true);
-    Position.set(playerEntity, x, y);
+  function build(int32 x, int32 y) public {
+    bytes32 playerEntity = addressToEntityKey(address(_msgSender()));
+
+    bytes32[] memory atPosition = getKeysWithValue(PositionTableId, Position.encode(x, y));
+
+    require(Player.get(playerEntity), "Not spawned");
+    require(atPosition.length == 0, "Building on top of something");
+
+
+    bytes32 key = getUniqueEntity();
+
+    Position.set(key, x, y);
+    Building.set(key, "New Building");
 
     // Health.set(playerEntity, 100);
     // Damage.set(playerEntity, 10);
   }
 
-  function traversedPositions(  PositionData memory start, PositionData memory end) internal pure returns (PositionData[] memory) {
-
+  function traversedPositions(
+    PositionData memory start,
+    PositionData memory end
+  ) internal pure returns (PositionData[] memory) {
     int32 changeX = end.x - start.x;
     int32 changeY = end.y - start.y;
 

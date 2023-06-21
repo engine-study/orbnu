@@ -18,8 +18,8 @@ contract PostDeploy is Script {
     vm.startBroadcast(deployerPrivateKey);
 
     TerrainType O = TerrainType.None;
-    TerrainType R = TerrainType.Rock;
-    TerrainType M = TerrainType.Mine;
+    TerrainType R = TerrainType.Grass;
+    TerrainType M = TerrainType.Forest;
 
     TerrainType[12][40] memory map = [
       [O, O, O, O, O, O, O, O, O, O, O, O],
@@ -81,7 +81,7 @@ contract PostDeploy is Script {
 
         bytes32 entity = positionToEntityKey(x,y);
 
-        if(terrainType == TerrainType.Rock) {
+        if(terrainType == TerrainType.Forest) {
           Rock.set(world, entity, true);
           Position.set(world, entity, positionX, positionY);
           Obstruction.set(world, entity, true);
