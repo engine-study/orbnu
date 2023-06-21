@@ -12,7 +12,8 @@ public class MapGenerator : Generator
 
 
     public static Vector2 PositionToGrid(Vector3 position) {
-        return new Vector2(Mathf.Round(position.x), Mathf.Round(position.z));
+        Vector2 result = new Vector2(Mathf.Round(position.x), Mathf.Round(position.z));
+        return result;
     }
     public Entity GetEntityAtPosition(Vector3 position) {
         return GetEntityAtPosition(PositionToGrid(position));
@@ -45,6 +46,14 @@ public class MapGenerator : Generator
     public MapDisplay display;
     public Generator[] maps;
     public Generator[] regions;
+
+    void Awake() {
+        Instance = this;
+    }
+
+    void OnDestroy() {
+        Instance = null;
+    }
 
     public override void Generate()
     {
@@ -217,6 +226,7 @@ public class MapGenerator : Generator
     void Spawn()
     {
         mapSave.blocks = new Dictionary<Vector2, Terrain>();
+        mapSave.entities = new Dictionary<Vector2, Entity>();
         mapSave.colourMap = new Color[mapData.mapWidth + mapData.mapHeight];
 
         for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)
@@ -302,9 +312,11 @@ public class MapGenerator : Generator
             go.transform.rotation = rotation;
             go.transform.parent = parent;
 #else
-        block = Instantiate(spawnGO, position, rotation, parent);
+            go = Instantiate(spawnGO, position, rotation, parent);
 #endif
         }
+
+        
         return go;
 
     }

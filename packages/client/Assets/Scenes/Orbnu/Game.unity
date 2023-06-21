@@ -6321,6 +6321,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: 1
   graphics: {fileID: 369135046}
+  rawMousePos: {x: 0, y: 0, z: 0}
+  mousePos: {x: 0, y: 0, z: 0}
+  lastPos: {x: 0, y: 0, z: 0}
+  gridPos: {x: 0, y: 0}
+  lastGridPos: {x: 0, y: 0}
+  hover: {fileID: 0}
+  lastHover: {fileID: 0}
 --- !u!114 &2003422116
 MonoBehaviour:
   m_ObjectHideFlags: 0

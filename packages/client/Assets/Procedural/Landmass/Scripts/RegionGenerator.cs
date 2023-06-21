@@ -84,6 +84,9 @@ public class RegionGenerator : Generator
         GameObject go = MapGenerator.SpawnObject(prefab, position, Quaternion.identity,transform);
        
         Entity e = go.GetComponent<Entity>();
+
+        MapGenerator.Instance.mapSave.entities[MapGenerator.PositionToGrid(position)] = e;
+        
         e.gridPos = position;
         go.name = prefab.name;
         spawnedObjects.Add(go);

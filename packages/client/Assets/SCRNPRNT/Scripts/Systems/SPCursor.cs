@@ -6,11 +6,12 @@ public class SPCursor : MonoBehaviour
 {
     public static System.Action<Entity> OnHover;
     public static System.Action<Vector2> OnCursorPosition;
+    [Header("Cursor")]
     public bool grid;
     public Transform graphics;
-    Vector3 rawMousePos, mousePos, lastPos;
-    Vector2 gridPos, lastGridPos;
-    Entity hover, lastHover;
+    [SerializeField] Vector3 rawMousePos, mousePos, lastPos;
+    [SerializeField] Vector2 gridPos, lastGridPos;
+    [SerializeField] Entity hover, lastHover;
 
     // Update is called once per frame
     void Update()
@@ -34,9 +35,11 @@ public class SPCursor : MonoBehaviour
 
         graphics.position = mousePos;
 
+        lastGridPos = gridPos;
         gridPos = MapGenerator.PositionToGrid(mousePos);
         if(gridPos != lastGridPos) {
-            OnCursorPosition?.Invoke(gridPos);
+            if(OnCursorPosition != null)
+                OnCursorPosition.Invoke(gridPos);
         }
 
         if(mousePos != lastPos) {
