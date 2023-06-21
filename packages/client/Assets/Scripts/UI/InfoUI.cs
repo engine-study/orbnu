@@ -15,6 +15,10 @@ public class InfoUI : WindowEntity
     {
         base.UpdateEntity(newEntity);
 
+        header.UpdateField(newEntity.stats.objectName);
+        coordinate.UpdateField("[" + newEntity.gridPos.x + " , " + newEntity.gridPos.z + "]");
+        text.UpdateField(newEntity.stats.description);
+        
         if(newEntity is Terrain) {
 
         } else if(newEntity is Structure) {

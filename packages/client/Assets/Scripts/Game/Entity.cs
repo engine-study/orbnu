@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    
+    public Stats stats;
     public Vector3 gridPos;
 
     public virtual void OnDrawGizmosSelected() {

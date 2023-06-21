@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1999029216429036224, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e21a9410796d5b42981de52ba655eb0, type: 2}
     - target: {fileID: 3218600360954857297, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -58,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7047185220dff154ca268ec83bae7603, type: 2}
     - target: {fileID: 6199996175438230762, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
       propertyPath: m_Name
-      value: BlockDust Variant
+      value: BlockDust
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

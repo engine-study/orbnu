@@ -25,7 +25,7 @@ public class SPButton : SPWindowSelectable {
     public override void Init() {
         base.Init(); 
 
-        buttonText.fontSize = Theme.textSize;
+        // buttonText.fontSize = Theme.textSize;
 
     }
 

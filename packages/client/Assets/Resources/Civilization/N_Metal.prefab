@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf6fd0fca77b59408a4ac7070c17e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 582ffd225e846ef4f9bb51dce875de08, type: 2}
   gridPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &1035671700911528174
 PrefabInstance:

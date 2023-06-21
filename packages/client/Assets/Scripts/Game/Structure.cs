@@ -5,7 +5,6 @@ using UnityEngine;
 public class Structure : Entity
 {
 
-    public Stats stats;
     public MeshRenderer [] mesh;
 
     public override void OnDrawGizmosSelected() {

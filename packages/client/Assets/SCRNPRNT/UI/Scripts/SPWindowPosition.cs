@@ -15,7 +15,10 @@ public class SPWindowPosition : MonoBehaviour
     public void SetFollow(Transform newFollow) {
         follow = newFollow;
         enabled = follow != null;
-        UpdatePosition();
+
+        if(enabled) {
+            UpdatePosition();
+        }
     }    
 
     void Update() {
