@@ -10,7 +10,8 @@ public class MapGenerator : Generator
     public static Transform BlockParent { get { return Instance.blockParent; } }
 
 
-    public static Vector3 CursorToGrid(Vector3 cursor) {
+    public static Vector3 CursorToGrid(Vector3 cursor)
+    {
         int x = (int)Mathf.Round(cursor.x);
         int z = (int)Mathf.Round(cursor.z);
         Vector2 key = new Vector2(x, z);
@@ -35,9 +36,9 @@ public class MapGenerator : Generator
         int z = (int)Mathf.Round(world.z - .5f);
         Vector2 key = new Vector2(x, z);
 
-        if (Instance.mapSave.noiseMap.ContainsKey(key))
+        if (mapSave.noiseMap.ContainsKey(key))
         {
-            return new Vector3(x, Instance.mapSave.noiseMap[key], z);
+            return new Vector3(x, mapSave.noiseMap[key], z);
         }
         else
         {
@@ -69,7 +70,7 @@ public class MapGenerator : Generator
 
     }
 
-    
+
     public static Ground GetTerrainAtPosition(Vector3 position)
     {
         return GetTerrainAtPosition(PositionRound(position));
@@ -339,25 +340,25 @@ public class MapGenerator : Generator
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentHeight, .5f + y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(x - mapData.mapWidth * .5f, mapRegions.regions [i].height * .75f + currentBiome * .5f, y - mapData.mapHeight * .5f);
                         // Vector3 position = new Vector3(.5f + x - mapData.mapWidth * .5f, currentBiome, .5f + y - mapData.mapHeight * .5f);
-                        Ground block = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Ground>();
+                        Ground newGround = SpawnObject(mapRegions.regions[i].block.gameObject, position, Quaternion.identity, blockParent).GetComponent<Ground>();
                         if (Application.isPlaying)
                         {
-                            block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Ground>();
+                            newGround = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Ground>();
                         }
                         else
                         {
 #if UNITY_EDITOR
-                            block = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Ground;
-                            block.transform.position = position;
-                            block.transform.rotation = Quaternion.identity;
-                            block.transform.parent = blockParent;
+                            newGround = UnityEditor.PrefabUtility.InstantiatePrefab(mapRegions.regions[i].block) as Ground;
+                            newGround.transform.position = position;
+                            newGround.transform.rotation = Quaternion.identity;
+                            newGround.transform.parent = blockParent;
 #else
 							block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
 #endif
                         }
 
-                        block.gridPos = new Vector3(x, currentHeight, y);
-                        mapSave.blocks[new Vector2(x, y)] = block;
+                        newGround.gridPos = new Vector3(x, currentHeight, y);
+                        AddGround(new Vector2(x, y), newGround);
                         // Block block = Instantiate(mapRegions.regions[i].block, position, Quaternion.identity, blockParent).GetComponent<Block>();
                         // block.SetMaterial(mapRegions.regions[i].blockType);
 
@@ -367,6 +368,19 @@ public class MapGenerator : Generator
             }
         }
 
+    }
+
+    public void AddEntity(Vector2 position, Entity entity)
+    {
+        Debug.Log("Entity: " + entity.gameObject.name);
+        Instance.mapSave.entities[position] = entity;
+        // baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionRound(position), e);
+    }
+
+    public void AddGround(Vector2 position, Ground ground)
+    {
+        Debug.Log("Ground: " + ground.gameObject.name);
+        Instance.mapSave.blocks[position] = ground;
     }
 
     public static GameObject SpawnObject(GameObject spawnGO, Vector3 position, Quaternion rotation, Transform parent)

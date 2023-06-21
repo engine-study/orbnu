@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6598274146218844512}
   - component: {fileID: -1260108300301675786}
   m_Layer: 0
-  m_Name: U_ShipScout
+  m_Name: U_Starhopper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Children:
   - {fileID: 2039276375309374846}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-1260108300301675786
 MonoBehaviour:
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b3f3c835e88d74b92424716a4ae1d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 8803aeab0b7bedb4e9fceed7e4925248, type: 2}
   gridPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &2001373337885094549
 PrefabInstance:

@@ -82,7 +82,8 @@ public class RegionGenerator : Generator
        
         Entity e = go.GetComponent<Entity>();
 
-        baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionRound(position), e);
+        
+        baseGenerator.AddEntity(MapGenerator.PositionRound(position), e);
 
         e.gridPos = position;
         go.name = prefab.name;

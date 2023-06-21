@@ -15,11 +15,19 @@ public class StatsUI : WindowEntity
     {
         base.UpdateEntity(newEntity);
 
-        Structure structure = newEntity as Structure;
-        if(structure) {
-            healthStat.SetValue(structure.stats.health.ToString());
-            attackStat.SetValue(structure.stats.attack.ToString());
-            nameText.text = structure.stats.objectName;
+        healthStat.SetValue(newEntity.stats.health.ToString());
+        attackStat.SetValue(newEntity.stats.attack.ToString());
+        nameText.text = newEntity.stats.objectName;
+
+        if(newEntity is Structure) {
+            Structure structure = newEntity as Structure;
+
+        } else if(newEntity is Resource) {
+            Resource resource = newEntity as Resource;
+
+        } else if (newEntity is Unit) {
+            Unit unit = newEntity as Unit;
+
         } else {
             ToggleWindowClose();
         }
