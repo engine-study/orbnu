@@ -6,7 +6,6 @@ public class MapGenerator : Generator
 {
 
     public enum DrawMode { None, NoiseMap, ColourMap, Falloff, Blend, Blocks, Biome };
-
     public static MapGenerator Instance;
     public static Transform BlockParent { get { return Instance.blockParent; } }
 
@@ -65,7 +64,9 @@ public class MapGenerator : Generator
         }
 
         mapSave = new MapSave();
-
+        mapSave.blocks = new Dictionary<Vector2, Terrain>();
+        mapSave.entities = new Dictionary<Vector2, Entity>();
+        
         if (randomSeed)
         {
             mapData.seed = Random.Range(0, 100000000);
@@ -116,6 +117,7 @@ public class MapGenerator : Generator
             if (g == this)
                 continue;
 
+            g.baseGenerator = mainMap ? this : baseGenerator;
             g.Generate();
             Merge(this, g, new Vector2(g.transform.position.x, g.transform.position.z));
         }
@@ -127,6 +129,7 @@ public class MapGenerator : Generator
             if (g == this)
                 continue;
 
+            g.baseGenerator = mainMap ? this : baseGenerator;
             g.Generate();
         }
 
@@ -225,8 +228,7 @@ public class MapGenerator : Generator
 
     void Spawn()
     {
-        mapSave.blocks = new Dictionary<Vector2, Terrain>();
-        mapSave.entities = new Dictionary<Vector2, Entity>();
+
         mapSave.colourMap = new Color[mapData.mapWidth + mapData.mapHeight];
 
         for (int y = (int)(mapData.mapHeight * -.5f); y < mapData.mapHeight * .5f; y++)

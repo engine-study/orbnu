@@ -13,12 +13,9 @@ public class RegionGenerator : Generator
 
     [Header("Debug")]
     public List<GameObject> spawnedObjects;
-
     public override void Generate()
     {
         base.Generate();
-
-
 
     }
 
@@ -54,7 +51,7 @@ public class RegionGenerator : Generator
                 Vector3 spawnPos = new Vector3(Mathf.Sin(spawnRad), 0f, Mathf.Cos(spawnRad)) * s.radius;
 
                 spawnPos += basePos;
-                spawnPos = MapGenerator.Instance.WorldToGrid(spawnPos);
+                spawnPos = baseGenerator.WorldToGrid(spawnPos);
                 // Debug.Log("Spawning: " + spawnPos.ToString());
 
                 SpawnPatch(p, spawnPos);
@@ -85,8 +82,8 @@ public class RegionGenerator : Generator
        
         Entity e = go.GetComponent<Entity>();
 
-        MapGenerator.Instance.mapSave.entities[MapGenerator.PositionToGrid(position)] = e;
-        
+        baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionToGrid(position), e);
+
         e.gridPos = position;
         go.name = prefab.name;
         spawnedObjects.Add(go);

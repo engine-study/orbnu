@@ -8,6 +8,7 @@ public class PostGameUI : PhaseUI
     {
         base.ToggleWindow(toggle);
 
-        
+        SPCamera.SetFOVGlobal(10f);
+
     }
 }

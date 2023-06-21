@@ -5,6 +5,8 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
 
+    public MapGenerator baseGenerator;
+
     public void Create() {
         Generate();
         Render();

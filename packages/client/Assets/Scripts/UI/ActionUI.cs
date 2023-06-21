@@ -14,7 +14,7 @@ public class ActionUI : PhaseUI
         base.ToggleWindow(toggle);
 
         worldUI.SetActive(toggle);
-        SPCamera.SetFOVGlobal(10f);
+        SPCamera.SetFOVGlobal(5f);
 
     }
 
