@@ -26,12 +26,14 @@ public class MUDEntity : MonoBehaviour
     }
 
     protected virtual void Awake() {
-
+        if(Entities == null) {
+            Entities = new Dictionary<string, MUDEntity>();
+        }
     }
 
         
     public MUDComponent GetMUDComponent(MUDComponent componentType) {
-        
+
         for(int i = 0; i < Components.Length; i++) {
             if(Components[i].GetType() == componentType.GetType())
                 return Components[i];
@@ -41,10 +43,8 @@ public class MUDEntity : MonoBehaviour
     }
 
     public static MUDEntity GetEntity(string Key) {return Entities[Key];}
+    public static MUDEntity GetEntitySafe(string Key) {MUDEntity e; Entities.TryGetValue(Key, out e); return e;}
     public static void ToggleEntity(bool toggle, MUDEntity entity) {
-        if(Entities == null) {
-            Entities = new Dictionary<string, MUDEntity>();
-        }
 
         if(toggle) {
             Entities.Add(entity.Key, entity);

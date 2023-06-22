@@ -17,7 +17,7 @@ public abstract class MUDTableToComponent : MUDTable
     [Header("Table")]
     public MUDComponent componentType;
     public Dictionary<string, MUDEntity> EntityComponents;
-    public Dictionary<string, MUDComponent> Components;
+    // public Dictionary<string, MUDComponent> Components;
 
     protected override void Awake()
     {
@@ -65,11 +65,16 @@ public abstract class MUDTableToComponent : MUDTable
             Debug.LogError("No key found in " + gameObject.name, gameObject);
         }
 
-        MUDEntity entity = MUDEntity.GetEntity(entityKey);
+        MUDEntity entity = MUDEntity.GetEntitySafe(entityKey);
 
         //create the entity if it doesn't exist
-        if(entity == null && SpawnIfNoEntityFound) {
-            SpawnEntityPrefab(entityKey, componentType.prefab);
+        if(entity == null) {
+            if(SpawnIfNoEntityFound) {
+                SpawnEntityPrefab(entityKey, componentType.prefab);
+            } else {
+                //entity hasn't spawned yet
+                return;
+            }
         }
 
         //find the component on that entity
@@ -108,7 +113,7 @@ public abstract class MUDTableToComponent : MUDTable
             //spawn the entity if it doesnt exist
             newEntity = Instantiate(prefab,Vector3.up * -1000f, Quaternion.identity);
             EntityComponents.Add(newKey, newEntity);
-            Components.Add(newKey, newEntity.GetMUDComponent(componentType));
+            // Components.Add(newKey, newEntity.GetMUDComponent(componentType));
             newEntity.SetMudKey(newKey);
             MUDEntity.ToggleEntity(true, newEntity);
         }

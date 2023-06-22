@@ -5358,7 +5358,7 @@ MonoBehaviour:
   jsonRpcUrl: http://localhost:8545
   wsRpcUrl: ws://localhost:8545
   pk: 
-  chainId: 0
+  chainId: 31337
   contractAddress: 
   disableCache: 1
 --- !u!114 &1715349779 stripped
