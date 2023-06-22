@@ -30,7 +30,7 @@ public class PlayerManager : MUDTableToComponent
         {
             // spawn the player
             Debug.Log("Spawning TX...");
-            await nm.worldSend.TxExecute<SpawnFunction>(0, 20);
+            await nm.worldSend.TxExecute<SpawnFunction>(0, 0);
 
         }
 
