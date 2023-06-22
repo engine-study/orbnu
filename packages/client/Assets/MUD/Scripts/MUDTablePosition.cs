@@ -30,7 +30,6 @@ public class MUDTablePosition : MUDTableUpdate
 
         positionComp.position = new Vector2((float)tablueValue.x, (float)tablueValue.y);
         
-
     }
 
 

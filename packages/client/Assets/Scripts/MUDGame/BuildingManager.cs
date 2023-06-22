@@ -10,8 +10,18 @@ using UniRx;
 using IWorld.ContractDefinition;
 using mud.Client;
 
-public class BuildingManager : MUDTableToPrefab
-{
+public class BuildingManager : MUDTableToPrefab {
+
+    public BuildingManager Instance;
+
+    protected override void Awake() {
+        base.Awake();
+        Instance = this;
+    }
+    protected override void OnDestroy() {
+        base.OnDestroy();
+        Instance = null;
+    }
 
     protected override void Subscribe(mud.Unity.NetworkManager nm)
     {
