@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class CursorUI : MonoBehaviour
 {
+    public static CursorUI Instance;
+    public static Entity CursorEntity {get{return Instance.entity;}}
+    public static Ground CursorGround {get{return Instance.terrain;}}
+    public static System.Action CursorUpdate;
+
     [Header("Cursor")]
     public PlacementUI placement;
     public StatsUI stats;
@@ -12,11 +17,13 @@ public class CursorUI : MonoBehaviour
     public Ground terrain;
 
     void Awake() {
+        Instance = this;
         SPCursor.OnHover += UpdateHover;
         SPCursor.OnGridPosition += OnCursorPosition;
     }
 
     void OnDestroy() {
+        Instance = null;
         SPCursor.OnHover -= UpdateHover;
         SPCursor.OnGridPosition -= OnCursorPosition;
     }
@@ -33,7 +40,6 @@ public class CursorUI : MonoBehaviour
             stats.UpdateEntity(entity);
         }
 
-
         Ground newTerrain = MapGenerator.GetTerrainAtPosition((Vector3)newPos);
         terrain = newTerrain;
         
@@ -43,6 +49,8 @@ public class CursorUI : MonoBehaviour
             info.ToggleWindow(true);
             info.UpdateEntity(terrain);
         }
+
+        CursorUpdate?.Invoke();
 
     }
 

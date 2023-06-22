@@ -4,8 +4,44 @@ using UnityEngine;
 
 public class Placement : MonoBehaviour
 {
+    [Header("Placement")]
     public Entity place;
     public GameObject valid, invalid;
+    public bool canPlace;
+
+    void Awake() {
+        CursorUI.CursorUpdate += UpdateCursor;
+    }
+
+    void OnDestroy() {
+        CursorUI.CursorUpdate -= UpdateCursor;
+    }
+
+    public void UpdateCursor() {
+        canPlace = ValidSpot();
+        
+        valid.SetActive(canPlace);
+        invalid.SetActive(!canPlace);
+        
+        transform.position = SPCursor.GridPos;
+
+    }
+    public bool ValidSpot() {
+
+        Ground groundAt = CursorUI.CursorGround;
+        if(groundAt == null || groundAt.material == GroundMaterial.Dust) {
+            Debug.Log("No ground");
+            return false;
+        }
+
+        Entity entity = CursorUI.CursorEntity;
+        if(entity != null) {
+            Debug.Log("Entity");
+            return false;
+        }
+
+        return true;
+    }
 
     void Update() {
         UpdatePlacement();
@@ -14,7 +50,6 @@ public class Placement : MonoBehaviour
 
     void UpdatePlacement() {
 
-        transform.position = SPCursor.GridPos;
 
         if(place is Structure) {
 
@@ -27,7 +62,7 @@ public class Placement : MonoBehaviour
 
     void UpdateInput() {
         if(Input.GetMouseButtonDown(0)) {
-            
+            // BuildingManager.
         }
     }
 }

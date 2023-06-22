@@ -6,6 +6,8 @@ pragma solidity >=0.8.0;
 import { MapConfig, MapConfigTableId } from "./tables/MapConfig.sol";
 import { Player, PlayerTableId } from "./tables/Player.sol";
 import { Stats, StatsData, StatsTableId } from "./tables/Stats.sol";
+import { TurnNumber, TurnNumberTableId } from "./tables/TurnNumber.sol";
+import { BlockInfo, BlockInfoTableId } from "./tables/BlockInfo.sol";
 import { Building, BuildingTableId } from "./tables/Building.sol";
 import { Rock, RockTableId } from "./tables/Rock.sol";
 import { Road, RoadTableId } from "./tables/Road.sol";

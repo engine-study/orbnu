@@ -24,6 +24,9 @@ export default mudConfig({
       },
     },
 
+    TurnNumber: "uint32",
+    BlockInfo: "uint32",
+
     // Plot: {
     //   name: "Plot",
     //   schema: {
@@ -68,6 +71,11 @@ export default mudConfig({
       name: "KeysWithValueModule",
       root: true,
       args: [resolveTableId("Position")],
+    },
+    {
+      name: "KeysWithValueModule",
+      root: true,
+      args: [resolveTableId("Building")],
     },
 
   ],

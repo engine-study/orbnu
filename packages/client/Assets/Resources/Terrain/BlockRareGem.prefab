@@ -168,6 +168,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 582ffd225e846ef4f9bb51dce875de08, type: 2}
+    - target: {fileID: 1999029216429036224, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
+      propertyPath: material
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3218600360954857297, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -218,7 +222,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f27dca4ce06ba184dadd7c27fd9edb35, type: 2}
     - target: {fileID: 6199996175438230762, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
       propertyPath: m_Name
-      value: BlockRock
+      value: BlockRareGem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

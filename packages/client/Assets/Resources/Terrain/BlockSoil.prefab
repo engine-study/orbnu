@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 11400000, guid: 92aa1d42261b3564297914f50cb39596, type: 2}
+    - target: {fileID: 1999029216429036224, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
+      propertyPath: material
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3218600360954857297, guid: b3ca53b36af48794cbe3c04f492f6602, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 import { System } from "@latticexyz/world/src/System.sol";
-import { MapConfig, Position, Building, Stats, PositionTableId, Player, PositionData } from "../codegen/Tables.sol";
+import { MapConfig, Position, Building, BlockInfo, Stats, PositionTableId, Player, PositionData } from "../codegen/Tables.sol";
 import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 import { addressToEntityKey } from "../addressToEntityKey.sol";
 import { getUniqueEntity } from "@latticexyz/world/src/modules/uniqueentity/getUniqueEntity.sol";
@@ -21,10 +21,20 @@ contract BuildSystem is System {
 
     Position.set(key, x, y);
     Building.set(key, "New Building");
+    BlockInfo.set(key, uint32(block.number));
+    
 
     // Health.set(playerEntity, 100);
     // Damage.set(playerEntity, 10);
   }
+
+
+
+
+
+
+
+
 
   function traversedPositions(
     PositionData memory start,
