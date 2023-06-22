@@ -22,7 +22,7 @@ public class Placement : MonoBehaviour
         
         valid.SetActive(canPlace);
         invalid.SetActive(!canPlace);
-        
+
         transform.position = SPCursor.GridPos;
 
     }
@@ -30,13 +30,13 @@ public class Placement : MonoBehaviour
 
         Ground groundAt = CursorUI.CursorGround;
         if(groundAt == null || groundAt.material == GroundMaterial.Dust) {
-            Debug.Log("No ground");
+            // Debug.Log("No ground");
             return false;
         }
 
         Entity entity = CursorUI.CursorEntity;
         if(entity != null) {
-            Debug.Log("Entity");
+            // Debug.Log("Entity");
             return false;
         }
 

@@ -5318,6 +5318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1703843817}
+  - component: {fileID: 1703843818}
   m_Layer: 0
   m_Name: MUD
   m_TagString: Untagged
@@ -5343,6 +5344,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703843818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703843816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c2f0f44d7cc4c3abe5f498cfeca6be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonRpcUrl: http://localhost:8545
+  wsRpcUrl: ws://localhost:8545
+  pk: 
+  chainId: 0
+  contractAddress: 
+  disableCache: 1
 --- !u!114 &1715349779 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1279236655786584264, guid: 02d125ec1cf25ee47a4d3cb09fd9abb5, type: 3}

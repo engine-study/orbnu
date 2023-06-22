@@ -17,13 +17,10 @@ public abstract class MUDTable : MonoBehaviour
     protected CompositeDisposable _disposers = new();
     protected mud.Unity.NetworkManager net;
     public Action OnAdded, OnUpdated, OnDeleted;
-    protected virtual void Awake() {
+    protected virtual void Awake()
+    {
 
     }
-    protected virtual void OnDestroy() {
-        _disposers?.Dispose();
-    }
-
     protected virtual void Start()
     {
         Debug.Log(gameObject.name + " Start");
@@ -32,6 +29,11 @@ public abstract class MUDTable : MonoBehaviour
         net.OnNetworkInitialized += InitTable;
     }
 
+    protected virtual void OnDestroy()
+    {
+        _disposers?.Dispose();
+        net.OnNetworkInitialized -= InitTable;
+    }
 
     // var SpawnSubscription = table.OnRecordInsert().ObserveOnMainThread().Subscribe(OnUpdateTable);
     // _disposers.Add(SpawnSubscription);

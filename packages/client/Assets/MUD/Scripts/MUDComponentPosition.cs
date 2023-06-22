@@ -16,6 +16,7 @@ public class MUDComponentPosition : MUDComponent
         if (tablePosition == null)
         {
             Debug.LogError("No position on " + entity.name);
+            return;
             // yield break;
         }
 
