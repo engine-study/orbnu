@@ -62,7 +62,7 @@ public class Placement : MonoBehaviour
 
     void UpdateInput() {
         if(Input.GetMouseButtonDown(0)) {
-            // BuildingManager.
+            BuildingManager.Instance.Build(new Vector2(SPCursor.GridPos.x, SPCursor.GridPos.z));
         }
     }
 }

@@ -9,6 +9,7 @@ using mud.Unity;
 using UniRx;
 using IWorld.ContractDefinition;
 using mud.Client;
+using Cysharp.Threading.Tasks;
 
 public class BuildingManager : MUDTableToComponent {
 
@@ -51,6 +52,23 @@ public class BuildingManager : MUDTableToComponent {
         newComponent.buildingName = currentValue.buildingName;
         return null;
 
+    }
+
+    public void Build(Vector2 position) {
+        SendBuildTX(System.Convert.ToInt32(position.x), System.Convert.ToInt32(position.y)).Forget();
+    }
+
+    private async UniTaskVoid SendBuildTX(int x, int y)
+    {
+        try
+        {
+            // function moveFrom(int32 startX, int32 startY, int32 x, int32 y) public {
+            await NetworkManager.Instance.worldSend.TxExecute<BuildFunction>(x, y);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogException(ex);
+        }
     }
 
 }
