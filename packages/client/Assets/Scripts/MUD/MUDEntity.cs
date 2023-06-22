@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MUDEntity : MonoBehaviour
 {
-    [Header("Entity")]
-    public string mudKey;
-    public bool isLocal;
+    public string Key{get{return mudKey;}}
+    [Header("MUD")]
+    [SerializeField] protected string mudKey;
+    [SerializeField] protected bool isLocal;
+    [SerializeField] protected MUDComponent [] components;
 
     public void SetMudKey(string newKey) {
         mudKey = newKey;
@@ -16,4 +18,9 @@ public class MUDEntity : MonoBehaviour
         isLocal = newValue;
     }
 
+    protected virtual void Start() {
+        foreach(MUDComponent c in components) {
+            c.Init(this);
+        }
+    }
 }

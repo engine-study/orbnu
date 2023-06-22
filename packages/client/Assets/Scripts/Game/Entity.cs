@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public class Entity : MUDEntity
 {
+    
+    [Header("Entity")]
     public Stats stats;
     public Vector3 gridPos;
 

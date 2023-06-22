@@ -4262,7 +4262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328552d24d0575b4d91e2a0907cb3e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Resource: 
+  componentPrefab: {fileID: 0}
+  components: []
 --- !u!1001 &1347159232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,19 +7,19 @@ using System.Collections;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using System.Threading.Tasks;
 
-public class PlayerManager : MUDTable
+public class PlayerManager : MUDTableToPrefab
 {
     protected override void Subscribe(NetworkManager nm)
     {
-        var SpawnSubscription = PlayerTable.OnRecordInsert().ObserveOnMainThread().Subscribe(OnInsert);
+        var SpawnSubscription = PlayerTable.OnRecordInsert().ObserveOnMainThread().Subscribe(OnInsertRecord);
         _disposers.Add(SpawnSubscription);
 
         var UpdateSubscription = ObservableExtensions.Subscribe(PlayerTable.OnRecordUpdate().ObserveOnMainThread(),
-                OnUpdate);
+                OnUpdateRecord);
         _disposers.Add(UpdateSubscription);
     }
 
-    protected override async void Spawn(NetworkManager nm)
+    protected override async void InitTable(NetworkManager nm)
     {
         Debug.Log("PLAYER MANAGER SPAWN");
 
@@ -34,14 +34,14 @@ public class PlayerManager : MUDTable
 
         }
 
-        base.Spawn(nm);
+        base.InitTable(nm);
 
     }
 
 
-    protected override void OnInsert<T>(T tableUpdate)
+    protected override void OnInsertRecord<T>(T tableUpdate)
     {
-        base.OnInsert(tableUpdate);
+        base.OnInsertRecord(tableUpdate);
 
         PlayerTableUpdate update = tableUpdate as PlayerTableUpdate;
 
@@ -56,9 +56,9 @@ public class PlayerManager : MUDTable
 
     }
 
-    protected override void OnUpdate<T>(T tableUpdate)
+    protected override void OnUpdateRecord<T>(T tableUpdate)
     {
-        base.OnUpdate(tableUpdate);
+        base.OnUpdateRecord(tableUpdate);
 
         PlayerTableUpdate update = tableUpdate as PlayerTableUpdate;
 

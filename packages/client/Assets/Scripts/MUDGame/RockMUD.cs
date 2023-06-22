@@ -50,7 +50,6 @@ public class RockMUD : MonoBehaviour
                 OnChainPositionUpdate);
         _disposers.Add(RockSub);
 
-
     }
 
     void Update() {
