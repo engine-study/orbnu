@@ -40,9 +40,11 @@ public class MUDEntity : MonoBehaviour
 
     protected virtual void Init(mud.Unity.NetworkManager nm)
     {
-        foreach (MUDComponent c in components)
-        {
-            c.Init(this);
+        for(int i = 0; i < components.Length; i++) {
+            //copy the scriptable object (so we don't write to the original)
+            components[i] = Instantiate(components[i]);
+            components[i].Init(this);
         }
+    
     }
 }
