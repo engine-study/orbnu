@@ -24,6 +24,7 @@ export default mudConfig({
       },
     },
 
+    Trigger: "uint32",
     TurnNumber: "uint32",
     BlockInfo: "uint32",
 

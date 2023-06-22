@@ -10,13 +10,14 @@ using UniRx;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using System.Threading.Tasks;
 
+public enum TableEvent { Insert, Update, Delete }
 public abstract class MUDTable : MonoBehaviour
 {
-
-
+    
     protected CompositeDisposable _disposers = new();
     protected mud.Unity.NetworkManager net;
     public Action OnAdded, OnUpdated, OnDeleted;
+
     protected virtual void Awake()
     {
 
@@ -63,6 +64,7 @@ public abstract class MUDTable : MonoBehaviour
     {
 
     }
+
 
 
 }

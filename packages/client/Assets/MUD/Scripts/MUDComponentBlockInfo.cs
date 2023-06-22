@@ -9,7 +9,7 @@ public class MUDComponentBlockInfo : MUDComponent
     [Header("BlockInfo")]
     public int blockNumber;
 
-    public override void UpdateFromTable() {
+    public override void InitFromTable() {
         
         var table = BlockInfoTable.GetTableValue(Entity.Key);
 

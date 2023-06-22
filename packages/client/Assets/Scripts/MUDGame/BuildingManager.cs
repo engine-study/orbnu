@@ -10,7 +10,7 @@ using UniRx;
 using IWorld.ContractDefinition;
 using mud.Client;
 
-public class BuildingManager : MUDTableToPrefab {
+public class BuildingManager : MUDTableToComponent {
 
     public BuildingManager Instance;
 
@@ -34,41 +34,23 @@ public class BuildingManager : MUDTableToPrefab {
 
     }
 
-    protected override async void InitTable(NetworkManager nm)
+    protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as BuildingTableUpdate).Key;}
+
+    protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
     {
-
-        base.InitTable(nm);
-
-    }
-
-    protected override void OnInsertRecord<T>(T tableUpdate)
-    {
-        base.OnInsertRecord(tableUpdate);
-
         BuildingTableUpdate update = tableUpdate as BuildingTableUpdate;
 
         var currentValue = update.TypedValue.Item1;
         if (currentValue == null)
         {
             Debug.LogError("No currentValue");
-            return;
-        }
-    }
-
-    protected override void OnUpdateRecord<T>(T tableUpdate)
-    {
-        base.OnUpdateRecord(tableUpdate);
-
-        BuildingTableUpdate update = tableUpdate as BuildingTableUpdate;
-
-        var currentValue = update.TypedValue.Item1;
-        if (currentValue == null)
-        {
-            Debug.LogError("No currentValue");
-            return;
+            return null;
         }
 
-    }
+        // MUDComponent newComponent = Instantiate(componentType) as MUDComponent;
 
+        return null;
+
+    }
 
 }

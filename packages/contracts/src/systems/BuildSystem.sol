@@ -22,7 +22,6 @@ contract BuildSystem is System {
     Position.set(key, x, y);
     Building.set(key, "New Building");
     BlockInfo.set(key, uint32(block.number));
-    
 
     // Health.set(playerEntity, 100);
     // Damage.set(playerEntity, 10);

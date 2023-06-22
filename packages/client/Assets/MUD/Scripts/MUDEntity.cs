@@ -5,6 +5,9 @@ using UnityEngine;
 public class MUDEntity : MonoBehaviour
 {
     public string Key { get { return mudKey; } }
+    public  MUDComponent[] Components { get { return components; } }
+    public static Dictionary<string, MUDEntity> Entities;
+
     [Header("MUD")]
     [SerializeField] protected string mudKey;
     [SerializeField] protected bool isLocal;
@@ -20,6 +23,34 @@ public class MUDEntity : MonoBehaviour
     public void SetIsLocal(bool newValue)
     {
         isLocal = newValue;
+    }
+
+    protected virtual void Awake() {
+
+    }
+
+        
+    public MUDComponent GetMUDComponent(MUDComponent componentType) {
+        
+        for(int i = 0; i < Components.Length; i++) {
+            if(Components[i].GetType() == componentType.GetType())
+                return Components[i];
+        }
+
+        return null;
+    }
+
+    public static MUDEntity GetEntity(string Key) {return Entities[Key];}
+    public static void ToggleEntity(bool toggle, MUDEntity entity) {
+        if(Entities == null) {
+            Entities = new Dictionary<string, MUDEntity>();
+        }
+
+        if(toggle) {
+            Entities.Add(entity.Key, entity);
+        } else {
+            Entities.Remove(entity.Key);
+        }
     }
 
     protected virtual void Start()

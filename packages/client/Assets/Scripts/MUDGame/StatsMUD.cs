@@ -11,7 +11,7 @@ public class StatsMUD : MUDComponent
     public int attack;
     public int energy;
 
-    public override void UpdateFromTable() {
+    public override void InitFromTable() {
         
         var tableValue = StatsTable.GetTableValue(Entity.Key);
         if (tableValue == null)
