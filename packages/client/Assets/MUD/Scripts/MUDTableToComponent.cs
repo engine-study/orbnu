@@ -59,6 +59,8 @@ public abstract class MUDTableToComponent : MUDTable
         //process the table event to a key and the entity of that key
         string entityKey = TableToKey(tableUpdate);
 
+        Debug.Log("Ingest: " + gameObject.name + " " + eventType.ToString(),gameObject);
+
         if(string.IsNullOrEmpty(entityKey)) {
             Debug.LogError("No key found in " + gameObject.name, gameObject);
         }
@@ -94,6 +96,8 @@ public abstract class MUDTableToComponent : MUDTable
 
 
     protected virtual MUDEntity SpawnEntityPrefab(string newKey, MUDEntity prefab) {
+
+        Debug.Log("Spawning " + gameObject.name,gameObject);
 
         MUDEntity newEntity = null;
 

@@ -10,7 +10,7 @@ public class MUDComponentPosition : MUDComponent
     public Vector2 position;
 
     public override void InitFromTable() {
-        MUDTablePosition.UpdatePosition(this);
+        // MUDTablePosition.UpdatePosition(this);
     }
 
 

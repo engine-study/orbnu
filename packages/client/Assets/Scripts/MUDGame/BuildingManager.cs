@@ -12,7 +12,8 @@ using mud.Client;
 
 public class BuildingManager : MUDTableToComponent {
 
-    public BuildingManager Instance;
+    // [Header("Building Manager")]
+    public static BuildingManager Instance;
 
     protected override void Awake() {
         base.Awake();
@@ -28,8 +29,7 @@ public class BuildingManager : MUDTableToComponent {
         var SpawnSubscription = BuildingTable.OnRecordInsert().ObserveOnMainThread().Subscribe(OnInsertRecord);
         _disposers.Add(SpawnSubscription);
 
-        var UpdateSubscription = ObservableExtensions.Subscribe(BuildingTable.OnRecordUpdate().ObserveOnMainThread(),
-                OnUpdateRecord);
+        var UpdateSubscription = BuildingTable.OnRecordUpdate().ObserveOnMainThread().Subscribe(OnUpdateRecord);
         _disposers.Add(UpdateSubscription);
 
     }
@@ -47,8 +47,8 @@ public class BuildingManager : MUDTableToComponent {
             return null;
         }
 
-        // MUDComponent newComponent = Instantiate(componentType) as MUDComponent;
-
+        MUDComponentBuilding newComponent = Instantiate(componentType) as MUDComponentBuilding;
+        newComponent.buildingName = currentValue.buildingName;
         return null;
 
     }

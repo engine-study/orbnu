@@ -372,14 +372,14 @@ public class MapGenerator : Generator
 
     public void AddEntity(Vector2 position, Entity entity)
     {
-        Debug.Log("Entity: " + entity.gameObject.name);
+        // Debug.Log("Entity: " + entity.gameObject.name);
         Instance.mapSave.entities[position] = entity;
         // baseGenerator.mapSave.entities.TryAdd(MapGenerator.PositionRound(position), e);
     }
 
     public void AddGround(Vector2 position, Ground ground)
     {
-        Debug.Log("Ground: " + ground.gameObject.name);
+        // Debug.Log("Ground: " + ground.gameObject.name);
         Instance.mapSave.blocks[position] = ground;
     }
 

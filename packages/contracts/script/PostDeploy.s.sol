@@ -4,7 +4,7 @@ pragma solidity >=0.8.0;
 import { Script } from "forge-std/Script.sol";
 import { console } from "forge-std/console.sol";
 import { IWorld } from "../src/codegen/world/IWorld.sol";
-import { MapConfig, Obstruction, Position, Rock } from "../src/codegen/Tables.sol";
+import { Building, MapConfig, Obstruction, Position, Rock } from "../src/codegen/Tables.sol";
 import { TerrainType } from "../src/codegen/Types.sol";
 import { positionToEntityKey } from "../src/positionToEntityKey.sol";
 
@@ -85,6 +85,7 @@ contract PostDeploy is Script {
           Rock.set(world, entity, true);
           Position.set(world, entity, positionX, positionY);
           Obstruction.set(world, entity, true);
+          Building.set(world, entity, "Home");
         }
       }
     }
