@@ -20,15 +20,15 @@ public class MUDTablePosition : MUDTableUpdate
 
         MUDComponentPosition positionComp = component as MUDComponentPosition;
 
-        var position = PositionTable.GetTableValue(component.Entity.Key);
+        var tablueValue = PositionTable.GetTableValue(component.Entity.Key);
 
-        if (position == null)
+        if (tablueValue == null)
         {
-            Debug.LogError("No position on " + component.gameObject);
-            // yield break;
+            Debug.LogError("No position on " + component.Entity.gameObject);
+            return;
         }
 
-        positionComp.position = new Vector2((float)position.x, (float)position.y);
+        positionComp.position = new Vector2((float)tablueValue.x, (float)tablueValue.y);
         
 
     }

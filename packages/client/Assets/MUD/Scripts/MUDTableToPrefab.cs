@@ -1,19 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using IWorld.ContractDefinition;
+using mud.Unity;
+using mud.Client;
+using NetworkManager = mud.Unity.NetworkManager;
+using UniRx;
+using ObservableExtensions = UniRx.ObservableExtensions;
+using System.Threading.Tasks;
 
-public abstract class MUDTableUpdate : MUDTable
+public abstract class MUDTableToPrefab : MUDTable
 {
-    [Header("Component")]
-    public Component componentPrefab;
-    
-    public abstract void UpdateComponent(MUDComponent component);
+    [Header("Table")]
+    public MUDEntity componentPrefab;
 
     protected override void OnInsertRecord<T>(T tableUpdate)
     {
         base.OnInsertRecord(tableUpdate);
-        TableInsert(tableUpdate);
+        TableSpawn(tableUpdate);
     }
+
 
     protected override void OnDeleteRecord<T>(T tableUpdate)
     {
@@ -27,7 +34,7 @@ public abstract class MUDTableUpdate : MUDTable
         TableUpdate(tableUpdate);
     }
 
-    protected virtual void TableInsert<T>(T tableUpdate)
+    protected virtual void TableSpawn<T>(T tableUpdate)
     {
 
     }
@@ -41,5 +48,6 @@ public abstract class MUDTableUpdate : MUDTable
     {
 
     }
+
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DefaultNamespace;
 
+[CreateAssetMenu(fileName = "Position", menuName = "MUD/Components/Position", order = 1)]
 public class MUDComponentPosition : MUDComponent
 {
     [Header("Position")]
@@ -14,7 +15,7 @@ public class MUDComponentPosition : MUDComponent
 
         if (tablePosition == null)
         {
-            Debug.LogError("No position on " + gameObject.name);
+            Debug.LogError("No position on " + entity.name);
             // yield break;
         }
 
