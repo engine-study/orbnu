@@ -12,16 +12,17 @@ public class MUDTablePosition : MUDTableToComponent
 
     protected override void Subscribe(mud.Unity.NetworkManager nm)
     {
-        var InsertSub = ObservableExtensions.Subscribe(PositionTable.OnRecordInsert().ObserveOnMainThread(),
-                OnInsertRecord);
-        _disposers.Add(InsertSub);
+
+        // var InsertSub = ObservableExtensions.Subscribe(PositionTable.OnRecordInsert().ObserveOnMainThread(),
+        //         OnInsertRecord);
+        // _disposers.Add(InsertSub);
 
         var UpdateSub = ObservableExtensions.Subscribe(PositionTable.OnRecordUpdate().ObserveOnMainThread(),
                 OnUpdateRecord);
         _disposers.Add(UpdateSub);
     }
 
-    protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as PositionTableUpdate).Key;}
+    protected override string TableToKey<T>(T tableUpdate) { return (tableUpdate as PositionTableUpdate).Key; }
 
     public static void GetPosition(MUDComponentPosition component)
     {
@@ -37,6 +38,8 @@ public class MUDTablePosition : MUDTableToComponent
         }
 
         positionComp.position = new Vector2((float)table.x, (float)table.y);
+
+        positionComp.UpdateComponent(positionComp, TableEvent.Manual);
     }
 
     protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)

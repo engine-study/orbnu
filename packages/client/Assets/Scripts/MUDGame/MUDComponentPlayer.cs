@@ -8,6 +8,6 @@ public class MUDComponentPlayer : MUDComponent
     public bool spawned;
     public override void GetTableValue()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 }

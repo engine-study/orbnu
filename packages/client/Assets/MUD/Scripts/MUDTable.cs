@@ -10,7 +10,7 @@ using UniRx;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using System.Threading.Tasks;
 
-public enum TableEvent { Insert, Update, Delete }
+public enum TableEvent { Insert, Update, Delete, Manual }
 public abstract class MUDTable : MonoBehaviour
 {
     
