@@ -38,7 +38,6 @@ public class PlayerManager : MUDTableToComponent
 
     }
 
-    protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as PlayerTableUpdate).Key;}
     protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
     {
         throw new System.NotImplementedException();

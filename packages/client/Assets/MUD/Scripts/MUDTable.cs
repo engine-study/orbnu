@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +15,7 @@ public abstract class MUDTable : MonoBehaviour
     
     protected CompositeDisposable _disposers = new();
     protected mud.Unity.NetworkManager net;
-    public Action OnAdded, OnUpdated, OnDeleted;
+    public System.Action OnAdded, OnUpdated, OnDeleted;
 
     protected virtual void Awake()
     {
@@ -50,17 +49,17 @@ public abstract class MUDTable : MonoBehaviour
 
     protected abstract void Subscribe(NetworkManager nm);
 
-    protected virtual void OnInsertRecord<T>(T tableUpdate)
+    protected virtual void OnInsertRecord(RecordUpdate tableUpdate)
     {
 
     }
 
-    protected virtual void OnDeleteRecord<T>(T tableUpdate)
+    protected virtual void OnDeleteRecord(RecordUpdate tableUpdate)
     {
 
     }
 
-    protected virtual void OnUpdateRecord<T>(T tableUpdate)
+    protected virtual void OnUpdateRecord(RecordUpdate tableUpdate)
     {
 
     }

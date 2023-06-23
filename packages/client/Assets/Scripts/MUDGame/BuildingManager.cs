@@ -35,8 +35,6 @@ public class BuildingManager : MUDTableToComponent {
 
     }
 
-    protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as BuildingTableUpdate).Key;}
-
     protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
     {
         BuildingTableUpdate update = tableUpdate as BuildingTableUpdate;

@@ -22,8 +22,6 @@ public class MUDTablePosition : MUDTableToComponent
         _disposers.Add(UpdateSub);
     }
 
-    protected override string TableToKey<T>(T tableUpdate) { return (tableUpdate as PositionTableUpdate).Key; }
-
     public static void GetPosition(MUDComponentPosition component)
     {
 

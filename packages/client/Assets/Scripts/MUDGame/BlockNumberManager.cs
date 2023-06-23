@@ -15,7 +15,6 @@ public class BlockNumberManager : MUDTableToComponent
     }
 
 
-    protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as BlockInfoTableUpdate).Key;}
     protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
     {
         throw new System.NotImplementedException();

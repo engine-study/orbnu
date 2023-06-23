@@ -30,20 +30,20 @@ public abstract class MUDTableToComponent : MUDTable
         EntityComponents = new Dictionary<string, MUDEntity>();
     }
 
-    protected override void OnInsertRecord<T>(T tableUpdate)
+    protected override void OnInsertRecord(RecordUpdate tableUpdate)
     {
         base.OnInsertRecord(tableUpdate);
         IngestTableEvent(tableUpdate, TableEvent.Insert);
     }
 
 
-    protected override void OnDeleteRecord<T>(T tableUpdate)
+    protected override void OnDeleteRecord(RecordUpdate tableUpdate)
     {
         base.OnDeleteRecord(tableUpdate);
         IngestTableEvent(tableUpdate, TableEvent.Delete);
     }
 
-    protected override void OnUpdateRecord<T>(T tableUpdate)
+    protected override void OnUpdateRecord(RecordUpdate tableUpdate)
     {
         base.OnUpdateRecord(tableUpdate);
         IngestTableEvent(tableUpdate, TableEvent.Update);
@@ -51,13 +51,11 @@ public abstract class MUDTableToComponent : MUDTable
 
 
     protected abstract MUDComponent TableToMUDComponent<T>(T tableUpdate);
-    protected abstract string TableToKey<T>(T tableUpdate);
 
-
-    protected virtual void IngestTableEvent<T>(T tableUpdate, TableEvent eventType) {
+    protected virtual void IngestTableEvent(RecordUpdate tableUpdate, TableEvent eventType) {
 
         //process the table event to a key and the entity of that key
-        string entityKey = TableToKey(tableUpdate);
+        string entityKey = tableUpdate.Key;
 
         // Debug.Log("Ingest: " + gameObject.name + " " + eventType.ToString(),gameObject);
 

@@ -5,35 +5,28 @@ import { MapConfig, Position, Building, BlockInfo, Stats, PositionTableId, Playe
 import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/getKeysWithValue.sol";
 import { addressToEntityKey } from "../addressToEntityKey.sol";
 import { getUniqueEntity } from "@latticexyz/world/src/modules/uniqueentity/getUniqueEntity.sol";
+import { positionToEntityKey } from "../positionToEntityKey.sol";
 
 contract BuildSystem is System {
 
   function build(int32 x, int32 y) public {
-    
+
     bytes32 playerEntity = addressToEntityKey(address(_msgSender()));
     require(Player.get(playerEntity), "Not spawned");
 
     bytes32[] memory atPosition = getKeysWithValue(PositionTableId, Position.encode(x, y));
     require(atPosition.length == 0, "Building on top of something");
 
+    // bytes32 entity = getUniqueEntity();
+    bytes32 entity = positionToEntityKey(x,y);
 
-    bytes32 key = getUniqueEntity();
-
-    Position.set(key, x, y);
-    Building.set(key, "New Building");
-    BlockInfo.set(key, uint32(block.number));
+    Position.set(entity, x, y);
+    Building.set(entity, "New Building");
+    // BlockInfo.set(entity, uint32(block.number));
 
     // Health.set(playerEntity, 100);
     // Damage.set(playerEntity, 10);
   }
-
-
-
-
-
-
-
-
 
   function traversedPositions(
     PositionData memory start,
