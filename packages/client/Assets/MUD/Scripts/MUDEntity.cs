@@ -2,91 +2,105 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MUDEntity : MonoBehaviour
+namespace mud.Client
 {
-    public string Key { get { return mudKey; } }
-    public  MUDComponent[] Components { get { return components; } }
-    public static Dictionary<string, MUDEntity> Entities;
-
-    [Header("MUD")]
-    [SerializeField] protected string mudKey;
-    [SerializeField] protected bool isLocal;
-    [SerializeField] protected MUDComponent[] components;
-
-    private mud.Unity.NetworkManager net;
-
-    public void SetMudKey(string newKey)
+    public class MUDEntity : MonoBehaviour
     {
-        mudKey = newKey;
-    }
+        public string Key { get { return mudKey; } }
+        public List<MUDComponent> Components { get { return components; } }
+        public static Dictionary<string, MUDEntity> Entities;
 
-    public void SetIsLocal(bool newValue)
-    {
-        isLocal = newValue;
-    }
-    
-    public MUDComponent GetMUDComponent(MUDComponent componentType) {
+        [Header("MUD")]
+        [SerializeField] protected string mudKey;
+        [SerializeField] protected bool isLocal;
 
-        for(int i = 0; i < Components.Length; i++) {
-            if(Components[i].GetType() == componentType.GetType())
-                return Components[i];
-        }
+        [Header("Debug")]
+        [SerializeField] protected List<MUDComponent> components;
 
-        return null;
-    }
+        private mud.Unity.NetworkManager net;
 
-    public static MUDEntity GetEntity(string Key) {return Entities[Key];}
-    public static MUDEntity GetEntitySafe(string Key) {MUDEntity e; Entities.TryGetValue(Key, out e); return e;}
-    public static void ToggleEntity(bool toggle, MUDEntity entity) {
 
-        if(toggle) {
-            Entities.Add(entity.Key, entity);
-        } else {
-            Entities.Remove(entity.Key);
-        }
-    }
-
-    protected virtual void Awake() {
-        if(Entities == null) {
-            Entities = new Dictionary<string, MUDEntity>();
-        }
-    }
-
-    
-
-    protected virtual void Start()
-    {
-        net = mud.Unity.NetworkManager.Instance;
-
-        if(net.isNetworkInitialized) {
-            InitOnNetwork(net);
-        } else {
-            net.OnNetworkInitialized += InitOnNetwork;
-        }
-
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (net)
+        public void SetMudKey(string newKey) { mudKey = newKey; }
+        public void SetIsLocal(bool newValue) { isLocal = newValue; }
+        public MUDComponent GetMUDComponent<T>()
         {
-            net.OnNetworkInitialized -= InitOnNetwork;
+            for (int i = 0; i < Components.Count; i++) { if (Components[i].GetType() == typeof(T)) { return Components[i]; } }
+            return null;
         }
-    }
-
-    protected virtual void InitOnNetwork(mud.Unity.NetworkManager nm)
-    {
-        for(int i = 0; i < components.Length; i++) {
-            //copy the scriptable object (so we don't write to the original)
-            components[i] = Instantiate(components[i]);
-            components[i].Init(this);
+        public void AddComponent(MUDComponent componentPrefab)
+        {
+            MUDComponent c = Instantiate(componentPrefab, transform.position, Quaternion.identity, transform);
+            c.gameObject.name.Replace("(Clone)", "");
+            components.Add(c);
+            c.Init(this);
+        }
+        public void RemoveComponent(MUDComponent component)
+        {
+            components.Remove(component);
+            Destroy(component);
         }
 
-        Init();
-    
-    }
 
-    public virtual void Init() {
+        public static MUDEntity GetEntity(string Key) { return Entities[Key]; }
+        public static MUDEntity GetEntitySafe(string Key) { MUDEntity e; Entities.TryGetValue(Key, out e); return e; }
+        public static void ToggleEntity(bool toggle, MUDEntity entity)
+        {
+            if (toggle) { Entities.Add(entity.Key, entity); }
+            else { Entities.Remove(entity.Key); }
+        }
 
+        protected virtual void Awake()
+        {
+            if (Entities == null)
+            {
+                Entities = new Dictionary<string, MUDEntity>();
+            }
+
+            components = new List<MUDComponent>();
+        }
+
+
+
+        protected virtual void Start()
+        {
+            net = mud.Unity.NetworkManager.Instance;
+
+            if (net.isNetworkInitialized)
+            {
+                InitOnNetwork(net);
+            }
+            else
+            {
+                net.OnNetworkInitialized += InitOnNetwork;
+            }
+
+        }
+
+        protected virtual void OnDestroy()
+        {
+            if (net)
+            {
+                net.OnNetworkInitialized -= InitOnNetwork;
+            }
+        }
+
+        protected virtual void InitOnNetwork(mud.Unity.NetworkManager nm)
+        {
+
+            // for (int i = 0; i < components.Length; i++)
+            // {
+            //     //copy the scriptable object (so we don't write to the original)
+            //     components[i] = Instantiate(components[i]);
+            //     components[i].Init(this);
+            // }
+
+            Init();
+
+        }
+
+        public virtual void Init()
+        {
+
+        }
     }
 }

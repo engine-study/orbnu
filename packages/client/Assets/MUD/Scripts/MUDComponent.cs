@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
+using mud.Client;
 
-public abstract class MUDComponent : ScriptableObject
+public abstract class MUDComponent : MonoBehaviour
 {
     public System.Action OnUpdated;
     public MUDEntity Entity {get{return entity;}}
-    
-    [Header("Component")]
-    public MUDEntity prefab;
     
     [Header("Debug")]
     [SerializeField] protected MUDEntity entity;
@@ -21,7 +19,7 @@ public abstract class MUDComponent : ScriptableObject
 
     public abstract void GetTableValue();
 
-    public virtual void UpdateComponent(MUDComponent update, TableEvent eventType) {
+    public virtual void UpdateComponent(IMudTable table, TableEvent eventType) {
 
         if(eventType == TableEvent.Insert) {
 

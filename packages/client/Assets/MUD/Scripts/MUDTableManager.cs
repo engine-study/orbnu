@@ -10,24 +10,32 @@ using UniRx;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using System.Threading.Tasks;
 
-public abstract class MUDTableToComponent : MUDTable
+public abstract class MUDTableManager : MUDTable
 {
-    public bool SpawnIfNoEntityFound{get{return componentType.prefab != null;}}
-    
+    //dictionary of all entities
+    public static Dictionary<string, MUDEntity> Entities;
+    public static GameObject entityPrefab;
+
     [Header("Table")]
-    public MUDComponent componentType;
-    public Dictionary<string, MUDEntity> EntityComponents;
+    public MUDComponent componentPrefab;
+
+    //dictionary of all the components this specific table has
+    public Dictionary<string, MUDComponent> Components;
     // public Dictionary<string, MUDComponent> Components;
 
     protected override void Awake()
     {
         base.Awake();
 
-        if(componentType == null) {
+        if(componentPrefab == null) {
             Debug.LogError("No MUDComponent type to update");
         }
 
-        EntityComponents = new Dictionary<string, MUDEntity>();
+        if(Entities == null) {
+            Entities = new Dictionary<string, MUDEntity>();
+        }
+
+        Components = new Dictionary<string, MUDComponent>();
     }
 
     protected override void OnInsertRecord(RecordUpdate tableUpdate)
@@ -50,7 +58,7 @@ public abstract class MUDTableToComponent : MUDTable
     }
 
 
-    protected abstract MUDComponent TableToMUDComponent<T>(T tableUpdate);
+    protected abstract IMudTable UpdateToTable(RecordUpdate tableUpdate);
 
     protected virtual void IngestTableEvent(RecordUpdate tableUpdate, TableEvent eventType) {
 
@@ -68,29 +76,23 @@ public abstract class MUDTableToComponent : MUDTable
 
         //create the entity if it doesn't exist
         if(entity == null) {
-            if(SpawnIfNoEntityFound) {
-                entity = SpawnEntityPrefab(entityKey, componentType.prefab);
-            } else {
-                //entity hasn't spawned yet
-                return;
-            }
+            entity = SpawnEntityPrefab(entityKey);
         }
 
-        //find the component on that entity
-        MUDComponent component = entity.GetMUDComponent(componentType);
-        MUDComponent tableComponent = TableToMUDComponent(tableUpdate);
+        IMudTable mudTable = UpdateToTable(tableUpdate);
 
-        if(component == null) {
-            Debug.LogError("No component to update on this entity");
-            return;
+        if(eventType == TableEvent.Insert) {
+            entity.AddComponent(componentPrefab);
+        } else if(eventType == TableEvent.Update) {
+            Components[entityKey].UpdateComponent(mudTable, eventType);
+        } else if(eventType == TableEvent.Delete) {
+            entity.RemoveComponent(Components[entityKey]);
         }
 
-        //finally, trigger the update on the specific componenent;
-        component.UpdateComponent(tableComponent, eventType);
 
-        if(entity != null && SpawnIfNoEntityFound && eventType == TableEvent.Delete) {
-            DestroyEntity(entityKey);
-        }
+        // if(entity != null && SpawnIfNoEntityFound && eventType == TableEvent.Delete) {
+        //     DestroyEntity(entityKey);
+        // }
         
     }
 
@@ -107,7 +109,7 @@ public abstract class MUDTableToComponent : MUDTable
 
 
 
-    protected virtual MUDEntity SpawnEntityPrefab(string newKey, MUDEntity prefab) {
+    protected virtual MUDEntity SpawnEntityPrefab(string newKey) {
 
 
         MUDEntity newEntity = null;
@@ -115,15 +117,21 @@ public abstract class MUDTableToComponent : MUDTable
         if(MUDEntity.Entities.ContainsKey(newKey)) {
             //get the entity if it exists
             newEntity = MUDEntity.Entities[newKey];
-            Debug.Log(gameObject.name + " Found " + prefab.name,gameObject);
+            Debug.Log(gameObject.name + " Found " + newEntity.name,gameObject);
         } else {
+            if(entityPrefab == null) {
+                entityPrefab = (Resources.Load("Entity") as GameObject);
+            }
+
             //spawn the entity if it doesnt exist
-            newEntity = Instantiate(prefab,Vector3.up * -1000f, Quaternion.identity);
-            EntityComponents.Add(newKey, newEntity);
-            // Components.Add(newKey, newEntity.GetMUDComponent(componentType));
+            newEntity = Instantiate(entityPrefab,Vector3.up * -1000f, Quaternion.identity).GetComponent<MUDEntity>();
+            newEntity.gameObject.name = MUDHelper.TruncateHash(newKey);
+            Entities.Add(newKey, newEntity);
+
             newEntity.SetMudKey(newKey);
             MUDEntity.ToggleEntity(true, newEntity);
-            Debug.Log(gameObject.name + " Spawning " + prefab.name,gameObject);
+
+            Debug.Log(gameObject.name + " Spawned " + newEntity.name,gameObject);
 
         }
 
@@ -132,8 +140,8 @@ public abstract class MUDTableToComponent : MUDTable
     }
 
     protected virtual void DestroyEntity(string newKey) {
-        MUDEntity newEntity = EntityComponents[newKey];
-        EntityComponents.Remove(newKey);
+        MUDEntity newEntity = Entities[newKey];
+        Entities.Remove(newKey);
 
         Destroy(newEntity);
 

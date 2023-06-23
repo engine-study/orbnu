@@ -11,7 +11,7 @@ using IWorld.ContractDefinition;
 using mud.Client;
 using Cysharp.Threading.Tasks;
 
-public class BuildingManager : MUDTableToComponent {
+public class BuildingManager : MUDTableManager {
 
     // [Header("Building Manager")]
     public static BuildingManager Instance;
@@ -35,7 +35,7 @@ public class BuildingManager : MUDTableToComponent {
 
     }
 
-    protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
+    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
     {
         BuildingTableUpdate update = tableUpdate as BuildingTableUpdate;
 
@@ -46,7 +46,7 @@ public class BuildingManager : MUDTableToComponent {
             return null;
         }
 
-        MUDComponentBuilding newComponent = Instantiate(componentType) as MUDComponentBuilding;
+        MUDComponentBuilding newComponent = Instantiate(componentPrefab) as MUDComponentBuilding;
         newComponent.buildingName = currentValue.buildingName;
         return null;
 

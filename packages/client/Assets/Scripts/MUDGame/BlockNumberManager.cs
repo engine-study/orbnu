@@ -4,8 +4,8 @@ using UnityEngine;
 using DefaultNamespace;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using UniRx;
-
-public class BlockNumberManager : MUDTableToComponent
+using mud.Client;
+public class BlockNumberManager : MUDTableManager
 {
     protected override void Subscribe(mud.Unity.NetworkManager nm)
     {
@@ -15,9 +15,9 @@ public class BlockNumberManager : MUDTableToComponent
     }
 
 
-    protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
+    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
     {
-        throw new System.NotImplementedException();
+        return null;
     }
 
 

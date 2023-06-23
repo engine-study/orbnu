@@ -7,7 +7,7 @@ using System.Collections;
 using ObservableExtensions = UniRx.ObservableExtensions;
 using System.Threading.Tasks;
 
-public class PlayerManager : MUDTableToComponent
+public class PlayerManager : MUDTableManager
 {
     protected override void Subscribe(NetworkManager nm)
     {
@@ -38,39 +38,9 @@ public class PlayerManager : MUDTableToComponent
 
     }
 
-    protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
+    protected override mud.Client.IMudTable UpdateToTable(mud.Client.RecordUpdate tableUpdate)
     {
         throw new System.NotImplementedException();
-    }
-
-
-    protected override MUDEntity SpawnEntityPrefab(string newKey, MUDEntity prefab)
-    {
-        return base.SpawnEntityPrefab(newKey,prefab);
-
-        // var playerSpawnPoint = new Vector3((float)playerPosition.x, 0f, (float)playerPosition.y);
-        // Debug.Log("Spawning " + KeyTrunc);
-        // Debug.Log("Position " + playerSpawnPoint.ToString());
-
-        // MUDEntity player = new MUDEntity();
-
-        // player.GetComponent<PlayerSync>().key = update.Key;
-        // player.name = player.name + " " + KeyTrunc;
-
-        // Debug.Log("Spawned " + player.name);
-
-        // bool isLocal = update.Key == net.addressKey;
-
-        // if (isLocal)
-        // {
-        //     PlayerSync.localPlayerKey = update.Key;
-        //     Debug.Log("Setting local player key to " + KeyTrunc + "...");
-        // }
-
-        // var playerMUD = player.GetComponent<PlayerMUD>();
-        // playerMUD.SetIsLocal(isLocal);
-        // playerMUD.SetMudKey(update.Key);
-
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using mud.Unity;
 using UniRx;
 using ObservableExtensions = UniRx.ObservableExtensions;
+using mud.Client;
 
 public class PlayerMUD : MUDEntity
 {

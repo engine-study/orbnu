@@ -4,10 +4,11 @@ using UnityEngine;
 
 using ObservableExtensions = UniRx.ObservableExtensions;
 using mud.Unity;
+using mud.Client;
 using UniRx;
 using DefaultNamespace;
 
-public class MUDTablePosition : MUDTableToComponent
+public class PositionManager : MUDTableManager
 {
 
     protected override void Subscribe(mud.Unity.NetworkManager nm)
@@ -35,12 +36,11 @@ public class MUDTablePosition : MUDTableToComponent
             return;
         }
 
-        positionComp.position = new Vector2((float)table.x, (float)table.y);
-
-        positionComp.UpdateComponent(positionComp, TableEvent.Manual);
+        positionComp.UpdateComponent(table, TableEvent.Manual);
     }
 
-    protected override MUDComponent TableToMUDComponent<T>(T tableUpdate)
+
+    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
     {
         PositionTableUpdate update = tableUpdate as PositionTableUpdate;
 
@@ -51,10 +51,7 @@ public class MUDTablePosition : MUDTableToComponent
             return null;
         }
 
-        MUDComponentPosition newComponent = Instantiate(componentType) as MUDComponentPosition;
-        newComponent.position = new Vector2((float)currentValue.x, (float)currentValue.y);
-
-        return newComponent;
+        return currentValue;
     }
 
 
