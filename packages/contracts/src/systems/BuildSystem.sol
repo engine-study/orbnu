@@ -18,7 +18,7 @@ contract BuildSystem is System {
     require(atPosition.length == 0, "Building on top of something");
 
     // bytes32 entity = getUniqueEntity();
-    bytes32 entity = positionToEntityKey(uint32(x),uint32(y));
+    bytes32 entity = positionToEntityKey(x,y);
 
     Position.set(entity, x, y);
     Building.set(entity, "New Building");

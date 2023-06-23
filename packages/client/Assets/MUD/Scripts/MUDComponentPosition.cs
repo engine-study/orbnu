@@ -18,7 +18,7 @@ public class MUDComponentPosition : MUDComponent
         base.UpdateComponent(update, eventType);
 
         position = (update as MUDComponentPosition).position;
-        entity.gameObject.transform.position = new Vector3(position.x, 0f, position.y);
+        entity.gameObject.transform.position = MapGenerator.WorldToGrid(new Vector3(position.x, 0f, position.y));
     }
 
 }
