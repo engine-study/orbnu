@@ -1,4 +1,6 @@
-# MUD Template Unity
+# Orbnu
+
+![recono](https://github.com/engine-study/orbnu/assets/7606952/392bedb0-3b70-4568-aa95-664a9cf4f745)
 
 ## Prerequisites
 
@@ -14,10 +16,6 @@ If you are using Windows:
 1. install git bash (gitforwindows.org)
 2. install nodejs, including “native modules” (nodejs.org/en/download) (re native modules: just keep the checkmark, it’s enabled by default in the installer)
 3. Install foundry via foundryup using Git bash
-
-## Tutorial
-
-The tutorial repo for this template can be found [here](https://github.com/emergenceland/tankmud-tutorial).
 
 ## Quickstart
 
@@ -41,8 +39,7 @@ In tab 2:
 pnpm run dev
 ```
 
-In Unity, Open the Main scene if you haven’t already `(packages/client/Assets/Scenes/Main.unity)`.
-Press play. Click to increment the counter.
+In Unity, Open the Main scene and press play.
 
 ## Usage
 
