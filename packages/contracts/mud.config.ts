@@ -14,13 +14,31 @@ export default mudConfig({
       },
     },
 
+    //u
     Player: "bool",
+
+    //negative health is a thing ("overkill effects")
+    Health: "int32",
+
+    //negative attack is healing
+    Attack: "int32",
+
+    Population: "uint32",
+    Workers: "uint32",
 
     Stats: {
       name: "Stats",
       schema: {
         health: "int32",
         attack: "int32",
+      },
+    },
+
+    Resources: {
+      name: "Resources",
+      schema: {
+        population: "int32",
+        energy: "int32",
       },
     },
 

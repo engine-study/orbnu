@@ -10,8 +10,9 @@ import { IBuildSystem } from "./IBuildSystem.sol";
 import { IGridSystem } from "./IGridSystem.sol";
 import { IMoveSystem } from "./IMoveSystem.sol";
 import { IStatSystem } from "./IStatSystem.sol";
-import { IStructureHouseSystem } from "./IStructureHouseSystem.sol";
-import { IStructureSystem } from "./IStructureSystem.sol";
+import { IBuildingBaseSystem } from "./IBuildingBaseSystem.sol";
+import { ICostSystem } from "./ICostSystem.sol";
+import { IPopulationSystem } from "./IPopulationSystem.sol";
 import { IUnitSystem } from "./IUnitSystem.sol";
 
 /**
@@ -25,8 +26,9 @@ interface IWorld is
   IGridSystem,
   IMoveSystem,
   IStatSystem,
-  IStructureHouseSystem,
-  IStructureSystem,
+  IBuildingBaseSystem,
+  ICostSystem,
+  IPopulationSystem,
   IUnitSystem
 {
 

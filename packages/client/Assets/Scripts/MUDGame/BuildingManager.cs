@@ -66,6 +66,7 @@ public class BuildingManager : MUDTableToComponent {
         catch (System.Exception ex)
         {
             Debug.LogException(ex);
+            Debug.Log("Building noise");
         }
     }
 

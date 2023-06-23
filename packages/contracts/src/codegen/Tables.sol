@@ -5,7 +5,12 @@ pragma solidity >=0.8.0;
 
 import { MapConfig, MapConfigTableId } from "./tables/MapConfig.sol";
 import { Player, PlayerTableId } from "./tables/Player.sol";
+import { Health, HealthTableId } from "./tables/Health.sol";
+import { Attack, AttackTableId } from "./tables/Attack.sol";
+import { Population, PopulationTableId } from "./tables/Population.sol";
+import { Workers, WorkersTableId } from "./tables/Workers.sol";
 import { Stats, StatsData, StatsTableId } from "./tables/Stats.sol";
+import { Resources, ResourcesData, ResourcesTableId } from "./tables/Resources.sol";
 import { Trigger, TriggerTableId } from "./tables/Trigger.sol";
 import { TurnNumber, TurnNumberTableId } from "./tables/TurnNumber.sol";
 import { BlockInfo, BlockInfoTableId } from "./tables/BlockInfo.sol";

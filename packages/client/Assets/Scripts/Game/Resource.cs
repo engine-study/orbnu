@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Resource : Entity
+public class Resource : Structure
 {
     public override void OnDrawGizmosSelected() {
         #if UNITY_EDITOR

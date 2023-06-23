@@ -59,9 +59,9 @@ public class MUDEntity : MonoBehaviour
         net = mud.Unity.NetworkManager.Instance;
 
         if(net.isNetworkInitialized) {
-            Init(net);
+            InitOnNetwork(net);
         } else {
-            net.OnNetworkInitialized += Init;
+            net.OnNetworkInitialized += InitOnNetwork;
         }
 
     }
@@ -70,17 +70,23 @@ public class MUDEntity : MonoBehaviour
     {
         if (net)
         {
-            net.OnNetworkInitialized -= Init;
+            net.OnNetworkInitialized -= InitOnNetwork;
         }
     }
 
-    protected virtual void Init(mud.Unity.NetworkManager nm)
+    protected virtual void InitOnNetwork(mud.Unity.NetworkManager nm)
     {
         for(int i = 0; i < components.Length; i++) {
             //copy the scriptable object (so we don't write to the original)
             components[i] = Instantiate(components[i]);
             components[i].Init(this);
         }
+
+        Init();
     
+    }
+
+    public virtual void Init() {
+
     }
 }

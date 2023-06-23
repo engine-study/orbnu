@@ -6,6 +6,7 @@ import { getKeysWithValue } from "@latticexyz/world/src/modules/keyswithvalue/ge
 import { addressToEntityKey } from "../addressToEntityKey.sol";
 import { getUniqueEntity } from "@latticexyz/world/src/modules/uniqueentity/getUniqueEntity.sol";
 import { positionToEntityKey } from "../positionToEntityKey.sol";
+import { CostSystem } from "./Structures/CostSystem.sol";
 
 contract BuildSystem is System {
 
