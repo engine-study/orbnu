@@ -14,9 +14,9 @@ public class PositionManager : MUDTableManager
     protected override void Subscribe(mud.Unity.NetworkManager nm)
     {
 
-        // var InsertSub = ObservableExtensions.Subscribe(PositionTable.OnRecordInsert().ObserveOnMainThread(),
-        //         OnInsertRecord);
-        // _disposers.Add(InsertSub);
+        var InsertSub = ObservableExtensions.Subscribe(PositionTable.OnRecordInsert().ObserveOnMainThread(),
+                OnInsertRecord);
+        _disposers.Add(InsertSub);
 
         var UpdateSub = ObservableExtensions.Subscribe(PositionTable.OnRecordUpdate().ObserveOnMainThread(),
                 OnUpdateRecord);
@@ -40,7 +40,7 @@ public class PositionManager : MUDTableManager
     }
 
 
-    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
+    protected override IMudTable RecordUpdateToTable(RecordUpdate tableUpdate)
     {
         PositionTableUpdate update = tableUpdate as PositionTableUpdate;
 

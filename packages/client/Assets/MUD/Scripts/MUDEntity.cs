@@ -22,6 +22,12 @@ namespace mud.Client
 
         public void SetMudKey(string newKey) { mudKey = newKey; }
         public void SetIsLocal(bool newValue) { isLocal = newValue; }
+
+        public MUDComponent GetMUDComponent(MUDComponent component)
+        {
+            for (int i = 0; i < Components.Count; i++) { if (Components[i].GetType() == component.GetType()) { return Components[i]; } }
+            return null;
+        }
         public MUDComponent GetMUDComponent<T>()
         {
             for (int i = 0; i < Components.Count; i++) { if (Components[i].GetType() == typeof(T)) { return Components[i]; } }
@@ -29,10 +35,18 @@ namespace mud.Client
         }
         public void AddComponent(MUDComponent componentPrefab)
         {
-            MUDComponent c = Instantiate(componentPrefab, transform.position, Quaternion.identity, transform);
-            c.gameObject.name.Replace("(Clone)", "");
-            components.Add(c);
-            c.Init(this);
+            Debug.Log("Adding " + componentPrefab.gameObject.name, gameObject);
+            MUDComponent c = GetMUDComponent(componentPrefab);
+
+            if(c) {
+                Debug.LogError(componentPrefab.gameObject.name + " already exists.", gameObject);
+            } else {
+                c = Instantiate(componentPrefab, transform.position, Quaternion.identity, transform);
+                c.gameObject.name.Replace("(Clone)", "");
+                components.Add(c);
+                c.Init(this);
+            }
+
         }
         public void RemoveComponent(MUDComponent component)
         {

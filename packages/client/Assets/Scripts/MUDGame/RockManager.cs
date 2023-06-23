@@ -59,8 +59,6 @@ public class RockManager : MonoBehaviour
             yield break;
         }
 
-        while (MUDGame.NetworkLoaded == false) { yield return null; }
-
         var RockSpawnPoint = new Vector3((float)RockPosition.x, 0f, (float)RockPosition.y);
         Debug.Log("Spawning " + KeyTrunc);
         Debug.Log("Position " + RockSpawnPoint.ToString());

@@ -35,7 +35,7 @@ public class BuildingManager : MUDTableManager {
 
     }
 
-    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
+    protected override IMudTable RecordUpdateToTable(RecordUpdate tableUpdate)
     {
         BuildingTableUpdate update = tableUpdate as BuildingTableUpdate;
 
@@ -46,9 +46,7 @@ public class BuildingManager : MUDTableManager {
             return null;
         }
 
-        MUDComponentBuilding newComponent = Instantiate(componentPrefab) as MUDComponentBuilding;
-        newComponent.buildingName = currentValue.buildingName;
-        return null;
+        return currentValue;
 
     }
 

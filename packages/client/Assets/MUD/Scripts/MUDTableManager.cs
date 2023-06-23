@@ -16,8 +16,12 @@ public abstract class MUDTableManager : MUDTable
     public static Dictionary<string, MUDEntity> Entities;
     public static GameObject entityPrefab;
 
+
     [Header("Table")]
     public MUDComponent componentPrefab;
+    [Header("Options")]
+    public bool deletedRecordDestroysEntity = false;
+
 
     //dictionary of all the components this specific table has
     public Dictionary<string, MUDComponent> Components;
@@ -28,7 +32,7 @@ public abstract class MUDTableManager : MUDTable
         base.Awake();
 
         if(componentPrefab == null) {
-            Debug.LogError("No MUDComponent type to update");
+            Debug.LogError("No MUDComponent prefab to spawn");
         }
 
         if(Entities == null) {
@@ -58,7 +62,7 @@ public abstract class MUDTableManager : MUDTable
     }
 
 
-    protected abstract IMudTable UpdateToTable(RecordUpdate tableUpdate);
+    protected abstract IMudTable RecordUpdateToTable(RecordUpdate tableUpdate);
 
     protected virtual void IngestTableEvent(RecordUpdate tableUpdate, TableEvent eventType) {
 
@@ -73,15 +77,13 @@ public abstract class MUDTableManager : MUDTable
         }
 
         MUDEntity entity = MUDEntity.GetEntitySafe(entityKey);
-
-        //create the entity if it doesn't exist
-        if(entity == null) {
-            entity = SpawnEntityPrefab(entityKey);
-        }
-
-        IMudTable mudTable = UpdateToTable(tableUpdate);
+        IMudTable mudTable = RecordUpdateToTable(tableUpdate);
 
         if(eventType == TableEvent.Insert) {
+            //create the entity if it doesn't exist
+            if(entity == null) {
+                entity = SpawnEntity(entityKey);
+            }
             entity.AddComponent(componentPrefab);
         } else if(eventType == TableEvent.Update) {
             Components[entityKey].UpdateComponent(mudTable, eventType);
@@ -109,7 +111,7 @@ public abstract class MUDTableManager : MUDTable
 
 
 
-    protected virtual MUDEntity SpawnEntityPrefab(string newKey) {
+    protected virtual MUDEntity SpawnEntity(string newKey) {
 
 
         MUDEntity newEntity = null;
@@ -125,7 +127,7 @@ public abstract class MUDTableManager : MUDTable
 
             //spawn the entity if it doesnt exist
             newEntity = Instantiate(entityPrefab,Vector3.up * -1000f, Quaternion.identity).GetComponent<MUDEntity>();
-            newEntity.gameObject.name = MUDHelper.TruncateHash(newKey);
+            newEntity.gameObject.name = "Entity [" + MUDHelper.TruncateHash(newKey) + "]";
             Entities.Add(newKey, newEntity);
 
             newEntity.SetMudKey(newKey);

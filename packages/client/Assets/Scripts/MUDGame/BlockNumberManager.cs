@@ -15,7 +15,7 @@ public class BlockNumberManager : MUDTableManager
     }
 
 
-    protected override IMudTable UpdateToTable(RecordUpdate tableUpdate)
+    protected override IMudTable RecordUpdateToTable(RecordUpdate tableUpdate)
     {
         return null;
     }

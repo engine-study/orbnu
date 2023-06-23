@@ -4303,6 +4303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentPrefab: {fileID: 4108488086096851129, guid: 272db7e05754a8c4eaa44ac31f2aa0d7, type: 3}
+  deletedRecordDestroysEntity: 0
 --- !u!1 &1344120992
 GameObject:
   m_ObjectHideFlags: 0
@@ -4348,6 +4349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentPrefab: {fileID: 1643098390670171607, guid: 8b90446042c7eb9419464241a077ea9b, type: 3}
+  deletedRecordDestroysEntity: 0
 --- !u!1001 &1347159232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6908,6 +6910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   componentPrefab: {fileID: 7003099309239875036, guid: f1c97a3ece51cbd4f8de1b430a8d75c8, type: 3}
+  deletedRecordDestroysEntity: 0
 --- !u!1 &2069442621
 GameObject:
   m_ObjectHideFlags: 0
