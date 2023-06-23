@@ -6,7 +6,7 @@ public class MUDComponentPlayer : MUDComponent
 {
     [Header("Player")]
     public bool spawned;
-    public override void InitFromTable()
+    public override void GetTableValue()
     {
         throw new System.NotImplementedException();
     }

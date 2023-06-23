@@ -8,7 +8,7 @@ public class MUDComponentBlockInfo : MUDComponent
 {
     [Header("BlockInfo")]
     public int blockNumber;
-    public override void InitFromTable()
+    public override void GetTableValue()
     {
         throw new System.NotImplementedException();
     }

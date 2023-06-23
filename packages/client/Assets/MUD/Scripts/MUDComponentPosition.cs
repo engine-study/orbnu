@@ -9,9 +9,16 @@ public class MUDComponentPosition : MUDComponent
    [Header("Position")]
     public Vector2 position;
 
-    public override void InitFromTable() {
-        // MUDTablePosition.UpdatePosition(this);
+    public override void GetTableValue() {
+        MUDTablePosition.GetPosition(this);
     }
 
+    public override void UpdateComponent(MUDComponent update, TableEvent eventType)
+    {
+        base.UpdateComponent(update, eventType);
+
+        position = (update as MUDComponentPosition).position;
+        entity.gameObject.transform.position = new Vector3(position.x, 0f, position.y);
+    }
 
 }

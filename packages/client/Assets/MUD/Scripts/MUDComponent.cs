@@ -16,8 +16,20 @@ public abstract class MUDComponent : ScriptableObject
 
     public virtual void Init(MUDEntity ourEntity) {
         entity = ourEntity;
-        InitFromTable();
+        GetTableValue();
     }
 
-    public abstract void InitFromTable();
+    public abstract void GetTableValue();
+
+    public virtual void UpdateComponent(MUDComponent update, TableEvent eventType) {
+
+        if(eventType == TableEvent.Insert) {
+
+        } else if(eventType == TableEvent.Delete) {
+
+        } else if(eventType == TableEvent.Update) {
+            
+        }
+    }
+
 }

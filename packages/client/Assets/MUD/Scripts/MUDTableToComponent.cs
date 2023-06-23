@@ -70,7 +70,7 @@ public abstract class MUDTableToComponent : MUDTable
         //create the entity if it doesn't exist
         if(entity == null) {
             if(SpawnIfNoEntityFound) {
-                SpawnEntityPrefab(entityKey, componentType.prefab);
+                entity = SpawnEntityPrefab(entityKey, componentType.prefab);
             } else {
                 //entity hasn't spawned yet
                 return;
@@ -80,6 +80,14 @@ public abstract class MUDTableToComponent : MUDTable
         //find the component on that entity
         MUDComponent component = entity.GetMUDComponent(componentType);
         MUDComponent tableComponent = TableToMUDComponent(tableUpdate);
+
+        if(component == null) {
+            Debug.LogError("No component to update on this entity");
+            return;
+        }
+
+        //finally, trigger the update on the specific componenent;
+        component.UpdateComponent(tableComponent, eventType);
 
         if(entity != null && SpawnIfNoEntityFound && eventType == TableEvent.Delete) {
             DestroyEntity(entityKey);
@@ -102,13 +110,13 @@ public abstract class MUDTableToComponent : MUDTable
 
     protected virtual MUDEntity SpawnEntityPrefab(string newKey, MUDEntity prefab) {
 
-        Debug.Log("Spawning " + gameObject.name,gameObject);
 
         MUDEntity newEntity = null;
 
         if(MUDEntity.Entities.ContainsKey(newKey)) {
             //get the entity if it exists
             newEntity = MUDEntity.Entities[newKey];
+            Debug.Log(gameObject.name + " Found " + prefab.name,gameObject);
         } else {
             //spawn the entity if it doesnt exist
             newEntity = Instantiate(prefab,Vector3.up * -1000f, Quaternion.identity);
@@ -116,7 +124,10 @@ public abstract class MUDTableToComponent : MUDTable
             // Components.Add(newKey, newEntity.GetMUDComponent(componentType));
             newEntity.SetMudKey(newKey);
             MUDEntity.ToggleEntity(true, newEntity);
+            Debug.Log(gameObject.name + " Spawning " + prefab.name,gameObject);
+
         }
+
 
         return newEntity;
     }

@@ -9,11 +9,11 @@ import { getUniqueEntity } from "@latticexyz/world/src/modules/uniqueentity/getU
 contract BuildSystem is System {
 
   function build(int32 x, int32 y) public {
+    
     bytes32 playerEntity = addressToEntityKey(address(_msgSender()));
+    require(Player.get(playerEntity), "Not spawned");
 
     bytes32[] memory atPosition = getKeysWithValue(PositionTableId, Position.encode(x, y));
-
-    require(Player.get(playerEntity), "Not spawned");
     require(atPosition.length == 0, "Building on top of something");
 
 

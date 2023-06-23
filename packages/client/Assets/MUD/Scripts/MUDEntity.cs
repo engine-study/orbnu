@@ -24,14 +24,7 @@ public class MUDEntity : MonoBehaviour
     {
         isLocal = newValue;
     }
-
-    protected virtual void Awake() {
-        if(Entities == null) {
-            Entities = new Dictionary<string, MUDEntity>();
-        }
-    }
-
-        
+    
     public MUDComponent GetMUDComponent(MUDComponent componentType) {
 
         for(int i = 0; i < Components.Length; i++) {
@@ -53,11 +46,23 @@ public class MUDEntity : MonoBehaviour
         }
     }
 
+    protected virtual void Awake() {
+        if(Entities == null) {
+            Entities = new Dictionary<string, MUDEntity>();
+        }
+    }
+
+    
+
     protected virtual void Start()
     {
-
         net = mud.Unity.NetworkManager.Instance;
-        net.OnNetworkInitialized += Init;
+
+        if(net.isNetworkInitialized) {
+            Init(net);
+        } else {
+            net.OnNetworkInitialized += Init;
+        }
 
     }
 

@@ -23,7 +23,7 @@ public class MUDTablePosition : MUDTableToComponent
 
     protected override string TableToKey<T>(T tableUpdate) {return (tableUpdate as PositionTableUpdate).Key;}
 
-    public static void UpdatePosition(MUDComponent component)
+    public static void GetPosition(MUDComponentPosition component)
     {
 
         MUDComponentPosition positionComp = component as MUDComponentPosition;
@@ -55,7 +55,6 @@ public class MUDTablePosition : MUDTableToComponent
 
         return newComponent;
     }
-
 
 
 }
