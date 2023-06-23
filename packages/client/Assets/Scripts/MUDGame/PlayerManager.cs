@@ -40,7 +40,7 @@ public class PlayerManager : MUDTableManager
 
     protected override mud.Client.IMudTable RecordUpdateToTable(mud.Client.RecordUpdate tableUpdate)
     {
-        throw new System.NotImplementedException();
+        return (tableUpdate as PlayerTableUpdate).TypedValue.Item1;
     }
 
 }

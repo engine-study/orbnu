@@ -33,18 +33,18 @@ namespace mud.Client
             for (int i = 0; i < Components.Count; i++) { if (Components[i].GetType() == typeof(T)) { return Components[i]; } }
             return null;
         }
-        public void AddComponent(MUDComponent componentPrefab)
+        public void AddComponent(MUDComponent componentPrefab, MUDTableManager fromTable)
         {
-            Debug.Log("Adding " + componentPrefab.gameObject.name, gameObject);
+            // Debug.Log("Adding " + componentPrefab.gameObject.name, gameObject);
             MUDComponent c = GetMUDComponent(componentPrefab);
 
             if(c) {
-                Debug.LogError(componentPrefab.gameObject.name + " already exists.", gameObject);
+                // Debug.Log(componentPrefab.gameObject.name + " already exists.", gameObject);
             } else {
                 c = Instantiate(componentPrefab, transform.position, Quaternion.identity, transform);
-                c.gameObject.name.Replace("(Clone)", "");
+                c.gameObject.name = c.gameObject.name.Replace("(Clone)", "");
                 components.Add(c);
-                c.Init(this);
+                c.Init(this, fromTable);
             }
 
         }

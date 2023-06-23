@@ -11,13 +11,12 @@ public abstract class MUDComponent : MonoBehaviour
     
     [Header("Debug")]
     [SerializeField] protected MUDEntity entity;
+    [SerializeField] protected MUDTableManager table;
 
-    public virtual void Init(MUDEntity ourEntity) {
+    public virtual void Init(MUDEntity ourEntity, MUDTableManager ourTable) {
         entity = ourEntity;
-        GetTableValue();
+        table = ourTable;
     }
-
-    public abstract void GetTableValue();
 
     public virtual void UpdateComponent(IMudTable table, TableEvent eventType) {
 

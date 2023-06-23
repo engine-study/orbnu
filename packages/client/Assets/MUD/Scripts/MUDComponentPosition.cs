@@ -8,10 +8,6 @@ public class MUDComponentPosition : MUDComponent
    [Header("Position")]
     public Vector2 position;
 
-    public override void GetTableValue() {
-        PositionManager.GetPosition(this);
-    }
-
     public override void UpdateComponent(mud.Client.IMudTable update, TableEvent eventType)
     {
         base.UpdateComponent(update, eventType);

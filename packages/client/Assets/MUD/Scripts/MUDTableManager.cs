@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 public abstract class MUDTableManager : MUDTable
 {
     //dictionary of all entities
+    public static Dictionary<int, MUDTableManager> Tables;
     public static Dictionary<string, MUDEntity> Entities;
     public static GameObject entityPrefab;
+    public static int AddedTables = 0;
 
 
     [Header("Table")]
@@ -33,7 +35,15 @@ public abstract class MUDTableManager : MUDTable
 
         if(componentPrefab == null) {
             Debug.LogError("No MUDComponent prefab to spawn");
+            return;
         }
+
+        if(Tables == null) {
+            Tables = new Dictionary<int, MUDTableManager>();
+        }
+
+        Tables.Add(AddedTables,this);
+        AddedTables++;
 
         if(Entities == null) {
             Entities = new Dictionary<string, MUDEntity>();
@@ -47,7 +57,11 @@ public abstract class MUDTableManager : MUDTable
         base.OnInsertRecord(tableUpdate);
         IngestTableEvent(tableUpdate, TableEvent.Insert);
     }
-
+    protected override void OnUpdateRecord(RecordUpdate tableUpdate)
+    {
+        base.OnUpdateRecord(tableUpdate);
+        IngestTableEvent(tableUpdate, TableEvent.Update);
+    }
 
     protected override void OnDeleteRecord(RecordUpdate tableUpdate)
     {
@@ -55,11 +69,6 @@ public abstract class MUDTableManager : MUDTable
         IngestTableEvent(tableUpdate, TableEvent.Delete);
     }
 
-    protected override void OnUpdateRecord(RecordUpdate tableUpdate)
-    {
-        base.OnUpdateRecord(tableUpdate);
-        IngestTableEvent(tableUpdate, TableEvent.Update);
-    }
 
 
     protected abstract IMudTable RecordUpdateToTable(RecordUpdate tableUpdate);
@@ -84,7 +93,7 @@ public abstract class MUDTableManager : MUDTable
             if(entity == null) {
                 entity = SpawnEntity(entityKey);
             }
-            entity.AddComponent(componentPrefab);
+            entity.AddComponent(componentPrefab, this);
         } else if(eventType == TableEvent.Update) {
             Components[entityKey].UpdateComponent(mudTable, eventType);
         } else if(eventType == TableEvent.Delete) {
