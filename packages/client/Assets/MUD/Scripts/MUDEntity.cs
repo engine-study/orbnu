@@ -33,7 +33,7 @@ namespace mud.Client
             for (int i = 0; i < Components.Count; i++) { if (Components[i].GetType() == typeof(T)) { return Components[i]; } }
             return null;
         }
-        public void AddComponent(MUDComponent componentPrefab, MUDTableManager fromTable)
+        public MUDComponent AddComponent(MUDComponent componentPrefab, MUDTableManager fromTable)
         {
             // Debug.Log("Adding " + componentPrefab.gameObject.name, gameObject);
             MUDComponent c = GetMUDComponent(componentPrefab);
@@ -46,6 +46,8 @@ namespace mud.Client
                 components.Add(c);
                 c.Init(this, fromTable);
             }
+
+            return c;
 
         }
         public void RemoveComponent(MUDComponent component)

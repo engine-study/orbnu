@@ -93,7 +93,8 @@ public abstract class MUDTableManager : MUDTable
             if(entity == null) {
                 entity = SpawnEntity(entityKey);
             }
-            entity.AddComponent(componentPrefab, this);
+            MUDComponent c = entity.AddComponent(componentPrefab, this);
+            Components[entityKey].UpdateComponent(mudTable, eventType);
         } else if(eventType == TableEvent.Update) {
             Components[entityKey].UpdateComponent(mudTable, eventType);
         } else if(eventType == TableEvent.Delete) {
