@@ -216,7 +216,9 @@
       "version": "file:studio-mud",
       "depth": 0,
       "source": "embedded",
-      "dependencies": {}
+      "dependencies": {
+        "com.emergenceland.unimud": "https://github.com/emergenceland/unimud.git?path=Packages/UniMUD"
+      }
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
