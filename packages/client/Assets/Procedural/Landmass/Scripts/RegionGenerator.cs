@@ -80,8 +80,7 @@ public class RegionGenerator : Generator
         GameObject prefab = p.prefabs[Random.Range(0, p.prefabs.Length)];
         GameObject go = MapGenerator.SpawnObject(prefab, position, Quaternion.identity,transform);
        
-        Entity e = go.GetComponent<Entity>();
-
+        mud.Client.MUDEntity e = go.GetComponent<mud.Client.MUDEntity>();
         
         baseGenerator.AddEntity(MapGenerator.PositionRound(position), e);
 

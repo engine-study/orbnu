@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using mud.Client;
 
 public class StatsUI : WindowEntity
 {
@@ -15,21 +16,28 @@ public class StatsUI : WindowEntity
     {
         base.UpdateEntity(newEntity);
 
-        healthStat.SetValue(newEntity.stats.health.ToString());
-        attackStat.SetValue(newEntity.stats.attack.ToString());
-        nameText.text = newEntity.stats.objectName;
+        MUDEntity mEntity = newEntity as MUDEntity;
+        if(mEntity) {
+            healthStat.SetValue(mEntity.stats.health.ToString());
+            attackStat.SetValue(mEntity.stats.attack.ToString());
+            nameText.text = mEntity.stats.objectName;
 
-        if(newEntity is Structure) {
-            Structure structure = newEntity as Structure;
+            if(mEntity is Structure) {
+                Structure structure = mEntity as Structure;
 
-        } else if(newEntity is Resource) {
-            Resource resource = newEntity as Resource;
+            } else if(mEntity is Resource) {
+                Resource resource = mEntity as Resource;
 
-        } else if (newEntity is Unit) {
-            Unit unit = newEntity as Unit;
+            } else if (mEntity is Unit) {
+                Unit unit = mEntity as Unit;
 
+            } else {
+                ToggleWindowClose();
+            }
         } else {
             ToggleWindowClose();
         }
+
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using mud.Client;
 
 public class InfoUI : WindowEntity
 {
@@ -15,14 +16,18 @@ public class InfoUI : WindowEntity
     {
         base.UpdateEntity(newEntity);
 
-        header.UpdateField(newEntity.stats.objectName);
-        coordinate.UpdateField("[" + newEntity.gridPos.x + " , " + newEntity.gridPos.z + "]");
-        text.UpdateField(newEntity.stats.description);
+        MUDEntity mEntity = newEntity as MUDEntity;
+        if(mEntity) {
 
-        if(newEntity is Ground) {
+            header.UpdateField(mEntity.stats.objectName);
+            coordinate.UpdateField("[" + mEntity.gridPos.x + " , " + mEntity.gridPos.z + "]");
+            text.UpdateField(mEntity.stats.description);
 
-        } else if(newEntity is Structure) {
+            if(mEntity is Ground) {
 
+            } else if(mEntity is Structure) {
+
+            }
         }
     }
 }

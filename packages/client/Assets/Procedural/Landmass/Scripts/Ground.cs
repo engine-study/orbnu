@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum GroundMaterial {Dust, Soil, Grass, Sand, Rock, Forest, Water}
-public class Ground : Entity
+public class Ground : mud.Client.MUDEntity
 {
     public GroundMaterial material;
     public Renderer r;
